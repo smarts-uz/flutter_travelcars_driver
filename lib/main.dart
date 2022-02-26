@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
+import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
 
 List<TaskModel> data = [
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(platform: TargetPlatform.iOS),
-      home: const MainScreen(),
+      home: const LoginScreen(),
     );
   }
 }

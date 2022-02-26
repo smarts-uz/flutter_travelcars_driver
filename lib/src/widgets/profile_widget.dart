@@ -106,23 +106,28 @@ Widget getButtonProfile(
     BuildContext context, String text, Function(int id) onChange) {
   double h = Utils.height(context);
   double w = Utils.width(context);
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    padding: EdgeInsets.symmetric(vertical: 10 * h),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(40),
-      color: AppTheme.blue,
-    ),
-    child: Center(
-      child: Text(
-        text.toUpperCase(),
-        style: TextStyle(
-          fontFamily: AppTheme.fontFamily,
-          fontWeight: FontWeight.normal,
-          fontStyle: FontStyle.normal,
-          fontSize: 16 * h,
-          height: 24 / 16 * h,
-          color: AppTheme.white,
+  return GestureDetector(
+    onTap: (){
+      onChange(0);
+    },
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 10 * h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(40),
+        color: AppTheme.blue,
+      ),
+      child: Center(
+        child: Text(
+          text.toUpperCase(),
+          style: TextStyle(
+            fontFamily: AppTheme.fontFamily,
+            fontWeight: FontWeight.normal,
+            fontStyle: FontStyle.normal,
+            fontSize: 16 * h,
+            height: 24 / 16 * h,
+            color: AppTheme.white,
+          ),
         ),
       ),
     ),
