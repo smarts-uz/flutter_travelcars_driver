@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
-
 import '../utils/utils.dart';
 
 Widget getTextController(

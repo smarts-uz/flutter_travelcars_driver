@@ -14,10 +14,7 @@ class ApiProver {
     data,
     bool newVersion,
   ) async {
-    print(url);
-    print(data);
     var header = await _header(newVersion);
-    print(header);
     try {
       http.Response response = await http
           .post(

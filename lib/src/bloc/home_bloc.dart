@@ -14,20 +14,30 @@ class HomeBloc {
 
   Stream<HomeModel> get homeFeedback => _homeFetch.stream;
 
-  Future<int> setLogin(String login, String password) async {
-    HttpResult response = await _repository.loginApi(login, password);
-    if (response.isSuccess) {
-      HomeModel data = homeModelFromJson(
-        json.encode(response.result),
-      );
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("token", data.data.apiToken);
+  Future<HttpResult> setLogin(String login, String password) async {
+    try {
+      HttpResult response = await _repository.loginApi(login, password);
+      if (response.isSuccess) {
+        HomeModel data = homeModelFromJson(
+          json.encode(response.result),
+        );
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("token", data.data.apiToken);
 
-      _homeFetch.sink.add(data);
-      return 1;
+        _homeFetch.sink.add(data);
+        return response;
+      }
+      else {
+        return response;
+      }
+    } catch (_) {
+      return HttpResult(
+        statusCode: 0,
+        isSuccess: false,
+        result: "Login yoki parol xato!",
+      );
     }
-    return response.statusCode;
   }
 }
 
-final homeBloc =  HomeBloc();
+final homeBloc = HomeBloc();

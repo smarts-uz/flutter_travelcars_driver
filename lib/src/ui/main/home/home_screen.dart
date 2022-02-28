@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Container(
-            height: 150 * h,
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(horizontal: 20 * w, vertical: 20 * h),
             padding: EdgeInsets.symmetric(horizontal: 12 * w, vertical: 10 * h),
@@ -107,7 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 10 * h,
                 ),
-                Expanded(
+                Container(
+                  height: 120,
+                  padding: EdgeInsets.symmetric(vertical: 12),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: data.length,
