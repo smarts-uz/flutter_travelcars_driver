@@ -8,6 +8,7 @@ import 'package:flutter_travelcars_driver/src/model/api_model/home_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
+import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,7 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 _passwordController.text,
               );
               if (k == -1) {
-
+                CenterDialog.simpleCenterDialog(
+                  context,
+                  "Error",
+                  "No internet connection.",
+                );
               } else {
                 Navigator.pushReplacement(
                   context,

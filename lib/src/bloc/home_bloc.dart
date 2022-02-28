@@ -16,7 +16,7 @@ class HomeBloc {
 
   Future<int> setLogin(String login, String password) async {
     HttpResult response = await _repository.loginApi(login, password);
-    if (response.result) {
+    if (response.isSuccess) {
       HomeModel data = homeModelFromJson(
         json.encode(response.result),
       );
