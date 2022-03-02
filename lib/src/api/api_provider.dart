@@ -39,14 +39,14 @@ class ApiProver {
     }
   }
 
-  static Future<HttpResult> _getResponse(String url) async {
+  static Future<HttpResult> _getResponse(String url,bool head) async {
     // ignore: avoid_print
     print(url);
     try {
       http.Response response = await http
           .get(
             Uri.parse(url),
-            headers: await _header(true),
+            headers: await _header(head),
           )
           .timeout(duration);
       return _result(response);
@@ -114,11 +114,19 @@ class ApiProver {
   Future<HttpResult> getAllTasks() async {
     return await _getResponse(
       baseUrl + "/trips/counts",
+      true,
     );
   }
   Future<HttpResult> getAllData() async {
     return await _getResponse(
       baseUrl + "/trips/banners",
+      true,
+    );
+  }
+  Future<HttpResult> getWeather() async {
+    return await _getResponse(
+      "https://api.openweathermap.org/data/2.5/weather?q=Tashkent&appid=4d8fb5b93d4af21d66a2948710284366&units=metric",
+      false,
     );
   }
 }

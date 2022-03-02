@@ -10,4 +10,7 @@ class Repository {
   Future<HttpResult> getTask() => apiProvider.getAllTasks();
 
   Future<HttpResult> getData() => apiProvider.getAllData();
+
+
+  Future<HttpResult> getWeather() => apiProvider.getWeather();
 }

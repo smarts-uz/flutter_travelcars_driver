@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 
-import '../theme/app_theme.dart';
+import '../../theme/app_theme.dart';
 
 Widget getWeather(BuildContext context, String img, String title, String body,
     MainAxisAlignment axis) {

@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_travelcars_driver/src/bloc/weather_bloc.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/weather_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
-import 'package:flutter_travelcars_driver/src/widgets/service_widget.dart';
+import 'package:flutter_travelcars_driver/src/widgets/service_widgets/service_widget.dart';
 
+import '../../../widgets/service_widgets/service_shimmer.dart';
 import '../../../widgets/utils_widgets.dart';
 
 class ServiceScreen extends StatefulWidget {
@@ -15,6 +18,12 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
+  @override
+  void initState() {
+    weatherBloc.getWeather();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
@@ -222,184 +231,195 @@ class _ServiceScreenState extends State<ServiceScreen> {
             ),
           ),
           Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(
-                left: 8 * w,
-                right: 8 * w,
-                bottom: 24 * h,
-              ),
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(21 * h),
-                color: AppTheme.lightGray,
-              ),
-              child: Container(
-                padding: EdgeInsets.all(16 * h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21),
-                  color: AppTheme.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Прогноз погоды",
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18 * h,
-                        height: 1.38 * h,
-                        letterSpacing: 0.3,
-                        color: AppTheme.black,
+            child: StreamBuilder(
+              stream: weatherBloc.weatherFeedBack,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  print(snapshot.data);
+                  WeatherModel info = snapshot.data!;
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(
+                      left: 8 * w,
+                      right: 8 * w,
+                      bottom: 24 * h,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21 * h),
+                      color: AppTheme.lightGray,
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(16 * h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21),
+                        color: AppTheme.white,
                       ),
-                    ),
-                    Text(
-                      "Ташкент",
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12 * h,
-                        height: 1.38 * h,
-                        letterSpacing: 0.3,
-                        color: AppTheme.blue,
-                      ),
-                    ),
-                    Text(
-                      "Сегодня, 14 февраля",
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontWeight: FontWeight.normal,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12 * h,
-                        height: 1.38 * h,
-                        letterSpacing: 0.3,
-                        color: AppTheme.blue,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10 * h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 70 * h,
-                                width: 70 * h,
-                                child: Image.asset(
-                                  'assets/images/weather.png',
-                                ),
-                              ),
-                              Text(
-                                "29°/27° | Ясно",
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 10 * h,
-                                  height: 1.5 * h,
-                                  letterSpacing: 0.3,
-                                  color: AppTheme.black,
-                                ),
-                              ),
-                            ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Прогноз погоды",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18 * h,
+                              height: 1.38 * h,
+                              letterSpacing: 0.3,
+                              color: AppTheme.black,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          Text(
+                            "Ташкент",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12 * h,
+                              height: 1.38 * h,
+                              letterSpacing: 0.3,
+                              color: AppTheme.blue,
+                            ),
+                          ),
+                          Text(
+                            "Сегодня, ${Utils.getDateDay(DateTime.now())}",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12 * h,
+                              height: 1.38 * h,
+                              letterSpacing: 0.3,
+                              color: AppTheme.blue,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10 * h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                child: Text(
-                                  "33°",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontFamily,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 45 * h,
-                                    height: 1.38 * h,
-                                    letterSpacing: 0.3,
-                                    color: AppTheme.blue,
-                                  ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 70 * h,
+                                      width: 70 * h,
+                                      child: Image.asset(
+                                        'assets/images/weather.png',
+                                      ),
+                                    ),
+                                    Text(
+                                      "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | Ясно",
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.normal,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 10 * h,
+                                        height: 1.5 * h,
+                                        letterSpacing: 0.3,
+                                        color: AppTheme.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Text(
-                                "39 C | 21:14 Режим УЗТ",
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 10 * h,
-                                  height: 1.5 * h,
-                                  letterSpacing: 0.3,
-                                  color: AppTheme.black,
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: Text(
+                                        "${info.main.temp.toInt()}°",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontFamily,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 45 * h,
+                                          height: 1.38 * h,
+                                          letterSpacing: 0.3,
+                                          color: AppTheme.blue,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      "${info.main.tempMax.toInt()}° C | ${Utils.getDateHours(DateTime.now())} Режим УЗТ",
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.normal,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 10 * h,
+                                        height: 1.5 * h,
+                                        letterSpacing: 0.3,
+                                        color: AppTheme.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          Spacer(),
+                          MySeparator(),
+                          Spacer(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    getWeather(
+                                      context,
+                                      "assets/images/weather.png",
+                                      "Облачность:",
+                                      "21%",
+                                      MainAxisAlignment.start,
+                                    ),
+                                    getWeather(
+                                      context,
+                                      "assets/images/shamol.png",
+                                      "Ветер:",
+                                      "${info.wind.speed} км/ч",
+                                      MainAxisAlignment.start,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    getWeather(
+                                      context,
+                                      "assets/images/namlik.png",
+                                      "Влажность:",
+                                      "${info.main.humidity} %",
+                                      MainAxisAlignment.end,
+                                    ),
+                                    getWeather(
+                                      context,
+                                      "assets/images/bosim.png",
+                                      "Давление:",
+                                      "${info.main.pressure} МБ",
+                                      MainAxisAlignment.end,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    Spacer(),
-                    MySeparator(),
-                    Spacer(),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              getWeather(
-                                context,
-                                "assets/images/weather.png",
-                                "Облачность:",
-                                "21%",
-                                MainAxisAlignment.start,
-                              ),
-                              getWeather(
-                                context,
-                                "assets/images/shamol.png",
-                                "Ветер:",
-                                "10 км/ч",
-                                MainAxisAlignment.start,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              getWeather(
-                                context,
-                                "assets/images/namlik.png",
-                                "Влажность:",
-                                "59%",
-                                MainAxisAlignment.end,
-                              ),
-                              getWeather(
-                                context,
-                                "assets/images/bosim.png",
-                                "Давление:",
-                                " 1028.8 МБ",
-                                MainAxisAlignment.end,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+                  );
+                } else {
+                  return ServiceShimmer();
+                }
+              },
             ),
           ),
         ],

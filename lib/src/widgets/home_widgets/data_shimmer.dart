@@ -74,7 +74,7 @@ class DataShimmer extends StatelessWidget {
                 ),
                 Container(
                   height: 120,
-                  padding: EdgeInsets.symmetric(vertical: 12),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: data.length,
