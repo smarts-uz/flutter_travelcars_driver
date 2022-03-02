@@ -18,4 +18,10 @@ class AppTheme {
   static const Color yellow = Color(0xFFF7E01B);
   static const Color lightGrayEB = Color(0xFFEBEBEB);
   static const Color bgTextFrom = Color(0xFFFAFBFC);
+
+
+  ///shimmer
+  static const passiveSubtitle = Color(0xFFBBBBBB);
+  static const Color shimmerBase = Color(0xFFE5E5E5);
+  static const Color shimmerHighlight = Color(0xFFFCF9F9);
 }

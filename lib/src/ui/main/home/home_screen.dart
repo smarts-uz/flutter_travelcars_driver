@@ -3,7 +3,8 @@ import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
-import 'package:flutter_travelcars_driver/src/widgets/home_widget.dart';
+import 'package:flutter_travelcars_driver/src/widgets/home_widgets/data_shimmer.dart';
+import 'package:flutter_travelcars_driver/src/widgets/home_widgets/home_widget.dart';
 import '../../../bloc/data_bloc.dart';
 import '../../../bloc/task_bloc.dart';
 
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
-      body: Column(
+      body: ListView(
         children: [
           StreamBuilder(
             stream: dataBloc.dataFeedback,
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               } else {
-                return Container();
+                return const DataShimmer();
               }
             },
           ),
@@ -206,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 } else {
-                  return Container();
+                  return DataShimmer();
                 }
               }),
         ],
