@@ -20,7 +20,10 @@ class ServiceShimmer extends StatelessWidget {
             child: Container(
               margin:
                   EdgeInsets.symmetric(horizontal: 16 * w, vertical: 16 * h),
-              color: AppTheme.white,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(21 * h),
+                color: AppTheme.white,
+              ),
             ),
           )
         ],
