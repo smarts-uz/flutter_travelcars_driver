@@ -41,6 +41,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
         Text(
           title,
           textAlign: TextAlign.center,
+          overflow: TextOverflow.clip,
           style: TextStyle(
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,

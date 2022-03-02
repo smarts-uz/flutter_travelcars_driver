@@ -21,3 +21,4 @@ class DataBloc {
     } catch (_) {}
   }
 }
+final dataBloc = DataBloc();

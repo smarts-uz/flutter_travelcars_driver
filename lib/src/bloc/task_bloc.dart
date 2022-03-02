@@ -9,7 +9,7 @@ class TaskBloc {
   Repository repository = Repository();
   final _tasksFetch = PublishSubject<TaskModel>();
 
-  Stream<TaskModel> get homeFeedback => _tasksFetch.stream;
+  Stream<TaskModel> get taskFeedback => _tasksFetch.stream;
 
   getTasksAll() async {
     try {
