@@ -116,4 +116,9 @@ class ApiProver {
       baseUrl + "/trips/counts",
     );
   }
+  Future<HttpResult> getAllData() async {
+    return await _getResponse(
+      baseUrl + "/trips/banners",
+    );
+  }
 }
