@@ -119,24 +119,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       print(k.result);
                       print(k.isSuccess);
                       print(k.statusCode);
-                      if (k.statusCode >= 200 || k.statusCode <= 400) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MainScreen(),
-                          ),
-                        );
-                      } else if (k.statusCode == -1) {
+                      if (k.statusCode == -1) {
                         CenterDialog.simpleCenterDialog(
                           context,
                           "Error",
                           "Internet ulanishini tekshiring!",
                         );
-                      } else {
+                      } else if (k.statusCode == 0) {
                         CenterDialog.simpleCenterDialog(
                           context,
                           "Error",
                           "${k.result}",
+                        );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainScreen(),
+                          ),
                         );
                       }
                     },

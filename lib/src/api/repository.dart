@@ -7,4 +7,6 @@ class Repository {
 
   Future<HttpResult> loginApi(String id, String password) =>
       apiProvider.setLogin(id, password);
+  Future<HttpResult> getTask() =>
+      apiProvider.getAllTasks();
 }

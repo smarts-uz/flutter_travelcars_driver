@@ -46,7 +46,7 @@ class ApiProver {
       http.Response response = await http
           .get(
             Uri.parse(url),
-            headers: await _header(false),
+            headers: await _header(true),
           )
           .timeout(duration);
       return _result(response);
@@ -93,7 +93,6 @@ class ApiProver {
 
   static Future<Map<String, String>?> _header(bool isNewVersion) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lan = prefs.getString("language") ?? "uz";
     if (isNewVersion) {
       return {"Authorization": "Bearer ${prefs.getString("token")}"};
     }
@@ -109,6 +108,12 @@ class ApiProver {
       baseUrl + "/login",
       data,
       false,
+    );
+  }
+
+  Future<HttpResult> getAllTasks() async {
+    return await _getResponse(
+      baseUrl + "/trips/counts",
     );
   }
 }
