@@ -11,6 +11,7 @@ class Repository {
 
   Future<HttpResult> getData() => apiProvider.getAllData();
 
-
   Future<HttpResult> getWeather() => apiProvider.getWeather();
+
+  Future<HttpResult> getCouses(DateTime time) => apiProvider.getCourse(time);
 }
