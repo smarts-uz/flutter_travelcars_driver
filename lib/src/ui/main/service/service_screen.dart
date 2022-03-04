@@ -105,19 +105,34 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                       children: [
                                                         Container(
                                                           height: 40 * h,
-                                                          width: 40 * w,
+                                                          width: 40 * h,
                                                           decoration:
                                                               BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         24),
-                                                            color: const Color(
-                                                                0xFFBE1AF7),
+                                                            color: data[j]
+                                                                        .code ==
+                                                                    "USD"
+                                                                ? const Color(
+                                                                    0xff454563)
+                                                                : data[j].code ==
+                                                                        "EUR"
+                                                                    ? const Color(
+                                                                        0xffBE1AF7)
+                                                                    : const Color(
+                                                                        0xff1276A7),
                                                           ),
                                                           child: Center(
                                                             child: Text(
-                                                              "\$",
+                                                              data[j].code ==
+                                                                      "USD"
+                                                                  ? "\$"
+                                                                  : data[j].code ==
+                                                                          "EUR"
+                                                                      ? "€"
+                                                                      : "P",
                                                               style: TextStyle(
                                                                 fontFamily: AppTheme
                                                                     .fontFamily,
@@ -234,6 +249,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                 ],
                                               ),
                                             ],
+                                          ),
+                                          SizedBox(
+                                            height: 4 * h,
                                           ),
                                           Row(
                                             children: [
