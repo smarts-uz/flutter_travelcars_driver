@@ -12,9 +12,9 @@ class CourseBloc {
 
   Stream<List<CourseModel>> get courseFeedback => _courseFetch.stream;
 
-  getAllCourse(DateTime time) async {
+  getAllCourse() async {
     try {
-      HttpResult response = await repository.getCourses(time);
+      HttpResult response = await repository.getCourses();
       if (response.isSuccess) {
         List<CourseModel> data = courseModelFromJson(
           json.encode(response.result),
@@ -24,3 +24,4 @@ class CourseBloc {
     } catch (_) {}
   }
 }
+final courseBloc = CourseBloc();

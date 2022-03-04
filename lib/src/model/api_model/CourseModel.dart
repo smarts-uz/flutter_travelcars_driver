@@ -4,42 +4,27 @@ List<CourseModel> courseModelFromJson(String str) => List<CourseModel>.from(json
 
 class CourseModel {
     CourseModel({
-        required this.id,
+        required this.title,
         required this.code,
-        required this.ccy,
-        required this.ccyNmRu,
-        required this.ccyNmUz,
-        required this.ccyNmUzc,
-        required this.ccyNmEn,
-        required this.nominal,
-        required this.rate,
-        required this.diff,
+        required this.cbPrice,
+        required this.nbuBuyPrice,
+        required this.nbuCellPrice,
         required this.date,
     });
 
-    int id;
+    String title;
     String code;
-    String ccy;
-    String ccyNmRu;
-    String ccyNmUz;
-    String ccyNmUzc;
-    String ccyNmEn;
-    String nominal;
-    String rate;
-    String diff;
+    String cbPrice;
+    String nbuBuyPrice;
+    String nbuCellPrice;
     String date;
 
     factory CourseModel.fromJson(Map<String, dynamic> json) => CourseModel(
-        id: json["id"] ?? 0,
-        code: json["Code"] ?? "",
-        ccy: json["Ccy"] ?? "",
-        ccyNmRu: json["CcyNm_RU"] ?? "",
-        ccyNmUz: json["CcyNm_UZ"] ?? "",
-        ccyNmUzc: json["CcyNm_UZC"] ?? "",
-        ccyNmEn: json["CcyNm_EN"] ?? "",
-        nominal: json["Nominal"] ?? "",
-        rate: json["Rate"] ?? "",
-        diff: json["Diff"] ?? "",
-        date: json["Date"] ?? "",
+        title: json["title"] ?? "",
+        code: json["code"] ?? "",
+        cbPrice: json["cb_price"] ?? "",
+        nbuBuyPrice: json["nbu_buy_price"] ?? "",
+        nbuCellPrice: json["nbu_cell_price"] ?? "",
+        date: json["date"] ?? "",
     );
 }

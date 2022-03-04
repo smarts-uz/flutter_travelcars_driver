@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_travelcars_driver/src/bloc/course_bloc.dart';
 import 'package:flutter_travelcars_driver/src/bloc/weather_bloc.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/CourseModel.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/weather_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
@@ -20,6 +20,7 @@ class ServiceScreen extends StatefulWidget {
 class _ServiceScreenState extends State<ServiceScreen> {
   @override
   void initState() {
+    courseBloc.getAllCourse();
     weatherBloc.getWeather();
     super.initState();
   }
@@ -33,201 +34,259 @@ class _ServiceScreenState extends State<ServiceScreen> {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(horizontal: 8 * w, vertical: 16 * h),
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(21 * h),
-                color: AppTheme.lightGray,
-              ),
-              child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21),
-                  color: AppTheme.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Курсы валют",
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18 * h,
-                        height: 1.3 * h,
-                        letterSpacing: 0.2,
-                        color: AppTheme.black,
+            child: StreamBuilder(
+              stream: courseBloc.courseFeedback,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  List<CourseModel> data = snapshot.data!;
+                  print(data.length);
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: 8 * w, vertical: 16 * h),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21 * h),
+                      color: AppTheme.lightGray,
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21),
+                        color: AppTheme.white,
                       ),
-                    ),
-                    SizedBox(
-                      height: 16 * h,
-                    ),
-                    for (int i = 0; i < 3; i++)
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Курсы валют",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18 * h,
+                              height: 1.3 * h,
+                              letterSpacing: 0.2,
+                              color: AppTheme.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16 * h,
+                          ),
+                          for (int i = 0; i < 3; i++)
+                            for (int j = 0; j < data.length; j++)
+                              (data[j].code == "USD" && i == 0 ||
+                                      data[j].code == "EUR" && i == 1 ||
+                                      data[j].code == "RUB" && i == 2)
+                                  ? Expanded(
+                                      child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            height: 40 * h,
-                                            width: 40 * w,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              color: const Color(0xFFBE1AF7),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "\$",
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      AppTheme.fontFamily,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 28 * h,
-                                                  letterSpacing: 0.7,
-                                                  color: AppTheme.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 12,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                          Row(
                                             children: [
-                                              Text(
-                                                "Доллар США",
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      AppTheme.fontFamily,
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 16 * h,
-                                                  height: 1.5 * h,
-                                                  letterSpacing: 0.3,
-                                                  color: AppTheme.black,
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          height: 40 * h,
+                                                          width: 40 * w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: const Color(
+                                                                0xFFBE1AF7),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "\$",
+                                                              style: TextStyle(
+                                                                fontFamily: AppTheme
+                                                                    .fontFamily,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontSize:
+                                                                    28 * h,
+                                                                letterSpacing:
+                                                                    0.7,
+                                                                color: AppTheme
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 12,
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              data[j].title,
+                                                              style: TextStyle(
+                                                                fontFamily: AppTheme
+                                                                    .fontFamily,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontSize:
+                                                                    16 * h,
+                                                                height: 1.5 * h,
+                                                                letterSpacing:
+                                                                    0.3,
+                                                                color: AppTheme
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              data[j].code,
+                                                              style: TextStyle(
+                                                                fontFamily: AppTheme
+                                                                    .fontFamily,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontSize:
+                                                                    16 * h,
+                                                                height: 1.5 * h,
+                                                                letterSpacing:
+                                                                    0.3,
+                                                                color: AppTheme
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    data[j].cbPrice,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          AppTheme.fontFamily,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 14 * h,
+                                                      height: 1.5 * h,
+                                                      letterSpacing: 0.3,
+                                                      color: AppTheme.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    data[j].date,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          AppTheme.fontFamily,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 10 * h,
+                                                      height: 1.5 * h,
+                                                      letterSpacing: 0.3,
+                                                      color: AppTheme.green,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  "ПОКУПКА: ${data[j].nbuBuyPrice}",
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        AppTheme.fontFamily,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 12 * h,
+                                                    height: 15 / 12 * h,
+                                                    letterSpacing: 0.3,
+                                                    color: AppTheme.black,
+                                                  ),
                                                 ),
                                               ),
                                               Text(
-                                                "USD",
+                                                "ПРОДАЖА: ${data[j].nbuCellPrice}",
                                                 style: TextStyle(
                                                   fontFamily:
                                                       AppTheme.fontFamily,
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.normal,
-                                                  fontSize: 16 * h,
-                                                  height: 1.5 * h,
+                                                  fontSize: 12 * h,
+                                                  height: 15 / 12 * h,
                                                   letterSpacing: 0.3,
                                                   color: AppTheme.black,
                                                 ),
                                               ),
                                             ],
                                           ),
+                                          SizedBox(
+                                            height: 8 * h,
+                                          ),
+                                          i != 2 ? MySeparator() : Container(),
+                                          SizedBox(
+                                            height: 8 * h,
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "10 894,74 сум",
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontFamily,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14 * h,
-                                          height: 1.5 * h,
-                                          letterSpacing: 0.3,
-                                          color: AppTheme.black,
-                                        ),
-                                      ),
-                                      Text(
-                                        "12.02.2022 16:00:01",
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontFamily,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 10 * h,
-                                          height: 1.5 * h,
-                                          letterSpacing: 0.3,
-                                          color: AppTheme.green,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "ПОКУПКА: 10850.00",
-                                    style: TextStyle(
-                                      fontFamily: AppTheme.fontFamily,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12 * h,
-                                      height: 15 / 12 * h,
-                                      letterSpacing: 0.3,
-                                      color: AppTheme.black,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "ПРОДАЖА: 10910.00",
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontFamily,
-                                    fontWeight: FontWeight.normal,
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12 * h,
-                                    height: 15 / 12 * h,
-                                    letterSpacing: 0.3,
-                                    color: AppTheme.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8 * h,
-                            ),
-                            i != 2 ? MySeparator() : Container(),
-                            SizedBox(
-                              height: 8 * h,
-                            ),
-                          ],
-                        ),
+                                    )
+                                  : Container(),
+                        ],
                       ),
-                  ],
-                ),
-              ),
+                    ),
+                  );
+                } else {
+                  return const ServiceShimmer();
+                }
+              },
             ),
           ),
           Expanded(
@@ -235,7 +294,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
               stream: weatherBloc.weatherFeedBack,
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  print(snapshot.data);
                   WeatherModel info = snapshot.data!;
                   return Container(
                     width: MediaQuery.of(context).size.width,
@@ -305,7 +363,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: 70 * h,
                                       width: 70 * h,
                                       child: Image.asset(
@@ -313,7 +371,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | Ясно",
+                                      "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | ${info.weather[0].description}",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
@@ -364,9 +422,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               ),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           MySeparator(),
-                          Spacer(),
+                          const Spacer(),
                           Row(
                             children: [
                               Expanded(
@@ -376,7 +434,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                       context,
                                       "assets/images/weather.png",
                                       "Облачность:",
-                                      "21%",
+                                      "${info.clouds.all} %",
                                       MainAxisAlignment.start,
                                     ),
                                     getWeather(

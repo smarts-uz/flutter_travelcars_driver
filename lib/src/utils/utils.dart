@@ -13,6 +13,9 @@ class Utils{
   static String getDateDay(DateTime date){
     return "${date.day} ${getMonth(date.month)}";
   }
+  static String getDate(DateTime date){
+    return "${date.day}.${date.month}.${date.year} ${date.hour}:${date.minute}:${date.second}";
+  }
 }
 
 String getMonth(int n){

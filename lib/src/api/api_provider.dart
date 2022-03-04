@@ -129,9 +129,9 @@ class ApiProver {
       false,
     );
   }
-  Future<HttpResult> getCourse(DateTime date) async {
+  Future<HttpResult> getCourse() async {
     return await _getResponse(
-      "https://cbu.uz/uz/arkhiv-kursov-valyut/json/all/${date.year}-${date.month}-${date.day}/",
+      "https://nbu.uz/exchange-rates/json/",
       false,
     );
   }
