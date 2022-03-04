@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart';
 import 'package:rxdart/rxdart.dart';
 
 class DataBloc {
@@ -11,6 +12,10 @@ class DataBloc {
 
   Stream<DataModel> get dataFeedback => _dataFetch.stream;
 
+  final _profileFetch = PublishSubject<ProfileModel>();
+
+  Stream<ProfileModel> get profileFeedback => _profileFetch.stream;
+
   getAllData() async {
     try {
       HttpResult response = await repository.getData();
@@ -18,6 +23,15 @@ class DataBloc {
         json.encode(response.result),
       );
       _dataFetch.sink.add(data);
+    } catch (_) {}
+  }
+  getProfileData() async {
+    try {
+      HttpResult response = await repository.getProfile();
+      ProfileModel data = profileModelFromJson(
+        json.encode(response.result),
+      );
+      _profileFetch.sink.add(data);
     } catch (_) {}
   }
 }

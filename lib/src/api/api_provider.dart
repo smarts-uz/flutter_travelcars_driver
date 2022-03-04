@@ -135,4 +135,10 @@ class ApiProver {
       false,
     );
   }
+  Future<HttpResult> getProfile() async {
+    return await _getResponse(
+      baseUrl + "/profile",
+      true,
+    );
+  }
 }

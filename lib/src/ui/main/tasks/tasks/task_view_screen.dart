@@ -184,7 +184,7 @@ class _TaskViewScreenState extends State<TaskViewScreen>
             child: TabBarView(
               children: const <Widget>[
                 TaskViewOneScreen(),
-                TaskViewOneScreen(),
+                TaskViewTwoScreen(),
               ],
               controller: _tabController,
             ),

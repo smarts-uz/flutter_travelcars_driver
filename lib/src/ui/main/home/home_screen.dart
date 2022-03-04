@@ -41,127 +41,168 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData && snapshot.data!.data != null) {
                 DataModel info = snapshot.data!;
-                return info.data.isNotEmpty
-                    ? Container(
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(
-                                  left: 20 * w, right: 20 * w, top: 20 * w),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10 * w, vertical: 10 * h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(21 * h),
-                                color: AppTheme.lightGray,
-                              ),
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: info.data.length,
-                                itemBuilder: (_, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(left: 10 * h),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: "",
-                                            style: TextStyle(
-                                              fontFamily: AppTheme.fontFamily,
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 16 * h,
-                                              height: 1.4 * h,
-                                              letterSpacing: 0.4,
-                                              color: AppTheme.black,
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                  text:
-                                                      "${info.data[index].car} - ${info.data[index].carNumber}"),
-                                            ],
-                                          ),
-                                        ),
+                return Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(
+                          left: 20 * w, right: 20 * w, top: 20 * w),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10 * w, vertical: 10 * h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21 * h),
+                        color: AppTheme.lightGray,
+                      ),
+                      child: info.data.isEmpty
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 10 * h),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: "",
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 16 * h,
+                                        height: 1.4 * h,
+                                        letterSpacing: 0.4,
+                                        color: AppTheme.black,
                                       ),
-                                      Container(
-                                        height: 158 * h,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        margin: EdgeInsets.only(top: 16 * h),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(21),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              offset: Offset(0, 0),
-                                              blurRadius: 10,
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.1),
-                                            )
+                                      children: const <TextSpan>[
+                                        TextSpan(text: "hech qanday zakaz yoq"),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 158 * h,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.only(top: 16 * h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(21),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        blurRadius: 10,
+                                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                                      )
+                                    ],
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/image.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: info.data.length,
+                              itemBuilder: (_, index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 10 * h),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          text: "",
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontFamily,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 16 * h,
+                                            height: 1.4 * h,
+                                            letterSpacing: 0.4,
+                                            color: AppTheme.black,
+                                          ),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text:
+                                                    "${info.data[index].car} - ${info.data[index].carNumber}"),
                                           ],
                                         ),
-                                        child: Image.asset(
-                                          "assets/images/image.png",
-                                          fit: BoxFit.cover,
-                                        ),
                                       ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 20 * w, vertical: 20 * h),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 12 * w, vertical: 10 * h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(21 * h),
-                                color: AppTheme.lightGray,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Активные заявки",
-                                    style: TextStyle(
-                                      fontFamily: AppTheme.fontFamily,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18 * h,
-                                      height: 1.4 * h,
-                                      letterSpacing: 0.4,
-                                      color: AppTheme.black,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10 * h,
-                                  ),
-                                  Container(
-                                    height: 120,
-                                    padding: EdgeInsets.symmetric(vertical: 12),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: info.data.length,
-                                      itemBuilder: (_, index) {
-                                        return getHomeTasks(
-                                          context,
-                                          info.data[index].bookDate,
-                                          "${info.data[index].cityFrom} ${info.data[index].cityTo}",
-                                        );
-                                      },
+                                    Container(
+                                      height: 158 * h,
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: EdgeInsets.only(top: 16 * h),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(21),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(0, 0),
+                                            blurRadius: 10,
+                                            color: Color.fromRGBO(0, 0, 0, 0.1),
+                                          )
+                                        ],
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/image.png",
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      )
-                    : const DataShimmer();
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 20 * w, vertical: 20 * h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12 * w, vertical: 10 * h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21 * h),
+                        color: AppTheme.lightGray,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Активные заявки",
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18 * h,
+                              height: 1.4 * h,
+                              letterSpacing: 0.4,
+                              color: AppTheme.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10 * h,
+                          ),
+                          Container(
+                            height: 120,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: info.data.isEmpty
+                                ? const Center(
+                                    child: Text("Hech qanaqa zakaz yoq"),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: info.data.length,
+                                    itemBuilder: (_, index) {
+                                      return getHomeTasks(
+                                        context,
+                                        info.data[index].bookDate,
+                                        "${info.data[index].cityFrom} ${info.data[index].cityTo}",
+                                      );
+                                    },
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               } else {
                 return const DataShimmer();
               }

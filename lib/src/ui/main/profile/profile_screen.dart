@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
+import 'package:flutter_travelcars_driver/src/bloc/home_bloc.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/home_model.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
 
 import '../../../utils/utils.dart';
+import '../../../widgets/service_widgets/service_shimmer.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -29,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _nameController.text = "Azizbek";
     _costController.text = "0";
     _statusController.text = "Не оплачено";
+    dataBloc.getProfileData();
   }
 
   @override
@@ -39,46 +45,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: AppTheme.bgColor,
       body: ListView(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(
-              left: 8 * w,
-              right: 8 * w,
-              top: 16,
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(21 * h),
-              color: AppTheme.lightGray,
-            ),
-            child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 24 * w, vertical: 20 * h),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(21),
-                color: AppTheme.white,
-              ),
-              child: Column(
-                children: [
-                  getTextController(
-                    context,
-                    _nameController,
-                    "Имя",
+          StreamBuilder(
+              stream: dataBloc.profileFeedback,
+              builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              ProfileModel data = snapshot.data;
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(
+                  left: 8 * w,
+                  right: 8 * w,
+                  top: 16,
+                ),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21 * h),
+                  color: AppTheme.lightGray,
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 24 * w, vertical: 20 * h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(21),
+                    color: AppTheme.white,
                   ),
-                  getTextController(
-                    context,
-                    _costController,
-                    "Стоимость поездки",
+                  child: Column(
+                    children: [
+                      getTextController(
+                        context,
+                        data.data.name,
+                        "Имя",
+                      ),
+                      getTextController(
+                        context,
+                        data.data.username,
+                        "Стоимость поездки",
+                      ),
+                      getTextController(
+                        context,
+                        data.data.phone,
+                        "Статус оплаты",
+                      ),
+                    ],
                   ),
-                  getTextController(
-                    context,
-                    _statusController,
-                    "Статус оплаты",
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
+              );
+            } else {
+              return const ServiceShimmer();
+            }
+          }),
           Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.only(

@@ -14,4 +14,6 @@ class Repository {
   Future<HttpResult> getWeather() => apiProvider.getWeather();
 
   Future<HttpResult> getCourses() => apiProvider.getCourse();
+
+  Future<HttpResult> getProfile() => apiProvider.getProfile();
 }

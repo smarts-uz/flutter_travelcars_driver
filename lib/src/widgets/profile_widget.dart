@@ -4,9 +4,10 @@ import '../utils/utils.dart';
 
 Widget getTextController(
   BuildContext context,
-  TextEditingController _controller,
+  String text,
   String label,
 ) {
+  TextEditingController _controller = TextEditingController(text: text);
   double h = Utils.height(context);
   double w = Utils.width(context);
   return Column(
