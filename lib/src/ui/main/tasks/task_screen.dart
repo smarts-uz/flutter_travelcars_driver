@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/main.dart';
+import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/tasks_screen.dart';
 
 import '../../../utils/utils.dart';
+import '../../../widgets/service_widgets/service_shimmer.dart';
 
 class TaskScreen extends StatefulWidget {
   final int index;
@@ -25,6 +27,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     _tabController!.index = widget.index;
+    dataBloc.getAllData();
     super.initState();
   }
 
@@ -71,6 +74,9 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   ),
                 ],
                 controller: _tabController,
+                onTap: (s){
+                  dataBloc.getAllData();
+                },
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(21 * h),
                   color: AppTheme.blue,
@@ -101,14 +107,44 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
           Expanded(
             child: TabBarView(
               children: <Widget>[
-                TasksScreen(
-                  data: data,
+                StreamBuilder(
+                  stream: dataBloc.dataFeedback,
+                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                    if (snapshot.hasData) {
+                      DataModel data = snapshot.data!;
+                      return TasksScreen(
+                        data: data,
+                      );
+                    } else {
+                      return TaskShimmer();
+                    }
+                  },
                 ),
-                TasksScreen(
-                  data: data,
+                StreamBuilder(
+                  stream: dataBloc.dataFeedback,
+                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                    if (snapshot.hasData) {
+                      DataModel data = snapshot.data!;
+                      return TasksScreen(
+                        data: data,
+                      );
+                    } else {
+                      return TaskShimmer();
+                    }
+                  },
                 ),
-                TasksScreen(
-                  data: data,
+                StreamBuilder(
+                  stream: dataBloc.dataFeedback,
+                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                    if (snapshot.hasData) {
+                      DataModel data = snapshot.data!;
+                      return TasksScreen(
+                        data: data,
+                      );
+                    } else {
+                      return TaskShimmer();
+                    }
+                  },
                 ),
               ],
               controller: _tabController,

@@ -31,3 +31,31 @@ class ServiceShimmer extends StatelessWidget {
     );
   }
 }
+
+class TaskShimmer extends StatelessWidget {
+  const TaskShimmer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double h = Utils.height(context);
+    double w = Utils.width(context);
+    return Shimmer.fromColors(
+      baseColor: AppTheme.shimmerBase,
+      highlightColor: AppTheme.shimmerHighlight,
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Container(
+            height: 100,
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.symmetric(horizontal: 24 * w, vertical: 6 * h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: AppTheme.white,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

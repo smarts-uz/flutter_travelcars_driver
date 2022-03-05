@@ -4,10 +4,11 @@ import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
 
+import '../../../../model/api_model/data_model.dart';
 import '../../../../utils/utils.dart';
 
 class TasksScreen extends StatefulWidget {
-  final List<TaskModel> data;
+  final DataModel data;
 
   const TasksScreen({
     Key? key,
@@ -26,7 +27,7 @@ class _TasksScreenState extends State<TasksScreen> {
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       body: ListView.builder(
-        itemCount: widget.data.length,
+        itemCount: widget.data.data.length,
         itemBuilder: (_, index) {
           return GestureDetector(
             onTap: () {
@@ -34,7 +35,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => TaskViewScreen(
-                    data: widget.data[index],
+                    data: widget.data.data[index],
                   ),
                 ),
               );
@@ -57,7 +58,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 child: Row(
                   children: [
                     Text(
-                      "413",
+                      widget.data.data[index].id.toString(),
                       style: TextStyle(
                         fontFamily: AppTheme.fontFamily,
                         fontWeight: FontWeight.bold,
@@ -76,7 +77,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ташкент - Экскурсия по городу",
+                          "${widget.data.data[index].cityFrom} - ${widget.data.data[index].cityTo}",
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.normal,
@@ -88,7 +89,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         Row(
                           children: [
                             Text(
-                              "Chevrolet Captiva",
+                              widget.data.data[index].car,
                               style: TextStyle(
                                 fontFamily: AppTheme.fontFamily,
                                 fontWeight: FontWeight.normal,
@@ -102,12 +103,12 @@ class _TasksScreenState extends State<TasksScreen> {
                             ),
                             getCarNumber(
                               context,
-                              "01A777AA",
+                              widget.data.data[index].carNumber,
                             ),
                           ],
                         ),
                         Text(
-                          "AZIZBEK",
+                          widget.data.data[index].userName,
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.normal,
@@ -117,7 +118,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                         ),
                         Text(
-                          "Отправление: 24.02.2022",
+                          "Отправление: ${widget.data.data[index].date}",
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.normal,

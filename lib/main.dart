@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<TaskModel> data = [
   TaskModel(
@@ -41,17 +42,35 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool check = true;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    check = prefs.getString("token") == null;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(platform: TargetPlatform.iOS),
-      home: const LoginScreen(),
+      home: check ? const LoginScreen() : const MainScreen(),
     );
   }
 }

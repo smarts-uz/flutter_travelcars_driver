@@ -116,9 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       value = false;
                       setState(() {});
-                      print(k.result);
-                      print(k.isSuccess);
-                      print(k.statusCode);
                       if (k.statusCode == -1) {
                         CenterDialog.simpleCenterDialog(
                           context,

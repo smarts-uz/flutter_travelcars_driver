@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
-import 'package:flutter_travelcars_driver/src/bloc/home_bloc.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/home_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
@@ -47,9 +45,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           StreamBuilder(
               stream: dataBloc.profileFeedback,
-              builder: (context, AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot<ProfileModel> snapshot) {
             if (snapshot.hasData) {
-              ProfileModel data = snapshot.data;
+              ProfileModel data = snapshot.data!;
               return Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(

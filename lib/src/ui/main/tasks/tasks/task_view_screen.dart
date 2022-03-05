@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_one.dart';
+import '../../../../model/api_model/data_model.dart';
 import '../../../../utils/utils.dart';
 
 class TaskViewScreen extends StatefulWidget {
-  final TaskModel data;
+  final Datum data;
 
   const TaskViewScreen({
     Key? key,
@@ -101,7 +101,7 @@ class _TaskViewScreenState extends State<TaskViewScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ташкент",
+                    widget.data.cityFrom,
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontWeight: FontWeight.w600,
@@ -112,7 +112,7 @@ class _TaskViewScreenState extends State<TaskViewScreen>
                     ),
                   ),
                   Text(
-                    "Экскурсия по городу",
+                    widget.data.cityTo,
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontWeight: FontWeight.normal,
@@ -182,9 +182,13 @@ class _TaskViewScreenState extends State<TaskViewScreen>
           ),
           Expanded(
             child: TabBarView(
-              children: const <Widget>[
-                TaskViewOneScreen(),
-                TaskViewTwoScreen(),
+              children: <Widget>[
+                TaskViewOneScreen(
+                  data: widget.data,
+                ),
+                TaskViewTwoScreen(
+                  data: widget.data,
+                ),
               ],
               controller: _tabController,
             ),

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 
 import '../../../../utils/utils.dart';
 import '../../../../widgets/profile_widget.dart';
 
 class TaskViewOneScreen extends StatefulWidget {
-  const TaskViewOneScreen({Key? key}) : super(key: key);
+  final Datum data;
+
+  const TaskViewOneScreen({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   _TaskViewOneScreenState createState() => _TaskViewOneScreenState();
@@ -66,22 +72,22 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
                   ),
                   getTextController(
                     context,
-                    "Azizbek",
+                    widget.data.userName,
                     "Имя",
                   ),
                   getTextController(
                     context,
-                    "0",
+                    widget.data.price,
                     "Стоимость поездки",
                   ),
                   getTextController(
                     context,
-                    "Не оплачено",
+                    widget.data.status,
                     "Статус оплаты",
                   ),
                   getTextController(
                     context,
-                    "Оценка: 0",
+                    "Оценка: ${widget.data.reverse}",
                     "Отзыв",
                   ),
                 ],
@@ -95,7 +101,12 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
 }
 
 class TaskViewTwoScreen extends StatefulWidget {
-  const TaskViewTwoScreen({Key? key}) : super(key: key);
+  final Datum data;
+
+  const TaskViewTwoScreen({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   _TaskViewTwoScreenState createState() => _TaskViewTwoScreenState();
@@ -139,7 +150,8 @@ class _TaskViewTwoScreenState extends State<TaskViewTwoScreen> {
                 borderRadius: BorderRadius.circular(21),
                 color: AppTheme.white,
               ),
-              child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Детали поездки",
@@ -155,27 +167,29 @@ class _TaskViewTwoScreenState extends State<TaskViewTwoScreen> {
                   ),
                   getTextController(
                     context,
-                    "Chevrolet Equinox (01R444RR)",
+                    "${widget.data.car} (${widget.data.carNumber})",
                     "Авто",
                   ),
                   getTextController(
                     context,
-                    "28.02.2022",
+                    widget.data.date,
                     "Дата поездки",
                   ),
                   getTextController(
                     context,
-                    "Ташкент",
+                    widget.data.cityFrom,
                     "Пункт А",
                   ),
                   getTextController(
                     context,
-                    "Экскурсия по городу",
+                    widget.data.cityTo,
                     "Пункт Б",
                   ),
                   getTextController(
                     context,
-                    "Нет комментариев",
+                    widget.data.comment == ""
+                        ? "Нет комментариев"
+                        : widget.data.comment,
                     "Комментарий клиента",
                   ),
                 ],

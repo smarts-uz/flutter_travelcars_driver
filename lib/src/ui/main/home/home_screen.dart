@@ -98,57 +98,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             )
-                          : ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: info.data.length,
-                              itemBuilder: (_, index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10 * h),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          text: "",
-                                          style: TextStyle(
-                                            fontFamily: AppTheme.fontFamily,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16 * h,
-                                            height: 1.4 * h,
-                                            letterSpacing: 0.4,
-                                            color: AppTheme.black,
-                                          ),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text:
-                                                    "${info.data[index].car} - ${info.data[index].carNumber}"),
-                                          ],
-                                        ),
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 10 * h),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: "",
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 16 * h,
+                                        height: 1.4 * h,
+                                        letterSpacing: 0.4,
+                                        color: AppTheme.black,
                                       ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text:
+                                                "${info.data[0].car} - ${info.data[0].carNumber}"),
+                                      ],
                                     ),
-                                    Container(
-                                      height: 158 * h,
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: EdgeInsets.only(top: 16 * h),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(21),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            offset: Offset(0, 0),
-                                            blurRadius: 10,
-                                            color: Color.fromRGBO(0, 0, 0, 0.1),
-                                          )
-                                        ],
-                                      ),
-                                      child: Image.asset(
-                                        "assets/images/image.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
+                                  ),
+                                ),
+                                Container(
+                                  height: 158 * h,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.only(top: 16 * h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(21),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        blurRadius: 10,
+                                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                                      )
+                                    ],
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/image.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
                             ),
                     ),
                     Container(
@@ -192,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemBuilder: (_, index) {
                                       return getHomeTasks(
                                         context,
-                                        info.data[index].bookDate,
+                                        info.data[index].date,
                                         "${info.data[index].cityFrom} ${info.data[index].cityTo}",
                                       );
                                     },
