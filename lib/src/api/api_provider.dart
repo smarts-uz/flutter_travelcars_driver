@@ -141,4 +141,10 @@ class ApiProver {
       true,
     );
   }
+  Future<HttpResult> setEdit() async {
+    return await _getResponse(
+      baseUrl + "/profile/edit",
+      true,
+    );
+  }
 }
