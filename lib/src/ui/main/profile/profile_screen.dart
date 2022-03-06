@@ -11,10 +11,9 @@ import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../main.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
+import '../../login/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,9 +23,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _costController = TextEditingController();
-  final TextEditingController _statusController = TextEditingController();
   final TextEditingController _pass1Controller = TextEditingController();
   final TextEditingController _pass2Controller = TextEditingController();
   final TextEditingController _pass3Controller = TextEditingController();
@@ -47,7 +43,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   get() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    one = prefs.getString("pin") == null;
+    String k = prefs.getString("pin") ?? "";
+    one == k.isNotEmpty;
     setState(() {});
   }
 
@@ -277,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: AppTheme.black,
                     ),
                   ),
-                  !one
+                  one
                       ? getTextPin(
                           context,
                           _pin0Controller,
@@ -294,33 +291,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _pin2Controller,
                     "Подтвердите пин",
                   ),
-                  getButtonProfile(context, "Установить", (on) async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    bool k = false;
-                    String s = "";
-                    String pin = prefs.getString("pin") ?? "";
-                    if (!one) {
-                      print(pin);
-                      if (_pin0Controller.text == pin) {
-                        k = false;
-                      } else {
-                        k = true;
+                  getButtonProfile(
+                    context,
+                    "Установить",
+                    (on) async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      bool k = false;
+                      String s = "";
+                      String pin = prefs.getString("pin") ?? "";
+                      if (!one) {
+                        if (_pin0Controller.text == pin) {
+                          k = false;
+                        } else {
+                          k = true;
+                        }
                       }
-                    }
-                    if (_pin1Controller.text == _pin2Controller.text && !k) {
-                      prefs.setString("pin", _pin1Controller.text);
-                      s = "Bajarildi";
-                    } else {
-                      s = "Bajarilmadi";
-                    }
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    CenterDialog.simpleCenterDialog(
-                      context,
-                      "Message",
-                      s,
-                    );
-                  }),
+                      if (_pin1Controller.text == _pin2Controller.text && !k) {
+                        prefs.setString("pin", _pin1Controller.text);
+                        s = "Bajarildi";
+                      } else {
+                        s = "Bajarilmadi";
+                      }
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      CenterDialog.simpleCenterDialog(
+                        context,
+                        "Message",
+                        s,
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -328,11 +328,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 40 * h,
           ),
-          getButtonProfile(context, "Logout", (on) async {
-            SharedPreferences pref = await SharedPreferences.getInstance();
-            pref.setString("token", "");
-            main();
-          }),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 24 * w),
+            child: getButtonProfile(
+              context,
+              "Logout",
+              (on) async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.setString("token", "");
+                pref.setString("pin", "");
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
           SizedBox(
             height: 40 * h,
           ),

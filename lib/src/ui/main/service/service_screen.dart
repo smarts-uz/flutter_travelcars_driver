@@ -424,7 +424,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "${info.main.tempMax.toInt()}° C | ${Utils.getDateHours(DateTime.now())} Режим УЗТ",
+                                      "${Utils.getDateHours(DateTime.now())} Режим УЗТ",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
