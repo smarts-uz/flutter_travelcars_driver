@@ -62,9 +62,9 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           CupertinoPageRoute(
             builder: (context) {
-              return token == ""
+              return token.isEmpty
                   ? const LoginScreen()
-                  : pinCode != null
+                  : pinCode.isNotEmpty
                       ? const PinCodeScreen(status: 0)
                       : const MainScreen();
             },

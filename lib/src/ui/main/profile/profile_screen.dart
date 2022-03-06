@@ -12,6 +12,7 @@ import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../main.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
 
@@ -277,18 +278,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   !one
-                      ? getTextEditController(
+                      ? getTextPin(
                           context,
                           _pin0Controller,
                           "Текущий пин",
                         )
                       : Container(),
-                  getTextEditController(
+                  getTextPin(
                     context,
                     _pin1Controller,
                     "Новый пин",
                   ),
-                  getTextEditController(
+                  getTextPin(
                     context,
                     _pin2Controller,
                     "Подтвердите пин",
@@ -309,9 +310,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                     if (_pin1Controller.text == _pin2Controller.text && !k) {
                       prefs.setString("pin", _pin1Controller.text);
-                      s = "Uspeshno";
+                      s = "Bajarildi";
                     } else {
-                      s = "Net udayetsa";
+                      s = "Bajarilmadi";
                     }
                     FocusScope.of(context).requestFocus(FocusNode());
                     CenterDialog.simpleCenterDialog(
@@ -324,6 +325,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
+          SizedBox(
+            height: 40 * h,
+          ),
+          getButtonProfile(context, "Logout", (on) async {
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            pref.setString("token", "");
+            main();
+          }),
           SizedBox(
             height: 40 * h,
           ),

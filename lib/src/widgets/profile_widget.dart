@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import '../utils/utils.dart';
 
@@ -77,6 +78,64 @@ Widget getTextEditController(
     child: Center(
       child: TextFormField(
         controller: controller,
+        style: TextStyle(
+          fontFamily: AppTheme.fontFamily,
+          fontWeight: FontWeight.normal,
+          fontStyle: FontStyle.normal,
+          fontSize: 16 * h,
+          height: 1.2 * h,
+          color: AppTheme.black,
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hint,
+          hintStyle: TextStyle(
+            fontFamily: AppTheme.fontFamily,
+            fontWeight: FontWeight.normal,
+            fontStyle: FontStyle.normal,
+            fontSize: 16 * h,
+            height: 1.4 * h,
+            color: const Color.fromRGBO(54, 69, 90, 0.2),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+Widget getTextPin(
+  BuildContext context,
+  TextEditingController controller,
+  String hint,
+) {
+  double h = Utils.height(context);
+  double w = Utils.width(context);
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 0 * h, horizontal: 16 * w),
+    margin: EdgeInsets.symmetric(vertical: 16 * h),
+    width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      color: AppTheme.bgTextFrom,
+      border: Border.all(
+        width: 1,
+        color: AppTheme.blue,
+      ),
+      boxShadow: const [
+        BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 2,
+          spreadRadius: 1,
+          color: Color.fromRGBO(38, 39, 40, 0.2),
+        ),
+      ],
+    ),
+    child: Center(
+      child: TextFormField(
+        controller: controller,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(4),// for mobile
+        ],
+        keyboardType: TextInputType.number,
         style: TextStyle(
           fontFamily: AppTheme.fontFamily,
           fontWeight: FontWeight.normal,
