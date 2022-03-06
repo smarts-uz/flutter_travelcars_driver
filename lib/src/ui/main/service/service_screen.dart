@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/bloc/course_bloc.dart';
 import 'package:flutter_travelcars_driver/src/bloc/weather_bloc.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/CourseModel.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/course_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/weather_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';

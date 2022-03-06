@@ -16,4 +16,8 @@ class Repository {
   Future<HttpResult> getCourses() => apiProvider.getCourse();
 
   Future<HttpResult> getProfile() => apiProvider.getProfile();
+
+  Future<HttpResult> setProfileEdit() => apiProvider.setEdit();
+
+  Future<HttpResult> getCalendarList() => apiProvider.getListCalendar();
 }
