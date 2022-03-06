@@ -98,51 +98,98 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 10 * h),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: "",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16 * h,
-                                        height: 1.4 * h,
-                                        letterSpacing: 0.4,
-                                        color: AppTheme.black,
-                                      ),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text:
-                                                "${info.data[0].car} - ${info.data[0].carNumber}"),
+                          : Container(
+                              height: 200,
+                              child: PageView.builder(
+                                itemCount: info.data.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 16 * w),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 10 * h),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: "",
+                                              style: TextStyle(
+                                                fontFamily: AppTheme.fontFamily,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 20 * h,
+                                                height: 1.4 * h,
+                                                letterSpacing: 0.4,
+                                                color: AppTheme.black,
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text:
+                                                      "${info.data[index].car} - ${info.data[index].carNumber}",
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 158 * h,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: EdgeInsets.only(top: 16 * h),
+                                          padding: EdgeInsets.all(12 * h),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(21),
+                                            color: AppTheme.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                offset: Offset(0, 0),
+                                                blurRadius: 10,
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.1),
+                                              )
+                                            ],
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                info.data[index].date,
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      AppTheme.fontFamily,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 18 * h,
+                                                  color: AppTheme.gray,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 12 * h,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  "${info.data[index].cityFrom} - ${info.data[index].cityTo}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        AppTheme.fontFamily,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 22 * h,
+                                                    color: AppTheme.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                Container(
-                                  height: 158 * h,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.only(top: 16 * h),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(21),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        offset: Offset(0, 0),
-                                        blurRadius: 10,
-                                        color: Color.fromRGBO(0, 0, 0, 0.1),
-                                      )
-                                    ],
-                                  ),
-                                  child: Image.asset(
-                                    "assets/images/image.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ],
+                                  );
+                                },
+                              ),
                             ),
                     ),
                     Container(
@@ -239,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 16 * h,
                         ),
                         getContainer(context, "Всего заявок обработано: ",
-                            tasks.data.rejected, AppTheme.blue, (on) {
+                            tasks.data.done, AppTheme.blue, (on) {
                           widget.onChange(0);
                         }),
                         getContainer(context, "Активные текущие заявки: ",

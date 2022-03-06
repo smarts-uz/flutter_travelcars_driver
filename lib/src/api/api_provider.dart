@@ -9,6 +9,7 @@ class ApiProver {
   static Duration duration = const Duration(seconds: 30);
   String baseUrl = "https://api.travelcars.uz";
 
+  ///post
   static Future<HttpResult> _postUrl(
     String url,
     data,
@@ -39,6 +40,7 @@ class ApiProver {
     }
   }
 
+  ///get
   static Future<HttpResult> _getResponse(String url,bool head) async {
     // ignore: avoid_print
     print(url);
@@ -91,6 +93,7 @@ class ApiProver {
     }
   }
 
+  ///header
   static Future<Map<String, String>?> _header(bool isNewVersion) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (isNewVersion) {
@@ -99,6 +102,7 @@ class ApiProver {
     return null;
   }
 
+  ///login api
   Future<HttpResult> setLogin(String id, String password) async {
     var data = {
       "username": id,
@@ -111,36 +115,47 @@ class ApiProver {
     );
   }
 
+  ///trips counts
   Future<HttpResult> getAllTasks() async {
     return await _getResponse(
       baseUrl + "/trips/counts",
       true,
     );
   }
+
+  ///trips banners
   Future<HttpResult> getAllData() async {
     return await _getResponse(
       baseUrl + "/trips/banners",
       true,
     );
   }
+
+  ///weather api
   Future<HttpResult> getWeather() async {
     return await _getResponse(
       "https://api.openweathermap.org/data/2.5/weather?q=Tashkent&appid=4d8fb5b93d4af21d66a2948710284366&units=metric",
       false,
     );
   }
+
+  ///course api
   Future<HttpResult> getCourse() async {
     return await _getResponse(
       "https://nbu.uz/exchange-rates/json/",
       false,
     );
   }
+
+  ///profile
   Future<HttpResult> getProfile() async {
     return await _getResponse(
       baseUrl + "/profile",
       true,
     );
   }
+
+  ///profile edit
   Future<HttpResult> setEdit() async {
     return await _getResponse(
       baseUrl + "/profile/edit",

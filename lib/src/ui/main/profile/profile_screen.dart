@@ -44,55 +44,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         children: [
           StreamBuilder(
-              stream: dataBloc.profileFeedback,
-              builder: (context, AsyncSnapshot<ProfileModel> snapshot) {
-            if (snapshot.hasData) {
-              ProfileModel data = snapshot.data!;
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(
-                  left: 8 * w,
-                  right: 8 * w,
-                  top: 16,
-                ),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21 * h),
-                  color: AppTheme.lightGray,
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 24 * w, vertical: 20 * h),
+            stream: dataBloc.profileFeedback,
+            builder: (context, AsyncSnapshot<ProfileModel> snapshot) {
+              if (snapshot.hasData) {
+                ProfileModel data = snapshot.data!;
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(
+                    left: 8 * w,
+                    right: 8 * w,
+                    top: 16,
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21),
-                    color: AppTheme.white,
+                    borderRadius: BorderRadius.circular(21 * h),
+                    color: AppTheme.lightGray,
                   ),
-                  child: Column(
-                    children: [
-                      getTextController(
-                        context,
-                        data.data.name,
-                        "Имя",
-                      ),
-                      getTextController(
-                        context,
-                        data.data.username,
-                        "Стоимость поездки",
-                      ),
-                      getTextController(
-                        context,
-                        data.data.phone,
-                        "Статус оплаты",
-                      ),
-                    ],
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 24 * w, vertical: 20 * h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21),
+                      color: AppTheme.white,
+                    ),
+                    child: Column(
+                      children: [
+                        getTextController(
+                          context,
+                          data.data.name,
+                          "Имя",
+                        ),
+                        getTextController(
+                          context,
+                          data.data.username,
+                          "Логин",
+                        ),
+                        getTextController(
+                          context,
+                          data.data.phone,
+                          "Телефон",
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            } else {
-              return const ServiceShimmer();
-            }
-          }),
+                );
+              } else {
+                return const ServiceShimmer();
+              }
+            },
+          ),
           Container(
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.only(
