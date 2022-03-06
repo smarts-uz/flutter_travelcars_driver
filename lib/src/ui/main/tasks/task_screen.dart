@@ -5,6 +5,8 @@ import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/tasks_screen.dart';
 
+import '../../../bloc/history_bloc.dart';
+import '../../../model/api_model/history_model.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
 
@@ -22,12 +24,13 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   TabController? _tabController;
+  List<String> typeData = ["done", "active", "rejected"];
 
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     _tabController!.index = widget.index;
-    dataBloc.getAllData();
+    historyBloc.getAllHistory(typeData[_tabController!.index], 1);
     super.initState();
   }
 
@@ -74,8 +77,8 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   ),
                 ],
                 controller: _tabController,
-                onTap: (s){
-                  dataBloc.getAllData();
+                onTap: (s) {
+                  historyBloc.getAllHistory(typeData[_tabController!.index], 1);
                 },
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(21 * h),
@@ -108,10 +111,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
             child: TabBarView(
               children: <Widget>[
                 StreamBuilder(
-                  stream: dataBloc.dataFeedback,
-                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                  stream: historyBloc.historyFeedback,
+                  builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
-                      DataModel data = snapshot.data!;
+                      HistoryModel data = snapshot.data!;
                       return TasksScreen(
                         data: data,
                       );
@@ -121,10 +124,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   },
                 ),
                 StreamBuilder(
-                  stream: dataBloc.dataFeedback,
-                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                  stream: historyBloc.historyFeedback,
+                  builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
-                      DataModel data = snapshot.data!;
+                      HistoryModel data = snapshot.data!;
                       return TasksScreen(
                         data: data,
                       );
@@ -134,10 +137,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   },
                 ),
                 StreamBuilder(
-                  stream: dataBloc.dataFeedback,
-                  builder: (context, AsyncSnapshot<DataModel> snapshot) {
+                  stream: historyBloc.historyFeedback,
+                  builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
-                      DataModel data = snapshot.data!;
+                      HistoryModel data = snapshot.data!;
                       return TasksScreen(
                         data: data,
                       );

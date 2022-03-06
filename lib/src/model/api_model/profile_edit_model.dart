@@ -5,13 +5,13 @@ ProfileEditModel profileEditModelFromJson(String str) =>
 
 class ProfileEditModel {
   ProfileEditModel({
-    required this.message,
+    required this.resultMessage,
   });
 
-  String message;
+  String resultMessage;
 
   factory ProfileEditModel.fromJson(Map<String, dynamic> json) =>
       ProfileEditModel(
-        message: json["message"] ?? "",
+        resultMessage: json["result_message"] ?? "",
       );
 }

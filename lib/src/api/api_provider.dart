@@ -41,7 +41,7 @@ class ApiProver {
   }
 
   ///get
-  static Future<HttpResult> _getResponse(String url,bool head) async {
+  static Future<HttpResult> _getResponse(String url, bool head) async {
     // ignore: avoid_print
     print(url);
     try {
@@ -156,17 +156,37 @@ class ApiProver {
   }
 
   ///profile edit
-  Future<HttpResult> setEdit() async {
+  Future<HttpResult> setEdit(
+      String currentPassword, String newPass, String confirmNewPass) async {
+    String token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString("token") ?? "";
     return await _getResponse(
-      baseUrl + "/profile/edit",
+      baseUrl +
+          "/profile/edit?api_token=$token&current_password=$currentPassword&new_password=$newPass&confirm_new_password=$confirmNewPass",
       true,
     );
   }
 
   ///calendar list
-  Future<HttpResult> getListCalendar() async {
+  Future<HttpResult> getListCalendar(DateTime date) async {
+    String token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString("token") ?? "";
     return await _getResponse(
-      baseUrl + "/routes/list",
+      baseUrl +
+          "/routes/list?api_token=$token&date=${date.year}-${date.month}-${date.day}",
+      true,
+    );
+  }
+
+  ///calendar list
+  Future<HttpResult> getHistory(String type, int page) async {
+    String token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString("token") ?? "";
+    return await _getResponse(
+      baseUrl + "/trips/history?api_token=$token&type=$type&page=$page",
       true,
     );
   }

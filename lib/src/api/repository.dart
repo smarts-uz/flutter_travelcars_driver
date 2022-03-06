@@ -17,7 +17,13 @@ class Repository {
 
   Future<HttpResult> getProfile() => apiProvider.getProfile();
 
-  Future<HttpResult> setProfileEdit() => apiProvider.setEdit();
+  Future<HttpResult> getHistory(String type, int page) =>
+      apiProvider.getHistory(type, page);
 
-  Future<HttpResult> getCalendarList() => apiProvider.getListCalendar();
+  Future<HttpResult> setProfileEdit(
+          String currentPassword, String newPass, String confirmNewPass) =>
+      apiProvider.setEdit(currentPassword, newPass, confirmNewPass);
+
+  Future<HttpResult> getCalendarList(DateTime date) =>
+      apiProvider.getListCalendar(date);
 }
