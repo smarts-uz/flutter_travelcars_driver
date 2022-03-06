@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
+import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<TaskModel> data = [
@@ -54,14 +55,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    getData();
     super.initState();
-  }
-
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    check = prefs.getString("token") == null;
-    setState(() {});
   }
 
   @override
@@ -70,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(platform: TargetPlatform.iOS),
-      home: check ? const LoginScreen() : const MainScreen(),
+      home: const SplashScreen(),
     );
   }
 }

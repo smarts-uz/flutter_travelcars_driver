@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/calendar_list_model.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/utils_widgets.dart';
 
 import '../utils/utils.dart';
 
-Widget taskWidget(TaskModel data, Function(bool check) onchange) {
+Widget taskWidget(Datum data, Function(bool check) onchange) {
   return Column(
     children: [
       SizedBox(
@@ -29,9 +30,9 @@ Widget taskWidget(TaskModel data, Function(bool check) onchange) {
                   color: AppTheme.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(text: data.place1),
+                  TextSpan(text: data.cityFrom),
                   const TextSpan(text: "-"),
-                  TextSpan(text: data.place2),
+                  TextSpan(text: data.cityTo),
                 ]),
           ),
         ],
@@ -42,7 +43,7 @@ Widget taskWidget(TaskModel data, Function(bool check) onchange) {
       Row(
         children: [
           Text(
-            data.status,
+            "Status",
             style: TextStyle(
               fontFamily: AppTheme.fontFamily,
               fontWeight: FontWeight.normal,
@@ -50,12 +51,12 @@ Widget taskWidget(TaskModel data, Function(bool check) onchange) {
               fontSize: 12,
               height: 14 / 12,
               letterSpacing: 0.2,
-              color: data.check ? AppTheme.green : AppTheme.red,
+              color: data.status == 1 ? AppTheme.green : AppTheme.red,
             ),
           ),
           const Spacer(),
           Text(
-            data.check ? "Свободен:" : "Занят:",
+            data.status == 1 ? "Свободен:" : "Занят:",
             style: const TextStyle(
               fontFamily: AppTheme.fontFamily,
               fontWeight: FontWeight.normal,
@@ -67,11 +68,10 @@ Widget taskWidget(TaskModel data, Function(bool check) onchange) {
             ),
           ),
           CupertinoSwitch(
-            value: data.check,
+            value: data.status == 1,
             activeColor: AppTheme.green,
             trackColor: AppTheme.red,
             onChanged: (on) async {
-              onchange(!data.check);
             },
           ),
         ],

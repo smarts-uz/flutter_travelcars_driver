@@ -1,9 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/profile_edit_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
+import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
@@ -22,17 +29,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _pass1Controller = TextEditingController();
   final TextEditingController _pass2Controller = TextEditingController();
   final TextEditingController _pass3Controller = TextEditingController();
+  final TextEditingController _pin0Controller = TextEditingController();
   final TextEditingController _pin1Controller = TextEditingController();
   final TextEditingController _pin2Controller = TextEditingController();
+  Repository repository = Repository();
   bool value = false;
+  bool circle = false;
+  bool one = false;
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = "Azizbek";
-    _costController.text = "0";
-    _statusController.text = "Не оплачено";
+    get();
     dataBloc.getProfileData();
+  }
+
+  get() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    one = prefs.getString("pin") == null;
+    setState(() {});
   }
 
   @override
@@ -43,56 +58,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: AppTheme.bgColor,
       body: ListView(
         children: [
-          StreamBuilder(
-            stream: dataBloc.profileFeedback,
-            builder: (context, AsyncSnapshot<ProfileModel> snapshot) {
-              if (snapshot.hasData) {
-                ProfileModel data = snapshot.data!;
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(
-                    left: 8 * w,
-                    right: 8 * w,
-                    top: 16,
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21 * h),
-                    color: AppTheme.lightGray,
-                  ),
-                  child: Container(
+          SizedBox(
+            height: 280 * h,
+            child: StreamBuilder(
+              stream: dataBloc.profileFeedback,
+              builder: (context, AsyncSnapshot<ProfileModel> snapshot) {
+                if (snapshot.hasData) {
+                  ProfileModel data = snapshot.data!;
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(
+                      left: 8 * w,
+                      right: 8 * w,
+                      top: 16,
+                    ),
                     padding: EdgeInsets.symmetric(
-                        horizontal: 24 * w, vertical: 20 * h),
+                        horizontal: 8 * w, vertical: 8 * h),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21),
-                      color: AppTheme.white,
+                      borderRadius: BorderRadius.circular(21 * h),
+                      color: AppTheme.lightGray,
                     ),
-                    child: Column(
-                      children: [
-                        getTextController(
-                          context,
-                          data.data.name,
-                          "Имя",
-                        ),
-                        getTextController(
-                          context,
-                          data.data.username,
-                          "Логин",
-                        ),
-                        getTextController(
-                          context,
-                          data.data.phone,
-                          "Телефон",
-                        ),
-                      ],
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 24 * w, vertical: 20 * h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21),
+                        color: AppTheme.white,
+                      ),
+                      child: Column(
+                        children: [
+                          getTextController(
+                            context,
+                            data.data.name,
+                            "Имя",
+                          ),
+                          getTextController(
+                            context,
+                            data.data.username,
+                            "Логин",
+                          ),
+                          getTextController(
+                            context,
+                            data.data.phone,
+                            "Телефон",
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return const ServiceShimmer();
-              }
-            },
+                  );
+                } else {
+                  return const ServiceShimmer();
+                }
+              },
+            ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -173,7 +191,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 22 * h,
                   ),
-                  getButtonProfile(context, "Изменить", (on) {}),
+                  GestureDetector(
+                    onTap: () async {
+                      circle = true;
+                      setState(() {});
+                      HttpResult response = await repository.setProfileEdit(
+                        _pass1Controller.text,
+                        _pass2Controller.text,
+                        _pass3Controller.text,
+                      );
+                      ProfileEditModel data = profileEditModelFromJson(
+                        json.encode(response.result),
+                      );
+                      circle = false;
+                      setState(() {});
+                      CenterDialog.simpleCenterDialog(
+                        context,
+                        "Message",
+                        data.resultMessage,
+                      );
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(vertical: 10 * h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: AppTheme.blue,
+                      ),
+                      child: !circle
+                          ? Center(
+                              child: Text(
+                                "Изменить".toUpperCase(),
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 16 * h,
+                                  height: 24 / 16 * h,
+                                  color: AppTheme.white,
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -212,6 +276,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: AppTheme.black,
                     ),
                   ),
+                  !one
+                      ? getTextEditController(
+                          context,
+                          _pin0Controller,
+                          "Текущий пин",
+                        )
+                      : Container(),
                   getTextEditController(
                     context,
                     _pin1Controller,
@@ -222,7 +293,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _pin2Controller,
                     "Подтвердите пин",
                   ),
-                  getButtonProfile(context, "Установить", (on) {}),
+                  getButtonProfile(context, "Установить", (on) async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    bool k = false;
+                    String s = "";
+                    String pin = prefs.getString("pin") ?? "";
+                    if (!one) {
+                      print(pin);
+                      if (_pin0Controller.text == pin) {
+                        k = false;
+                      } else {
+                        k = true;
+                      }
+                    }
+                    if (_pin1Controller.text == _pin2Controller.text && !k) {
+                      prefs.setString("pin", _pin1Controller.text);
+                      s = "Uspeshno";
+                    } else {
+                      s = "Net udayetsa";
+                    }
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    CenterDialog.simpleCenterDialog(
+                      context,
+                      "Message",
+                      s,
+                    );
+                  }),
                 ],
               ),
             ),

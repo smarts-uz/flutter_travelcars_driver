@@ -78,7 +78,6 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
-    double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
@@ -119,14 +118,13 @@ class _MainScreenState extends State<MainScreen>
               children: [
                 HomeScreen(
                   onChange: (int id) {
-                    print(id);
                     taskIndex = id;
                     bottomTapped(4);
                   },
                 ),
-                ServiceScreen(),
-                CalendarScreen(),
-                ProfileScreen(),
+                const ServiceScreen(),
+                const CalendarScreen(),
+                const ProfileScreen(),
                 TaskScreen(
                   index: taskIndex,
                 ),
@@ -146,8 +144,6 @@ class _MainScreenState extends State<MainScreen>
             color: (_bottomNavIndex == 4) ? AppTheme.blue : AppTheme.white,
           ),
           onPressed: () {
-            // _animationController.reset();
-            // _animationController.forward();
             bottomTapped(4);
           },
         ),
@@ -188,11 +184,9 @@ class _MainScreenState extends State<MainScreen>
 
   bottomTapped(int index) {
     _bottomNavIndex = index;
-    _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 270),
-      curve: Curves.bounceInOut,
-    );
+    _pageController.jumpToPage(index);
+
+    FocusScope.of(context).requestFocus(FocusNode());
     setState(() {});
   }
 }
@@ -200,7 +194,10 @@ class _MainScreenState extends State<MainScreen>
 class NavigationScreen extends StatefulWidget {
   final IconData iconData;
 
-  NavigationScreen(this.iconData) : super();
+  const NavigationScreen({
+    Key? key,
+    required this.iconData,
+  }) : super(key: key);
 
   @override
   _NavigationScreenState createState() => _NavigationScreenState();
@@ -260,7 +257,7 @@ class _NavigationScreenState extends State<NavigationScreen>
       child: Center(
         child: CircularRevealAnimation(
           animation: animation,
-          centerOffset: Offset(80, 80),
+          centerOffset: const Offset(80, 80),
           maxRadius: MediaQuery.of(context).size.longestSide * 1.1,
           child: Icon(
             widget.iconData,

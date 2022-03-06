@@ -109,17 +109,22 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
           ),
           Expanded(
             child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               children: <Widget>[
                 StreamBuilder(
                   stream: historyBloc.historyFeedback,
                   builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
                       HistoryModel data = snapshot.data!;
-                      return TasksScreen(
-                        data: data,
-                      );
+                      return data.data.isEmpty
+                          ? const Center(
+                              child: Text("Bosh"),
+                            )
+                          : TasksScreen(
+                              data: data,
+                            );
                     } else {
-                      return TaskShimmer();
+                      return const TaskShimmer();
                     }
                   },
                 ),
@@ -128,11 +133,15 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
                       HistoryModel data = snapshot.data!;
-                      return TasksScreen(
-                        data: data,
-                      );
+                      return data.data.isEmpty
+                          ? const Center(
+                              child: Text("Bosh"),
+                            )
+                          : TasksScreen(
+                              data: data,
+                            );
                     } else {
-                      return TaskShimmer();
+                      return const TaskShimmer();
                     }
                   },
                 ),
@@ -141,11 +150,15 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
                     if (snapshot.hasData) {
                       HistoryModel data = snapshot.data!;
-                      return TasksScreen(
-                        data: data,
-                      );
+                      return data.data.isEmpty
+                          ? const Center(
+                              child: Text("Bosh"),
+                            )
+                          : TasksScreen(
+                              data: data,
+                            );
                     } else {
-                      return TaskShimmer();
+                      return const TaskShimmer();
                     }
                   },
                 ),
