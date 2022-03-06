@@ -190,4 +190,16 @@ class ApiProver {
       true,
     );
   }
+
+
+  ///calendar list
+  Future<HttpResult> changeStatus(int id) async {
+    String token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString("token") ?? "";
+    return await _getResponse(
+      baseUrl + "/routes/status/$id?api_token=$token",
+      true,
+    );
+  }
 }

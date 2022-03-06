@@ -291,7 +291,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                           ),
                                           i != 2 ? MySeparator() : Container(),
                                           SizedBox(
-                                            height: 8 * h,
+                                            height: 6 * h,
                                           ),
                                         ],
                                       ),

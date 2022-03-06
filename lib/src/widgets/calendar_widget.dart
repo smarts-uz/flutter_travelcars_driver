@@ -1,15 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_travelcars_driver/src/api/repository.dart';
+import 'package:flutter_travelcars_driver/src/bloc/list_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/calendar_list_model.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/status_model.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/utils_widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../utils/utils.dart';
 
-Widget taskWidget(Datum data, Function(bool check) onchange) {
+Widget taskWidget(Datum data, DateTime date, Function(bool check) onchange) {
+  Repository repository = Repository();
   return Column(
     children: [
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
       MySeparator(),
@@ -31,7 +39,7 @@ Widget taskWidget(Datum data, Function(bool check) onchange) {
                 ),
                 children: <TextSpan>[
                   TextSpan(text: data.cityFrom),
-                  const TextSpan(text: "-"),
+                  const TextSpan(text: " - "),
                   TextSpan(text: data.cityTo),
                 ]),
           ),
@@ -72,6 +80,22 @@ Widget taskWidget(Datum data, Function(bool check) onchange) {
             activeColor: AppTheme.green,
             trackColor: AppTheme.red,
             onChanged: (on) async {
+              HttpResult response = await repository.changeStatus(data.id);
+              if (response.isSuccess) {
+                StatusModel datam = statusModelFromJson(
+                  json.encode(response.result),
+                );
+                Fluttertoast.showToast(
+                  msg: datam.message,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: AppTheme.blue,
+                  textColor: AppTheme.white,
+                  fontSize: 16.0,
+                );
+              }
+              listBloc.getAllList(date);
             },
           ),
         ],

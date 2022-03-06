@@ -8,6 +8,7 @@ import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
 import '../../../utils/utils.dart';
+import '../../../widgets/service_widgets/service_shimmer.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                       Expanded(
                         child: Text(
-                          "Февраль 2022 г.",
+                          "${getMonth(_selectedDay.month)} ${_selectedDay.year} г.",
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.w600,
@@ -109,8 +110,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
           StreamBuilder<CalendarListModel>(
             stream: listBloc.listFeedBack,
             builder: (context, AsyncSnapshot snapshot) {
-              CalendarListModel list = snapshot.data!;
               if (snapshot.hasData) {
+                CalendarListModel list = snapshot.data;
                 return Container(
                   height: view ? 422 * h : 160 * h,
                   width: MediaQuery.of(context).size.width,
@@ -267,6 +268,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     itemBuilder: (_, index) {
                                       return taskWidget(
                                         list.data[index],
+                                        _selectedDay,
                                         (onchange) {
                                           data[index].check = onchange;
                                           setState(() {});
@@ -281,9 +283,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 );
               } else {
-                return const Text(
-                  "Bosh",
-                );
+                return const TaskShimmer();
               }
             },
           ),
@@ -296,6 +296,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    listBloc.getAllList(selectedDay);
     setState(() {
       _selectedDay = selectedDay;
     });
