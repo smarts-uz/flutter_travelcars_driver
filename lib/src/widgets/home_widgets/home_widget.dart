@@ -7,7 +7,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
   double h = Utils.height(context);
   double w = Utils.width(context);
   return Container(
-    width: 162 * w,
+    width: 200 * w,
     padding: EdgeInsets.symmetric(horizontal: 2 * w, vertical: 10 * h),
     margin: EdgeInsets.symmetric(horizontal: 12 * w),
     decoration: BoxDecoration(
@@ -29,7 +29,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 16 * h,
+            fontSize: 18 * h,
             height: 1.4 * h,
             letterSpacing: 0.4,
             color: AppTheme.gray,
@@ -46,7 +46,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 14 * h,
+            fontSize: 18 * h,
             height: 1.38 * h,
             letterSpacing: 0.2,
             color: AppTheme.lightBlack,
@@ -90,7 +90,7 @@ Widget getContainer(BuildContext context, String text, int count, Color color,
                 fontFamily: AppTheme.fontFamily,
                 fontWeight: FontWeight.normal,
                 fontStyle: FontStyle.normal,
-                fontSize: 14 * h,
+                fontSize: 18 * h,
                 height: 1.38 * h,
                 letterSpacing: 0.2,
                 color: AppTheme.white,

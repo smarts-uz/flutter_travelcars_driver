@@ -59,20 +59,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       SizedBox(
                         width: 12 * h,
                       ),
-                      Expanded(
-                        child: Text(
-                          "${getMonth(_selectedDay.month)} ${_selectedDay.year} г.",
-                          style: TextStyle(
-                            fontFamily: AppTheme.fontFamily,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18 * h,
-                            height: 21 / 18 * h,
-                            letterSpacing: 0.4,
-                            color: AppTheme.black,
+                      GestureDetector(
+                        onTap: () {
+                          _selectedDay = DateTime(_selectedDay.year,
+                              _selectedDay.month - 1, _selectedDay.day);
+                          setState(() {});
+                        },
+                        child: SizedBox(
+                          height: 24 * h,
+                          width: 24 * w,
+                          child: const Icon(
+                            Icons.navigate_before,
                           ),
                         ),
                       ),
+                      const Spacer(),
+                      Text(
+                        "${getMonth(_selectedDay.month)} ${_selectedDay.year} г.",
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 18 * h,
+                          height: 21 / 18 * h,
+                          letterSpacing: 0.4,
+                          color: AppTheme.black,
+                        ),
+                      ),
+                      const Spacer(),
                       GestureDetector(
                         onTap: () {
                           _selectedDay = _selectedDay.add(
@@ -97,6 +111,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     daysOfWeekVisible: false,
                     headerVisible: false,
                     rowHeight: 32,
+                    onPageChanged: (day) {
+                      _selectedDay = day;
+                      setState(() {});
+                    },
                     selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                     focusedDay: _selectedDay,
                     onDaySelected: _onDaySelected,

@@ -159,33 +159,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _pass3Controller,
                     "Подтвердите пароль",
                   ),
-                  Row(
-                    children: [
-                      CupertinoSwitch(
-                        value: value,
-                        activeColor: AppTheme.blue,
-                        trackColor: AppTheme.red,
-                        onChanged: (on) {
-                          value = !value;
-                          setState(() {});
-                        },
-                      ),
-                      SizedBox(
-                        width: 10 * w,
-                      ),
-                      Text(
-                        "Pod Server / Test Server",
-                        style: TextStyle(
-                          fontFamily: AppTheme.fontFamily,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 16 * h,
-                          height: 1.38 * h,
-                          color: const Color.fromRGBO(54, 69, 90, 0.73),
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(
                     height: 22 * h,
                   ),
@@ -205,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       setState(() {});
                       CenterDialog.simpleCenterDialog(
                         context,
-                        "Message",
+                        "Сообщение",
                         data.resultMessage,
                       );
                       FocusScope.of(context).requestFocus(FocusNode());
@@ -309,14 +282,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       }
                       if (_pin1Controller.text == _pin2Controller.text && !k) {
                         prefs.setString("pin", _pin1Controller.text);
-                        s = "Bajarildi";
+                        s = "Сделанный";
+                        _pin0Controller.text = "";
+                        _pin1Controller.text = "";
+                        _pin2Controller.text = "";
+                        setState(() {});
                       } else {
-                        s = "Bajarilmadi";
+                        s = "Не удалось";
                       }
                       FocusScope.of(context).requestFocus(FocusNode());
                       CenterDialog.simpleCenterDialog(
                         context,
-                        "Message",
+                        "Сообщение",
                         s,
                       );
                     },
@@ -332,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: EdgeInsets.symmetric(horizontal: 24 * w),
             child: getButtonProfile(
               context,
-              "Logout",
+              "Выйти",
               (on) async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 pref.setString("token", "");

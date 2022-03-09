@@ -118,7 +118,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                       HistoryModel data = snapshot.data!;
                       return data.data.isEmpty
                           ? const Center(
-                              child: Text("Bosh"),
+                              child: Text("Пустой"),
                             )
                           : TasksScreen(
                               data: data,
@@ -135,7 +135,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                       HistoryModel data = snapshot.data!;
                       return data.data.isEmpty
                           ? const Center(
-                              child: Text("Bosh"),
+                              child: Text("Пустой"),
                             )
                           : TasksScreen(
                               data: data,
@@ -152,7 +152,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                       HistoryModel data = snapshot.data!;
                       return data.data.isEmpty
                           ? const Center(
-                              child: Text("Bosh"),
+                              child: Text("Пустой"),
                             )
                           : TasksScreen(
                               data: data,

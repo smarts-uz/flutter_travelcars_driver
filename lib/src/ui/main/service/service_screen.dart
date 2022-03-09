@@ -365,7 +365,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               fontFamily: AppTheme.fontFamily,
                               fontWeight: FontWeight.normal,
                               fontStyle: FontStyle.normal,
-                              fontSize: 12 * h,
+                              fontSize: 14 * h,
                               height: 1.38 * h,
                               letterSpacing: 0.3,
                               color: AppTheme.blue,
@@ -382,22 +382,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 70 * h,
-                                      width: 70 * h,
+                                      height: 80 * h,
+                                      width: 100 * h,
                                       child: Image.asset(
                                         'assets/images/weather.png',
-                                      ),
-                                    ),
-                                    Text(
-                                      "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | ${info.weather[0].description}",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 10 * h,
-                                        height: 1.5 * h,
-                                        letterSpacing: 0.3,
-                                        color: AppTheme.black,
                                       ),
                                     ),
                                   ],
@@ -423,21 +411,40 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      "${Utils.getDateHours(DateTime.now())} Режим УЗТ",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 10 * h,
-                                        height: 1.5 * h,
-                                        letterSpacing: 0.3,
-                                        color: AppTheme.black,
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Spacer(),
+                              Text(
+                                "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | ${info.weather[0].description}",
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12 * h,
+                                  height: 1.5 * h,
+                                  letterSpacing: 0.3,
+                                  color: AppTheme.black,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                "${Utils.getDateHours(DateTime.now())} Режим УЗТ",
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12 * h,
+                                  height: 1.5 * h,
+                                  letterSpacing: 0.3,
+                                  color: AppTheme.black,
+                                ),
+                              ),
+                              const Spacer(),
                             ],
                           ),
                           const Spacer(),

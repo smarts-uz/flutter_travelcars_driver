@@ -72,34 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: AppTheme.black,
                                       ),
                                       children: const <TextSpan>[
-                                        TextSpan(text: "hech qanday zakaz yoq"),
+                                        TextSpan(text: "Пустой"),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  height: 158 * h,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.only(top: 16 * h),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(21),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        offset: Offset(0, 0),
-                                        blurRadius: 10,
-                                        color: Color.fromRGBO(0, 0, 0, 0.1),
-                                      )
-                                    ],
-                                  ),
-                                  child: Image.asset(
-                                    "assets/images/image.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                               ],
                             )
-                          : Container(
-                              height: 200,
+                          : SizedBox(
+                              height: 230,
                               child: PageView.builder(
                                 itemCount: info.data.length,
                                 itemBuilder: (context, index) {
@@ -211,9 +192,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontFamily: AppTheme.fontFamily,
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.normal,
-                              fontSize: 18 * h,
+                              fontSize: 22 * h,
                               height: 1.4 * h,
-                              letterSpacing: 0.4,
+                              letterSpacing: 0.2,
                               color: AppTheme.black,
                             ),
                           ),
@@ -221,11 +202,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 10 * h,
                           ),
                           Container(
-                            height: 120,
+                            height: 160,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             child: info.data.isEmpty
                                 ? const Center(
-                                    child: Text("Hech qanaqa zakaz yoq"),
+                                    child: Text("Пустой"),
                                   )
                                 : ListView.builder(
                                     scrollDirection: Axis.horizontal,
@@ -253,57 +234,58 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20 * h,
           ),
           StreamBuilder(
-              stream: taskBloc.taskFeedback,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  TaskModel tasks = snapshot.data!;
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: 20 * w, vertical: 0 * h),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10 * w, vertical: 6 * h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21 * h),
-                      color: AppTheme.lightGray,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Основные разделы",
-                          style: TextStyle(
-                            fontFamily: AppTheme.fontFamily,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18 * h,
-                            height: 1.4 * h,
-                            letterSpacing: 0.4,
-                            color: AppTheme.black,
-                          ),
+            stream: taskBloc.taskFeedback,
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                TaskModel tasks = snapshot.data!;
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 20 * w, vertical: 0 * h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10 * w, vertical: 6 * h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(21 * h),
+                    color: AppTheme.lightGray,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Основные разделы",
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20 * h,
+                          height: 1.4 * h,
+                          letterSpacing: 0.4,
+                          color: AppTheme.black,
                         ),
-                        SizedBox(
-                          height: 16 * h,
-                        ),
-                        getContainer(context, "Всего заявок обработано: ",
-                            tasks.data.done, AppTheme.blue, (on) {
-                          widget.onChange(0);
-                        }),
-                        getContainer(context, "Активные текущие заявки: ",
-                            tasks.data.active, AppTheme.green, (onChange) {
-                          widget.onChange(1);
-                        }),
-                        getContainer(context, "На рассмотрении: ",
-                            tasks.data.proceed, AppTheme.yellow, (onChange) {
-                          widget.onChange(2);
-                        }),
-                      ],
-                    ),
-                  );
-                } else {
-                  return DataShimmer();
-                }
-              }),
+                      ),
+                      SizedBox(
+                        height: 16 * h,
+                      ),
+                      getContainer(context, "Всего заявок обработано: ",
+                          tasks.data.done, AppTheme.blue, (on) {
+                        widget.onChange(0);
+                      }),
+                      getContainer(context, "Активные текущие заявки: ",
+                          tasks.data.active, AppTheme.green, (onChange) {
+                        widget.onChange(1);
+                      }),
+                      getContainer(context, "На рассмотрении: ",
+                          tasks.data.proceed, AppTheme.yellow, (onChange) {
+                        widget.onChange(2);
+                      }),
+                    ],
+                  ),
+                );
+              } else {
+                return const DataShimmer();
+              }
+            },
+          ),
         ],
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class AppTheme {
   ///font family
-  static const String fontFamily = "Roboto";
+  static const String fontFamily = "Montserrat";
 
   ///colors
   static const Color blue = Color(0xFF0B4A92);
