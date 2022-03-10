@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/main.dart';
-import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/tasks_screen.dart';
 
@@ -24,7 +21,7 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   TabController? _tabController;
-  List<String> typeData = ["done", "active", "rejected"];
+  List<String> typeData = ["done", "active", "proceed"];
 
   @override
   void initState() {
@@ -43,7 +40,6 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
       body: Column(
         children: [
           Container(
-            height: 32 * h,
             margin: EdgeInsets.symmetric(horizontal: 16 * w, vertical: 16 * h),
             decoration: BoxDecoration(
               color: AppTheme.white,
@@ -63,16 +59,19 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   Tab(
                     child: Text(
                       'Обработанные',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Tab(
                     child: Text(
                       'Текущие',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Tab(
                     child: Text(
-                      'Pассмотрени',
+                      'На Pассмотрени',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],
@@ -86,7 +85,6 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                 ),
                 padding: EdgeInsets.all(2 * h),
                 labelStyle: TextStyle(
-                  overflow: TextOverflow.ellipsis,
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.bold,
                   fontSize: 14 * h,
@@ -94,7 +92,6 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   color: AppTheme.white,
                 ),
                 unselectedLabelStyle: TextStyle(
-                  overflow: TextOverflow.ellipsis,
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.normal,
                   fontSize: 14 * h,

@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         widget.onChange(1);
                       }),
                       getContainer(context, "На рассмотрении: ",
-                          tasks.data.proceed, AppTheme.yellow, (onChange) {
+                          tasks.data.rejected, AppTheme.yellow, (onChange) {
                         widget.onChange(2);
                       }),
                     ],

@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="flutter_travelcars_driver"
-        android:name="${applicationName}"
+        android:name="Travel Cars Drivers"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

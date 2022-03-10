@@ -5,7 +5,6 @@ import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
 
-import '../../../../model/api_model/data_model.dart';
 import '../../../../utils/utils.dart';
 
 class TasksScreen extends StatefulWidget {
