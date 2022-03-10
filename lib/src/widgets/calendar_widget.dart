@@ -6,7 +6,6 @@ import 'package:flutter_travelcars_driver/src/bloc/list_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/calendar_list_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/status_model.dart';
-import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/utils_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
