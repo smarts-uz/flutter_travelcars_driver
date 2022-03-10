@@ -75,6 +75,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                       const Spacer(),
+
                       Text(
                         "${getMonth(_selectedDay.month)} ${_selectedDay.year} г.",
                         style: TextStyle(
