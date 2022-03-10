@@ -66,6 +66,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           setState(() {});
                         },
                         child: SizedBox(
+
                           height: 24 * h,
                           width: 24 * w,
                           child: const Icon(
