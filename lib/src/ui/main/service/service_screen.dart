@@ -418,33 +418,36 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           ),
                           Row(
                             children: [
-                              const Spacer(),
-                              Text(
-                                "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | ${info.weather[0].description}",
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12 * h,
-                                  height: 1.5 * h,
-                                  letterSpacing: 0.3,
-                                  color: AppTheme.black,
+                              Expanded(
+                                child: Text(
+                                  "${info.main.tempMin.toInt()}° / ${info.main.tempMax.toInt()}° | ${info.weather[0].description}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 12 * h,
+                                    height: 1.5 * h,
+                                    letterSpacing: 0.3,
+                                    color: AppTheme.black,
+                                  ),
                                 ),
                               ),
-                              const Spacer(),
-                              Text(
-                                "${Utils.getDateHours(DateTime.now())} Режим УЗТ",
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12 * h,
-                                  height: 1.5 * h,
-                                  letterSpacing: 0.3,
-                                  color: AppTheme.black,
+                              Expanded(
+                                child: Text(
+                                  "${Utils.getDateHours(DateTime.now())} Режим УЗТ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 12 * h,
+                                    height: 1.5 * h,
+                                    letterSpacing: 0.3,
+                                    color: AppTheme.black,
+                                  ),
                                 ),
                               ),
-                              const Spacer(),
                             ],
                           ),
                           const Spacer(),

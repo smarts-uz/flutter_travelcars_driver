@@ -2,8 +2,7 @@
     package="com.example.flutter_travelcars_driver">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="flutter_travelcars_driver"
-        android:name="Travel Cars Drivers"
+        android:label="TravelCarsDrivers"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
