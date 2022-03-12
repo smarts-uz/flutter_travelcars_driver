@@ -287,7 +287,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 8 * h,
+                                            height: 6 * h,
                                           ),
                                           i != 2 ? MySeparator() : Container(),
                                           SizedBox(
@@ -426,7 +426,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 12 * h,
+                                    fontSize: 14 * h,
                                     height: 1.5 * h,
                                     letterSpacing: 0.3,
                                     color: AppTheme.black,
@@ -441,7 +441,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 12 * h,
+                                    fontSize: 14 * h,
                                     height: 1.5 * h,
                                     letterSpacing: 0.3,
                                     color: AppTheme.black,

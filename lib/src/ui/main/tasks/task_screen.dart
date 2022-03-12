@@ -21,7 +21,7 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   TabController? _tabController;
-  List<String> typeData = ["done", "active", "proceed"];
+  List<String> typeData = ["done", "active", "rejected"];
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   ),
                   Tab(
                     child: Text(
-                      'На Pассмотрени',
+                      'На Pассмотрений',
                       textAlign: TextAlign.center,
                     ),
                   ),

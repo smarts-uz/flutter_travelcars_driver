@@ -43,7 +43,7 @@ class TaskShimmer extends StatelessWidget {
       baseColor: AppTheme.shimmerBase,
       highlightColor: AppTheme.shimmerHighlight,
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: 15,
         itemBuilder: (context, index) {
           return Container(
             height: 100,

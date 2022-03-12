@@ -36,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: AppTheme.blue,
-        child: Center(
-          child: SvgPicture.asset("assets/icons/logo.svg"),
+        child: Image.asset(
+          "assets/images/splash.png",
         ),
       ),
     );
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
     token = prefs.getString("token") ?? "";
     pinCode = prefs.getString("pin") ?? "";
     Timer(
-      const Duration(milliseconds: 250),
+      const Duration(milliseconds: 1600),
       () {
         // Navigator.pushReplacement(
         //   context,
