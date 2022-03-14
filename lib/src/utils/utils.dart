@@ -31,23 +31,23 @@ String getMonth(int n) {
     case 3:
       return "мартa";
     case 4:
-      return "апрель";
+      return "апреля";
     case 5:
-      return "май";
+      return "мая";
     case 6:
-      return "июнь";
+      return "июня";
     case 7:
-      return "июль";
+      return "июля";
     case 8:
-      return "август";
+      return "августа";
     case 9:
-      return "сентябрь";
+      return "сентября";
     case 10:
-      return "октябрь";
+      return "октября";
     case 11:
-      return "ноябрь";
+      return "ноября";
     case 12:
-      return "декабрь";
+      return "декабря";
   }
   return "";
 }

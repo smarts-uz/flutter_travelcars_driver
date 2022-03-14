@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/pin/pin_code_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../utils/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,12 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double h = Utils.height(context);
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: AppTheme.blue,
+        color: AppTheme.white,
         child: Image.asset(
           "assets/images/splash.png",
         ),

@@ -113,7 +113,6 @@ class _MainScreenState extends State<MainScreen>
           Expanded(
             child: PageView(
               controller: _pageController,
-              allowImplicitScrolling: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 HomeScreen(

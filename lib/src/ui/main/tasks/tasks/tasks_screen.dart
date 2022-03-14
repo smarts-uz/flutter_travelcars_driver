@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/history_model.dart';
-import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';

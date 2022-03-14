@@ -40,7 +40,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 16 * w, vertical: 16 * h),
+            margin: EdgeInsets.symmetric(horizontal: 12 * w, vertical: 16 * h),
             decoration: BoxDecoration(
               color: AppTheme.white,
               borderRadius: BorderRadius.circular(21 * h),
@@ -83,18 +83,18 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(21 * h),
                   color: AppTheme.blue,
                 ),
-                padding: EdgeInsets.all(2 * h),
+                padding: const EdgeInsets.all(1),
                 labelStyle: TextStyle(
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.bold,
-                  fontSize: 14 * h,
+                  fontSize: 11 * h,
                   height: 1.38 * h,
                   color: AppTheme.white,
                 ),
                 unselectedLabelStyle: TextStyle(
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.normal,
-                  fontSize: 14 * h,
+                  fontSize: 11 * h,
                   height: 1.38 * h,
                   color: AppTheme.blue,
                 ),

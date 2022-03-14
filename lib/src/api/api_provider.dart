@@ -64,6 +64,7 @@ class ApiProver {
   static HttpResult _result(http.Response response) {
     // ignore: avoid_print
     print(response.body);
+    print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       return HttpResult(
         statusCode: response.statusCode,
@@ -180,19 +181,18 @@ class ApiProver {
     );
   }
 
-  ///calendar list
+  ///get history list
   Future<HttpResult> getHistory(String type, int page) async {
     String token = "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString("token") ?? "";
     return await _getResponse(
-      baseUrl + "/trips/history?api_token=$token&type=$type&page=$page",
+      baseUrl + "/trips/history?api_token=$token&type=$type",
       true,
     );
   }
 
-
-  ///calendar list
+  ///change status
   Future<HttpResult> changeStatus(int id) async {
     String token = "";
     SharedPreferences prefs = await SharedPreferences.getInstance();

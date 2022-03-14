@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_travelcars_driver/src/model/task_model.dart';
-import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
-import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 List<TaskModel> data = [
   TaskModel(

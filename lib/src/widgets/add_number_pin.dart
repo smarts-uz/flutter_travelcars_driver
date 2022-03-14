@@ -8,10 +8,10 @@ class AddNumber extends StatefulWidget {
   final String number;
   final Function() onTap;
 
-  AddNumber({
+  const AddNumber({Key? key,
     required this.number,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   _AddNumberState createState() => _AddNumberState();

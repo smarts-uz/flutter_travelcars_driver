@@ -13,6 +13,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
 import '../../../model/api_model/http_result.dart';
 import '../../../model/api_model/status_model.dart';
+import '../../../utils/center_dialog/center_dialog.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
 
@@ -54,6 +55,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       body: Stack(
         children: [
           ListView(
+            shrinkWrap: true,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -330,24 +332,35 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                     list.data[i].car &&
                                                 carNumber[index] ==
                                                     list.data[i].carNumber) {
-                                              HttpResult response =
-                                                  await repository.changeStatus(
-                                                      list.data[i].id);
-                                              if (response.isSuccess) {
-                                                StatusModel datam =
-                                                    statusModelFromJson(
-                                                  json.encode(response.result),
-                                                );
-                                                Fluttertoast.showToast(
-                                                  msg: datam.message,
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      AppTheme.blue,
-                                                  textColor: AppTheme.white,
-                                                  fontSize: 16.0,
+                                              try {
+                                                HttpResult response =
+                                                    await repository
+                                                        .changeStatus(
+                                                            list.data[i].id);
+                                                if (response.isSuccess) {
+                                                  StatusModel datam =
+                                                      statusModelFromJson(
+                                                    json.encode(
+                                                        response.result),
+                                                  );
+                                                  Fluttertoast.showToast(
+                                                    msg: datam.message,
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                        ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor:
+                                                        AppTheme.blue,
+                                                    textColor: AppTheme.white,
+                                                    fontSize: 16.0,
+                                                  );
+                                                }
+                                              } catch (e) {
+                                                CenterDialog.simpleCenterDialog(
+                                                  context,
+                                                  "Message",
+                                                  e.toString(),
                                                 );
                                               }
                                             }
@@ -376,14 +389,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                     carNumber[index] ==
                                                         list.data[index1]
                                                             .carNumber) {
-                                                  return taskWidget(
-                                                    list.data[index1],
-                                                    _selectedDay,
-                                                    (onchange) {
+                                                  return TaskWidget(
+                                                    data: list.data[index1],
+                                                    onChange: (onChange) {
                                                       data[index1].check =
-                                                          onchange;
+                                                          onChange;
                                                       setState(() {});
                                                     },
+                                                    date: _selectedDay,
                                                   );
                                                 } else {
                                                   return Container();

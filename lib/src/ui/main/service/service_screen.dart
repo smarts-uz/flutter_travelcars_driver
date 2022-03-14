@@ -39,7 +39,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   List<CourseModel> data = snapshot.data!;
-                  print(data.length);
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.symmetric(
@@ -50,7 +49,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       color: AppTheme.lightGray,
                     ),
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(21),
                         color: AppTheme.white,
@@ -289,7 +288,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                           SizedBox(
                                             height: 6 * h,
                                           ),
-                                          i != 2 ? MySeparator() : Container(),
+                                          i != 2 ? const MySeparator() : Container(),
                                           SizedBox(
                                             height: 6 * h,
                                           ),
@@ -451,7 +450,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             ],
                           ),
                           const Spacer(),
-                          MySeparator(),
+                          const MySeparator(),
                           const Spacer(),
                           Row(
                             children: [
@@ -503,7 +502,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     ),
                   );
                 } else {
-                  return ServiceShimmer();
+                  return const ServiceShimmer();
                 }
               },
             ),

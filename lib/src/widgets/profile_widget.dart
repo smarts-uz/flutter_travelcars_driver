@@ -10,7 +10,6 @@ Widget getTextController(
 ) {
   TextEditingController _controller = TextEditingController(text: text);
   double h = Utils.height(context);
-  double w = Utils.width(context);
   return Column(
     children: [
       TextFormField(
@@ -164,7 +163,6 @@ Widget getTextPin(
 Widget getButtonProfile(
     BuildContext context, String text, Function(int id) onChange) {
   double h = Utils.height(context);
-  double w = Utils.width(context);
   return GestureDetector(
     onTap: (){
       onChange(0);

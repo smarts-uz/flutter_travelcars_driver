@@ -57,23 +57,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 10 * h),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: "",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16 * h,
-                                        height: 1.4 * h,
-                                        letterSpacing: 0.4,
-                                        color: AppTheme.black,
+                                Center(
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 10 * h),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: "",
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontFamily,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 16 * h,
+                                          height: 1.4 * h,
+                                          letterSpacing: 0.4,
+                                          color: AppTheme.black,
+                                        ),
+                                        children: const <TextSpan>[
+                                          TextSpan(text: "Пустой"),
+                                        ],
                                       ),
-                                      children: const <TextSpan>[
-                                        TextSpan(text: "Пустой"),
-                                      ],
                                     ),
                                   ),
                                 ),

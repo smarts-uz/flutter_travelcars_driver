@@ -5,7 +5,11 @@ class MySeparator extends StatelessWidget {
   final double height;
   final Color color;
 
-  MySeparator({this.height = 1, this.color = AppTheme.gray});
+  const MySeparator({
+    Key? key,
+    this.height = 1,
+    this.color = AppTheme.gray,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,5 +35,4 @@ class MySeparator extends StatelessWidget {
       },
     );
   }
-
 }

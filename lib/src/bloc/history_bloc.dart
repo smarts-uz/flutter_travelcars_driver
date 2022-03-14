@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/history_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
+import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HistoryBloc {
@@ -21,7 +22,10 @@ class HistoryBloc {
         );
         _historyFetch.sink.add(data);
       }
-    } catch (_) {}
+      print("Successs");
+    } catch (e) {
+      print(e);
+    }
   }
 }
 
