@@ -81,12 +81,12 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
                   ),
                   getTextController(
                     context,
-                    widget.data.status,
+                    widget.data.paid == "" ? "не оплачено" : widget.data.paid,
                     "Статус оплаты",
                   ),
                   getTextController(
                     context,
-                    "Оценка: ${widget.data.reverse}",
+                    "Оценка: ${widget.data.rating}",
                     "Отзыв",
                   ),
                 ],

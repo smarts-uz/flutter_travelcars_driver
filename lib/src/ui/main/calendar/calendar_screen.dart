@@ -323,7 +323,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         activeColor: AppTheme.green,
                                         trackColor: AppTheme.red,
                                         onChanged: (on) async {
-                                          print(on);
                                           view1 = true;
                                           setState(() {});
                                           for (int i = 0;
@@ -444,9 +443,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    listBloc.getAllList(selectedDay);
     setState(() {
-      _selectedDay = selectedDay;
+      if (DateTime.now().isBefore(selectedDay)) {
+        listBloc.getAllList(selectedDay);
+        _selectedDay = selectedDay;
+      }
     });
   }
 }
