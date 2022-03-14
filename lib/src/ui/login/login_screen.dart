@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Login",
+                    "Логин",
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
@@ -95,12 +95,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   getTextEditController(
                     context,
                     _loginController,
-                    "Login",
+                    "Логин",
                   ),
                   getTextEditController(
                     context,
                     _passwordController,
-                    "Password",
+                    "Пароль",
                   ),
                   SizedBox(
                     height: 22 * h,
@@ -119,13 +119,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (k.statusCode == -1) {
                         CenterDialog.simpleCenterDialog(
                           context,
-                          "Error",
-                          "Internet ulanishini tekshiring!",
+                          "Ошибка",
+                          "Проверьте подключение к Интернету!",
                         );
                       } else if (k.statusCode == 0) {
                         CenterDialog.simpleCenterDialog(
                           context,
-                          "Error",
+                          "Ошибка",
                           "${k.result}",
                         );
                       } else {
@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: !value
                           ? Center(
                               child: Text(
-                                "Log In".toUpperCase(),
+                                "Вход".toUpperCase(),
                                 style: TextStyle(
                                   fontFamily: AppTheme.fontFamily,
                                   fontWeight: FontWeight.normal,

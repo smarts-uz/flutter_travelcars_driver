@@ -27,7 +27,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     _tabController!.index = widget.index;
-    historyBloc.getAllHistory(typeData[_tabController!.index], 1);
+    historyBloc.getAllHistory(
+      typeData[_tabController!.index],
+      1,
+    );
     super.initState();
   }
 
@@ -77,6 +80,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                 ],
                 controller: _tabController,
                 onTap: (s) {
+                  print("Taaaaaaab");
                   historyBloc.getAllHistory(typeData[_tabController!.index], 1);
                 },
                 indicator: BoxDecoration(
@@ -118,6 +122,12 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                               child: Text("Пустой"),
                             )
                           : TasksScreen(
+                              onChange: (page) {
+                                print(page);
+                                historyBloc.getAllHistory(
+                                    typeData[_tabController!.index], page);
+                                setState(() {});
+                              },
                               data: data,
                             );
                     } else {
@@ -135,6 +145,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                               child: Text("Пустой"),
                             )
                           : TasksScreen(
+                              onChange: (page) {
+                                historyBloc.getAllHistory(
+                                    typeData[_tabController!.index], page);
+                              },
                               data: data,
                             );
                     } else {
@@ -152,6 +166,10 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                               child: Text("Пустой"),
                             )
                           : TasksScreen(
+                              onChange: (page) {
+                                historyBloc.getAllHistory(
+                                    typeData[_tabController!.index], page);
+                              },
                               data: data,
                             );
                     } else {

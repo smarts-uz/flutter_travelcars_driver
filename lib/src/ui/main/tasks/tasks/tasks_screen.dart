@@ -8,10 +8,12 @@ import '../../../../utils/utils.dart';
 
 class TasksScreen extends StatefulWidget {
   final HistoryModel data;
+  final Function(int page) onChange;
 
   const TasksScreen({
     Key? key,
     required this.data,
+    required this.onChange,
   }) : super(key: key);
 
   @override
@@ -19,6 +21,35 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+  var scrollController = ScrollController();
+  int page = 1;
+
+  @override
+  void initState() {
+    //added the pagination function with listener
+    scrollController.addListener(pagination);
+    super.initState();
+  }
+
+  void pagination() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (widget.data.meta.lastPage >= page + 1) {
+        page += 1;
+        widget.onChange(page);
+        setState(() {});
+      }
+    }
+    if (scrollController.position.pixels ==
+        scrollController.position.minScrollExtent) {
+      if (1 <= page - 1) {
+        page -= 1;
+        widget.onChange(page);
+        setState(() {});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
@@ -27,6 +58,8 @@ class _TasksScreenState extends State<TasksScreen> {
       backgroundColor: AppTheme.bgColor,
       body: ListView.builder(
         itemCount: widget.data.data.length,
+        controller: scrollController,
+        addAutomaticKeepAlives: false,
         itemBuilder: (_, index) {
           return GestureDetector(
             onTap: () {

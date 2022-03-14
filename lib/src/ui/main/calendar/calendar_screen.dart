@@ -323,6 +323,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         activeColor: AppTheme.green,
                                         trackColor: AppTheme.red,
                                         onChanged: (on) async {
+                                          print(on);
                                           view1 = true;
                                           setState(() {});
                                           for (int i = 0;
@@ -331,7 +332,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             if (car[index] ==
                                                     list.data[i].car &&
                                                 carNumber[index] ==
-                                                    list.data[i].carNumber) {
+                                                    list.data[i].carNumber &&
+                                                list.data[i].status ==
+                                                    (on ? 0 : 1)) {
                                               try {
                                                 HttpResult response =
                                                     await repository
@@ -359,8 +362,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               } catch (e) {
                                                 CenterDialog.simpleCenterDialog(
                                                   context,
-                                                  "Message",
-                                                  e.toString(),
+                                                  "Ошибка",
+                                                  "У вас есть активный заказ.",
                                                 );
                                               }
                                             }
