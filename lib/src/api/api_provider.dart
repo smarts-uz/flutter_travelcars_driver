@@ -187,7 +187,7 @@ class ApiProver {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString("token") ?? "";
     return await _getResponse(
-      baseUrl + "/trips/history?api_token=$token&type=$type",
+      baseUrl + "/trips/history?api_token=$token&type=$type&page=$page",
       true,
     );
   }

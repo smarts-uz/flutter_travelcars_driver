@@ -340,30 +340,47 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                         .changeStatus(
                                                             list.data[i].id);
                                                 if (response.isSuccess) {
-                                                  StatusModel datam =
-                                                      statusModelFromJson(
-                                                    json.encode(
-                                                        response.result),
-                                                  );
-                                                  Fluttertoast.showToast(
-                                                    msg: datam.message,
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
-                                                    backgroundColor:
-                                                        AppTheme.blue,
-                                                    textColor: AppTheme.white,
-                                                    fontSize: 16.0,
-                                                  );
+                                                  try {
+                                                    StatusModel datam =
+                                                        statusModelFromJson(
+                                                      json.encode(
+                                                          response.result),
+                                                    );
+                                                    Fluttertoast.showToast(
+                                                      msg: datam.message,
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          AppTheme.blue,
+                                                      textColor: AppTheme.white,
+                                                      fontSize: 16.0,
+                                                    );
+                                                  } catch (e) {
+                                                    Fluttertoast.showToast(
+                                                      msg:
+                                                          "Статус не изменился",
+                                                      toastLength:
+                                                          Toast.LENGTH_SHORT,
+                                                      gravity:
+                                                          ToastGravity.BOTTOM,
+                                                      timeInSecForIosWeb: 1,
+                                                      backgroundColor:
+                                                          AppTheme.blue,
+                                                      textColor: AppTheme.white,
+                                                      fontSize: 16.0,
+                                                    );
+                                                  }
                                                 }
                                               } catch (e) {
                                                 CenterDialog.simpleCenterDialog(
                                                   context,
                                                   "Ошибка",
-                                                  "У вас есть активный заказ.",
+                                                  "У вас есть активный заказ или проверьте подключение к интернету.",
                                                 );
+                                                break;
                                               }
                                             }
                                           }

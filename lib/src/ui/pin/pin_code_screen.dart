@@ -37,10 +37,11 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
     double h = Utils.height(context);
     double w = Utils.width(context);
     return Scaffold(
-      backgroundColor: AppTheme.white,
+      backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
         preferredSize: Size.zero,
         child: AppBar(
+          elevation: 0,
           backgroundColor: AppTheme.blue,
         ),
       ),
@@ -62,10 +63,11 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
               child: Text(
                 "Pin Code",
                 style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 22 * h,
-                    height: 26 / 22 * h,
-                    color: AppTheme.white),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 22 * h,
+                  height: 26 / 22 * h,
+                  color: AppTheme.white,
+                ),
               ),
             ),
           ),
@@ -456,8 +458,8 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
       });
       CenterDialog.simpleCenterDialog(
         context,
-        "",
-        "",
+        "Ошибка",
+        "Пожалуйста, попробуйте еще раз с ошибкой пароля",
       );
     }
   }
