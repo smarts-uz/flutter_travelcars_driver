@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/main.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/list_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/calendar_list_model.dart';
@@ -394,8 +393,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 return TaskWidget(
                                                   data: list.data[index1],
                                                   onChange: (onChange) {
-                                                    data[index1].check =
-                                                        onChange;
                                                     setState(() {});
                                                   },
                                                   date: _selectedDay,

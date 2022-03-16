@@ -1,39 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/src/model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
-
-List<TaskModel> data = [
-  TaskModel(
-    check: false,
-    place1: "Toshkent",
-    place2: "Buxoro",
-    status: "Статус",
-  ),
-  TaskModel(
-    check: false,
-    place1: "Toshkent",
-    place2: "Buxoro",
-    status: "Статус",
-  ),
-  TaskModel(
-    check: false,
-    place1: "Toshkent",
-    place2: "Buxoro",
-    status: "Статус",
-  ),
-  TaskModel(
-    check: false,
-    place1: "Toshkent",
-    place2: "Buxoro",
-    status: "Статус",
-  ),
-  TaskModel(
-    check: false,
-    place1: "Toshkent",
-    place2: "Buxoro",
-    status: "Статус",
-  ),
-];
 
 void main() {
   runApp(const MyApp());
