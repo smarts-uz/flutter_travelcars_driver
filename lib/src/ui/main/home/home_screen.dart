@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
-import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_one.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/data_shimmer.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/home_widget.dart';
@@ -91,11 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return GestureDetector(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TaskViewScreen(
-                                                      data: info.data[index])));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TaskViewScreen(
+                                            data: info.data[index],
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
@@ -156,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 8,
                                                 ),
                                                 Text(
-                                                  "${info.data[index].car} - ${info.data[index].carNumber}",
+                                                  "${info.data[index].car} - ${Utils.getCarNumber(info.data[index].carNumber)}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontFamily:
@@ -224,12 +225,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         return GestureDetector(
                                           onTap: () {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        TaskViewScreen(
-                                                            data: info
-                                                                .data[index])));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TaskViewScreen(
+                                                  data: info.data[index],
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: getHomeTasks(
                                             context,
@@ -287,18 +290,33 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 16 * h,
                       ),
-                      getContainer(context, "Всего заявок обработано: ",
-                          tasks.data.done, AppTheme.blue, (on) {
-                        widget.onChange(0);
-                      }),
-                      getContainer(context, "Активные текущие заявки: ",
-                          tasks.data.active, AppTheme.green, (onChange) {
-                        widget.onChange(1);
-                      }),
-                      getContainer(context, "На рассмотрении: ",
-                          tasks.data.rejected, AppTheme.yellow, (onChange) {
-                        widget.onChange(2);
-                      }),
+                      getContainer(
+                        context,
+                        "Всего заявок обработано: ",
+                        tasks.data.done,
+                        AppTheme.blue,
+                        (on) {
+                          widget.onChange(0);
+                        },
+                      ),
+                      getContainer(
+                        context,
+                        "Активные текущие заявки: ",
+                        tasks.data.active,
+                        AppTheme.green,
+                        (onChange) {
+                          widget.onChange(1);
+                        },
+                      ),
+                      getContainer(
+                        context,
+                        "На рассмотрении: ",
+                        tasks.data.rejected,
+                        AppTheme.yellow,
+                        (onChange) {
+                          widget.onChange(2);
+                        },
+                      ),
                     ],
                   ),
                 );

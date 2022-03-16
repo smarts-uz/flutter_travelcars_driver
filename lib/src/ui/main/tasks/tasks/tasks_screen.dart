@@ -122,22 +122,26 @@ class _TasksScreenState extends State<TasksScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
-                                          data.data[index].car,
-                                          style: TextStyle(
-                                            fontFamily: AppTheme.fontFamily,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 14 * h,
-                                            height: 1.4,
-                                            color: AppTheme.gray,
+                                        Container(
+                                          width: 170,
+                                          child: Text(
+                                            data.data[index].car,
+                                            style: TextStyle(
+                                              fontFamily: AppTheme.fontFamily,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 14 * h,
+                                              height: 1.4,
+                                              color: AppTheme.gray,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 8 * w,
+                                          width: 6 * w,
                                         ),
                                         getCarNumber(
                                           context,
-                                          data.data[index].carNumber,
+                                          Utils.getCarNumber(
+                                              data.data[index].carNumber),
                                         ),
                                       ],
                                     ),

@@ -21,10 +21,8 @@ class HistoryBloc {
         );
         _historyFetch.sink.add(data);
       }
-    } catch (e) {
-      //ignore: avoid_print
-      print(e);
-    }
+    } catch (e) {}
   }
 }
+
 final historyBloc = HistoryBloc();

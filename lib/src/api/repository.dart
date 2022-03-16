@@ -4,6 +4,7 @@ import 'api_provider.dart';
 class Repository {
   final apiProvider = ApiProver();
 
+  ///API
   Future<HttpResult> loginApi(String id, String password) =>
       apiProvider.setLogin(id, password);
 

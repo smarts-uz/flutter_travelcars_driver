@@ -20,7 +20,32 @@ class Utils {
   static String getDate(DateTime date) {
     return "${date.day}.${date.month}.${date.year} ${date.hour}:${date.minute}:${date.second}";
   }
+  static String getCarNumber(String number) {
+    String k = "";
+    k = number[0] + number[1] + " ";
+    try {
+      int j = int.parse(number[2]);
+      k += number[2] +
+          number[3] +
+          number[4] +
+          " " +
+          number[5] +
+          number[6] +
+          number[7];
+    } catch (e) {
+      k += number[2] +
+          " " +
+          number[3] +
+          number[4] +
+          number[5] +
+          " " +
+          number[6] +
+          number[7];
+    }
+    return k;
+  }
 }
+
 
 String getMonth(int n) {
   switch (n) {

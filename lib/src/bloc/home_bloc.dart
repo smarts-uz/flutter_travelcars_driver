@@ -34,7 +34,7 @@ class HomeBloc {
       return HttpResult(
         statusCode: 0,
         isSuccess: false,
-        result: "Login yoki parol xato!",
+        result: "Ошибка логина или пароля!",
       );
     }
   }
