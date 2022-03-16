@@ -81,7 +81,8 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
                   ),
                   getTextController(
                     context,
-                    "Оценка: ${widget.data.rating == "" ? "нет" : widget.data.rating}",
+                    // ignore: unrelated_type_equality_checks
+                    " ${widget.data.rating == "" ? "нет" : widget.data.rating}",
                     "Отзыв",
                   ),
                 ],

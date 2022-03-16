@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/login/login_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
@@ -31,14 +32,12 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         color: AppTheme.white,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Image.asset(
-            "assets/images/splash.png",
-            fit: BoxFit.fill,
-          ),
+        child: SvgPicture.asset(
+          "assets/images/splash.svg",
+          height: 70,
+          width: 200,
         ),
       ),
     );

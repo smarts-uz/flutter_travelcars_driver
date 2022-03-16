@@ -120,16 +120,6 @@ class _TasksScreenState extends State<TasksScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "${data.data[index].cityFrom} - ${data.data[index].cityTo}",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14 * h,
-                                        height: 1.5,
-                                        color: AppTheme.black,
-                                      ),
-                                    ),
                                     Row(
                                       children: [
                                         Text(
@@ -152,6 +142,16 @@ class _TasksScreenState extends State<TasksScreen> {
                                       ],
                                     ),
                                     Text(
+                                      "${data.data[index].cityFrom} - ${data.data[index].cityTo}",
+                                      style: TextStyle(
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 14 * h,
+                                        height: 1.5,
+                                        color: AppTheme.black,
+                                      ),
+                                    ),
+                                    Text(
                                       data.data[index].userName,
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
@@ -162,7 +162,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "Отправление: ${data.data[index].date}",
+                                      "Дата поездки: ${data.data[index].date}",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,

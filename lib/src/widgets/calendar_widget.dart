@@ -67,7 +67,7 @@ class TaskWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              "Status",
+              "Статус",
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontWeight: FontWeight.normal,

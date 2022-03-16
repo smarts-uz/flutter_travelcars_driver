@@ -185,7 +185,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             }
                           }
                           return Container(
-                            height: close[index] ? 422 * h : 160 * h,
+                            height: close[index] ? 500 * h : 160 * h,
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.symmetric(
                                 horizontal: 8 * w, vertical: 16 * h),
@@ -203,37 +203,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Маршруты",
-                                    style: TextStyle(
-                                      fontFamily: AppTheme.fontFamily,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18 * h,
-                                      height: 21 / 18 * h,
-                                      letterSpacing: 0.4,
-                                      color: AppTheme.black,
-                                    ),
-                                  ),
                                   SizedBox(
                                     height: 16 * h,
                                   ),
                                   Row(
                                     children: [
-                                      Text(
-                                        car[index],
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontFamily,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 16 * h,
-                                          height: 18 / 16 * h,
-                                          letterSpacing: 0.2,
-                                          color: AppTheme.gray,
+                                      Expanded(
+                                        child: Text(
+                                          car[index],
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontFamily,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 16 * h,
+                                            height: 18 / 16 * h,
+                                            letterSpacing: 0.4,
+                                            color: AppTheme.black,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 12 * w,
                                       ),
                                       getCarNumber(
                                         context,
@@ -242,7 +230,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 8 * h,
+                                    height: 18 * h,
                                   ),
                                   Row(
                                     children: [
@@ -401,9 +389,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 milliseconds: 270),
                                             curve: Curves.easeInOut,
                                             child: ListView.builder(
+                                              padding: EdgeInsets.zero,
                                               shrinkWrap: true,
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
                                               itemCount: list.data.length,
                                               itemBuilder: (_, index1) {
                                                 if (car[index] ==
