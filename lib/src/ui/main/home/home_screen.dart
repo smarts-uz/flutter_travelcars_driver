@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
+import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_one.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/data_shimmer.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/home_widget.dart';
 import '../../../bloc/data_bloc.dart';
 import '../../../bloc/task_bloc.dart';
+import '../tasks/tasks/task_view_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(int id) onChange;
@@ -47,8 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
                           left: 20 * w, right: 20 * w, top: 20 * w),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10 * w, vertical: 10 * h),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(21 * h),
                         color: AppTheme.lightGray,
@@ -73,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: AppTheme.black,
                                         ),
                                         children: const <TextSpan>[
-                                          TextSpan(text: "Пустой"),
+                                          TextSpan(
+                                            text: "Пустой",
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -82,77 +84,63 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             )
                           : SizedBox(
-                              height: 230,
+                              height: 220 * h,
                               child: PageView.builder(
                                 itemCount: info.data.length,
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 16 * w),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(left: 10 * h),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "",
-                                              style: TextStyle(
-                                                fontFamily: AppTheme.fontFamily,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 20 * h,
-                                                height: 1.4 * h,
-                                                letterSpacing: 0.4,
-                                                color: AppTheme.black,
-                                              ),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text:
-                                                      "${info.data[index].car} - ${info.data[index].carNumber}",
-                                                ),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TaskViewScreen(
+                                                      data: info.data[index])));
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 16 * w),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            margin:
+                                                EdgeInsets.only(top: 16 * h),
+                                            padding: EdgeInsets.all(12 * h),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(21),
+                                              color: AppTheme.white,
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  offset: Offset(0, 0),
+                                                  blurRadius: 10,
+                                                  color: Color.fromRGBO(
+                                                      0, 0, 0, 0.1),
+                                                )
                                               ],
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 158 * h,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          margin: EdgeInsets.only(top: 16 * h),
-                                          padding: EdgeInsets.all(12 * h),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(21),
-                                            color: AppTheme.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                offset: Offset(0, 0),
-                                                blurRadius: 10,
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.1),
-                                              )
-                                            ],
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                info.data[index].date,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      AppTheme.fontFamily,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 18 * h,
-                                                  color: AppTheme.gray,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  info.data[index].date,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        AppTheme.fontFamily,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 18 * h,
+                                                    color: AppTheme.gray,
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 12 * h,
-                                              ),
-                                              Expanded(
-                                                child: Text(
+                                                SizedBox(
+                                                  height: 12 * h,
+                                                ),
+                                                Text(
                                                   "${info.data[index].cityFrom} - ${info.data[index].cityTo}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -164,11 +152,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     color: AppTheme.black,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Text(
+                                                  "${info.data[index].car} - ${info.data[index].carNumber}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        AppTheme.fontFamily,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 20 * h,
+                                                    height: 1.4 * h,
+                                                    letterSpacing: 0.4,
+                                                    color: AppTheme.black
+                                                        .withOpacity(0.6),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -203,24 +209,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 10 * h,
                           ),
-                          Container(
-                            height: 160,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            child: info.data.isEmpty
-                                ? const Center(
-                                    child: Text("Пустой"),
-                                  )
-                                : ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: info.data.length,
-                                    itemBuilder: (_, index) {
-                                      return getHomeTasks(
-                                        context,
-                                        info.data[index].date,
-                                        "${info.data[index].cityFrom} ${info.data[index].cityTo}",
-                                      );
-                                    },
-                                  ),
+                          GestureDetector(
+                            child: Container(
+                              height: 160,
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: info.data.isEmpty
+                                  ? const Center(
+                                      child: Text("Пустой"),
+                                    )
+                                  : ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: info.data.length,
+                                      itemBuilder: (_, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TaskViewScreen(
+                                                            data: info
+                                                                .data[index])));
+                                          },
+                                          child: getHomeTasks(
+                                            context,
+                                            info.data[index].date,
+                                            "${info.data[index].cityFrom} ${info.data[index].cityTo}",
+                                          ),
+                                        );
+                                      },
+                                    ),
+                            ),
                           ),
                         ],
                       ),

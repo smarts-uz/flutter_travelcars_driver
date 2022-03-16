@@ -25,29 +25,30 @@ class Utils {
 String getMonth(int n) {
   switch (n) {
     case 1:
-      return "января";
+      return "Январь";
     case 2:
-      return "февраля";
+      return "  Февраль";
     case 3:
-      return "мартa";
+      return "Март";
     case 4:
-      return "апреля";
+      return "Апрель";
     case 5:
-      return "мая";
+      return "Май";
     case 6:
-      return "июня";
+      return "Июнь";
     case 7:
-      return "июля";
+      return "Июль";
     case 8:
-      return "августа";
+      return "Август";
     case 9:
-      return "сентября";
+      return "Сентябрь";
     case 10:
-      return "октября";
+      return "Октябрь";
     case 11:
-      return "ноября";
+      return "Ноябрь";
     case 12:
-      return "декабря";
+      return "Декабрь";
   }
+
   return "";
 }

@@ -71,7 +71,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                   ),
                   Tab(
                     child: Text(
-                      'На Pассмотрений',
+                      'На Pассмотрении',
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -109,9 +109,15 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               children: <Widget>[
-                TasksScreen(type: typeData[0],),
-                TasksScreen(type: typeData[1],),
-                TasksScreen(type: typeData[2],),
+                TasksScreen(
+                  type: typeData[0],
+                ),
+                TasksScreen(
+                  type: typeData[1],
+                ),
+                TasksScreen(
+                  type: typeData[2],
+                ),
               ],
               controller: _tabController,
             ),

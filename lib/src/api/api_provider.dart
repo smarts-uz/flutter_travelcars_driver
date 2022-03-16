@@ -64,7 +64,6 @@ class ApiProver {
   static HttpResult _result(http.Response response) {
     // ignore: avoid_print
     print(response.body);
-    print(response.statusCode);
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       return HttpResult(
         statusCode: response.statusCode,

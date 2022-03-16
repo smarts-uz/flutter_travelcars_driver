@@ -56,7 +56,7 @@ class Datum {
   String car;
   String carNumber;
   String carColor;
-  String rating;
+  int rating;
   String comment;
   String paid;
   String status;
@@ -80,7 +80,7 @@ class Datum {
         car: json["car"] ?? "",
         carNumber: json["car_number"] ?? "",
         carColor: json["car_color"] ?? "",
-        rating: json["rating"] ?? "",
+        rating: json["rating"] ?? 0,
         comment: json["comment"] ?? "",
         paid: json["paid"] ?? "",
         status: json["status"] ?? "",

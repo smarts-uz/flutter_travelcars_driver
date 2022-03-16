@@ -41,20 +41,23 @@ class TaskWidget extends StatelessWidget {
           children: [
             RichText(
               text: TextSpan(
-                  text: "",
-                  style: const TextStyle(
-                    fontFamily: AppTheme.fontFamily,
-                    fontWeight: FontWeight.normal,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    height: 1.38,
-                    color: AppTheme.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(text: data.cityFrom),
-                    const TextSpan(text: " - "),
-                    TextSpan(text: data.cityTo),
-                  ]),
+                text: "",
+                style: const TextStyle(
+                  fontFamily: AppTheme.fontFamily,
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 14,
+                  height: 1.38,
+                  color: AppTheme.black,
+                ),
+                children: <TextSpan>[
+                  TextSpan(text: data.cityFrom),
+                  const TextSpan(text: " - "),
+                  TextSpan(text: data.cityTo),
+                  const TextSpan(text: " - "),
+                  TextSpan(text: data.cityFrom),
+                ],
+              ),
             ),
           ],
         ),

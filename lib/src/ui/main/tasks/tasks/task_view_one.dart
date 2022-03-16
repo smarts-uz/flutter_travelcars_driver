@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
-import '../../../../model/api_model/history_model.dart';
+import '../../../../model/api_model/data_model.dart';
 import '../../../../utils/utils.dart';
 import '../../../../widgets/profile_widget.dart';
 
@@ -17,11 +17,6 @@ class TaskViewOneScreen extends StatefulWidget {
 }
 
 class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
-  // final TextEditingController _nameController = TextEditingController();
-  // final TextEditingController _costController = TextEditingController();
-  // final TextEditingController _statusController = TextEditingController();
-  // final TextEditingController _priceController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -86,7 +81,7 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
                   ),
                   getTextController(
                     context,
-                    "Оценка: ${widget.data.rating}",
+                    "Оценка: ${widget.data.rating == "" ? "нет" : widget.data.rating}",
                     "Отзыв",
                   ),
                 ],
@@ -112,11 +107,6 @@ class TaskViewTwoScreen extends StatefulWidget {
 }
 
 class _TaskViewTwoScreenState extends State<TaskViewTwoScreen> {
-  // final TextEditingController _nameController = TextEditingController();
-  // final TextEditingController _costController = TextEditingController();
-  // final TextEditingController _statusController = TextEditingController();
-  // final TextEditingController _priceController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -189,7 +179,7 @@ class _TaskViewTwoScreenState extends State<TaskViewTwoScreen> {
                     widget.data.comment == ""
                         ? "Нет комментариев"
                         : widget.data.comment,
-                    "Комментарий клиента",
+                    "Комментарий закакзчика",
                   ),
                 ],
               ),

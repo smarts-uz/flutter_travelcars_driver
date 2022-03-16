@@ -24,7 +24,6 @@ class HistoryBloc {
     } catch (e) {
       //ignore: avoid_print
       print(e);
-      print("dfhsjdkbasdhbfhjsdf123456789");
     }
   }
 }

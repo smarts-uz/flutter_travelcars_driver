@@ -28,7 +28,6 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   void initState() {
     historyBloc.getAllHistory(widget.type, page);
-    //added the pagination function with listener
     scrollController.addListener(pagination);
     super.initState();
   }

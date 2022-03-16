@@ -257,15 +257,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           curve: Curves.ease,
                                           padding: const EdgeInsets.all(4),
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              color: close[index]
-                                                  ? AppTheme.white
-                                                  : AppTheme.green,
-                                              border: Border.all(
-                                                width: 1,
-                                                color: AppTheme.green,
-                                              )),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: close[index]
+                                                ? AppTheme.white
+                                                : AppTheme.green,
+                                            border: Border.all(
+                                              width: 1,
+                                              color: AppTheme.green,
+                                            ),
+                                          ),
                                           child: Center(
                                             child: Row(
                                               children: [
@@ -401,6 +402,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             curve: Curves.easeInOut,
                                             child: ListView.builder(
                                               shrinkWrap: true,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
                                               itemCount: list.data.length,
                                               itemBuilder: (_, index1) {
                                                 if (car[index] ==

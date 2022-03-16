@@ -32,8 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: AppTheme.white,
-        child: Image.asset(
-          "assets/images/splash.png",
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Image.asset(
+            "assets/images/splash.png",
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
@@ -46,14 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(milliseconds: 1600),
       () {
-        // Navigator.pushReplacement(
-        //   context,
-        //   CupertinoPageRoute(
-        //     builder: (context) {
-        //       return MainScreen();
-        //     },
-        //   ),
-        // );
         Navigator.pushReplacement(
           context,
           CupertinoPageRoute(
