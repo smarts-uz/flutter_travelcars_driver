@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   get() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String k = prefs.getString("pin") ?? "";
-    one == k.isNotEmpty;
+    one = k.isNotEmpty;
     setState(() {});
   }
 
