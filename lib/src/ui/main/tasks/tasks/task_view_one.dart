@@ -180,7 +180,7 @@ class _TaskViewTwoScreenState extends State<TaskViewTwoScreen> {
                     widget.data.comment == ""
                         ? "Нет комментариев"
                         : widget.data.comment,
-                    "Комментарий закакзчика",
+                    "Комментарий заказчика",
                   ),
                 ],
               ),

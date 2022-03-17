@@ -81,8 +81,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              _selectedDay = DateTime(_selectedDay.year,
-                                  _selectedDay.month - 1, _selectedDay.day);
+                              _selectedDay = DateTime.now().isBefore(DateTime(
+                                      _selectedDay.year,
+                                      _selectedDay.month - 1,
+                                      _selectedDay.day))
+                                  ? DateTime(_selectedDay.year,
+                                      _selectedDay.month - 1, _selectedDay.day)
+                                  : DateTime.now();
                               setState(() {});
                             },
                             child: SizedBox(
@@ -132,7 +137,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         headerVisible: false,
                         rowHeight: 32,
                         onPageChanged: (day) {
-                          _selectedDay = day;
+                          _selectedDay = DateTime.now().isBefore(day)
+                              ? day
+                              : DateTime.now();
                           setState(() {});
                         },
                         selectedDayPredicate: (day) =>
@@ -443,7 +450,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(
       () {
-        if (DateTime.now().isBefore(selectedDay)) {
+        if (DateTime.now().day <= selectedDay.day) {
           listBloc.getAllList(selectedDay);
           _selectedDay = selectedDay;
         }

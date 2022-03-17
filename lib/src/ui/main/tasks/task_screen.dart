@@ -19,11 +19,11 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   TabController? _tabController;
-  List<String> typeData = ["done", "active", "rejected"];
+  List<String> typeData = ["done", "active"];
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController!.index = widget.index;
     historyBloc.getAllHistory(
       typeData[_tabController!.index],
@@ -69,12 +69,6 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Tab(
-                    child: Text(
-                      'На Pассмотрении',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
                 ],
                 controller: _tabController,
                 onTap: (s) {
@@ -88,14 +82,14 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                 labelStyle: TextStyle(
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.bold,
-                  fontSize: 11 * h,
+                  fontSize: 14 * h,
                   height: 1.38 * h,
                   color: AppTheme.white,
                 ),
                 unselectedLabelStyle: TextStyle(
                   fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.normal,
-                  fontSize: 11 * h,
+                  fontSize: 14 * h,
                   height: 1.38 * h,
                   color: AppTheme.blue,
                 ),
@@ -114,9 +108,6 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
                 ),
                 TasksScreen(
                   type: typeData[1],
-                ),
-                TasksScreen(
-                  type: typeData[2],
                 ),
               ],
               controller: _tabController,

@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   children: [
                     Container(
+                      height: 250,
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
                           left: 20 * w, right: 20 * w, top: 20 * w),
@@ -83,7 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             )
                           : SizedBox(
-                              height: 220 * h,
                               child: PageView.builder(
                                 itemCount: info.data.length,
                                 itemBuilder: (context, index) {
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         AppTheme.fontFamily,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle: FontStyle.normal,
-                                                    fontSize: 18 * h,
+                                                    fontSize: 14 * h,
                                                     color: AppTheme.gray,
                                                   ),
                                                 ),
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 12 * h,
                                                 ),
                                                 Text(
-                                                  "${info.data[index].cityFrom} - ${info.data[index].cityTo}",
+                                                  "${info.data[index].cityFrom} \n ${info.data[index].cityTo} ${info.data[index].reverse == 1 ? " \n ${info.data[index].cityFrom}" : "\n"}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontFamily:
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 8,
                                                 ),
                                                 Text(
-                                                  "${info.data[index].car} - ${Utils.getCarNumber(info.data[index].carNumber)}",
+                                                  "${info.data[index].car} \n ${Utils.getCarNumber(info.data[index].carNumber)}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontFamily:
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           GestureDetector(
                             child: Container(
-                              height: 160,
+                              height: 180,
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               child: info.data.isEmpty
                                   ? const Center(
@@ -237,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: getHomeTasks(
                                             context,
                                             info.data[index].date,
-                                            "${info.data[index].cityFrom} ${info.data[index].cityTo}",
+                                            "${info.data[index].cityFrom} ${info.data[index].cityTo} ${info.data[index].reverse == 1 ? " \n ${info.data[index].cityFrom}" : ""}",
                                           ),
                                         );
                                       },
@@ -306,15 +306,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         AppTheme.green,
                         (onChange) {
                           widget.onChange(1);
-                        },
-                      ),
-                      getContainer(
-                        context,
-                        "На рассмотрении: ",
-                        tasks.data.rejected,
-                        AppTheme.yellow,
-                        (onChange) {
-                          widget.onChange(2);
                         },
                       ),
                     ],

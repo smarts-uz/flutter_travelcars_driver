@@ -54,8 +54,9 @@ class TaskWidget extends StatelessWidget {
                   TextSpan(text: data.cityFrom),
                   const TextSpan(text: " - "),
                   TextSpan(text: data.cityTo),
-                  const TextSpan(text: " - "),
-                  TextSpan(text: data.cityFrom),
+                  data.reverse == 1
+                      ? TextSpan(text: " - ${data.cityFrom}")
+                      : const TextSpan(text: ""),
                 ],
               ),
             ),
@@ -116,8 +117,8 @@ class TaskWidget extends StatelessWidget {
                 } catch (e) {
                   CenterDialog.simpleCenterDialog(
                     context,
-                    "Message",
-                    e.toString(),
+                    "Ошибка",
+                    "У вас есть активный заказ или проверьте подключение к интернету.",
                   );
                 }
               },
@@ -153,5 +154,3 @@ Widget getCarNumber(BuildContext context, String number) {
     ),
   );
 }
-
-
