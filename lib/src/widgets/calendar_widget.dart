@@ -17,12 +17,14 @@ class TaskWidget extends StatelessWidget {
   final Datum data;
   final Function(bool check) onChange;
   final DateTime date;
+  final int type;
 
   TaskWidget({
     Key? key,
     required this.data,
     required this.onChange,
     required this.date,
+    required this.type,
   }) : super(key: key);
   Repository repository = Repository();
 
@@ -76,12 +78,14 @@ class TaskWidget extends StatelessWidget {
                 fontSize: 12,
                 height: 14 / 12,
                 letterSpacing: 0.2,
-                color: data.status == 1 ? AppTheme.green : AppTheme.red,
+                color: data.status == 1 && type != 1
+                    ? AppTheme.green
+                    : AppTheme.red,
               ),
             ),
             const Spacer(),
             Text(
-              data.status == 1 ? "Свободен:" : "Занят:",
+              data.status == 1 && type != 1 ? "Свободен:" : "Занят:",
               style: const TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontWeight: FontWeight.normal,
@@ -93,33 +97,36 @@ class TaskWidget extends StatelessWidget {
               ),
             ),
             CupertinoSwitch(
-              value: data.status == 1,
+              value: type == 1 ? false : data.status == 1,
               activeColor: AppTheme.green,
-              trackColor: AppTheme.red,
+              trackColor: type == 1 ? AppTheme.gray : AppTheme.red,
               onChanged: (on) async {
-                try {
-                  HttpResult response = await repository.changeStatus(data.id);
-                  if (response.isSuccess) {
-                    StatusModel datam = statusModelFromJson(
-                      json.encode(response.result),
-                    );
-                    Fluttertoast.showToast(
-                      msg: datam.message,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: AppTheme.blue,
-                      textColor: AppTheme.white,
-                      fontSize: 16.0,
+                if (type != 1) {
+                  try {
+                    HttpResult response =
+                        await repository.changeStatus(data.id);
+                    if (response.isSuccess) {
+                      StatusModel datam = statusModelFromJson(
+                        json.encode(response.result),
+                      );
+                      Fluttertoast.showToast(
+                        msg: datam.message,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: AppTheme.blue,
+                        textColor: AppTheme.white,
+                        fontSize: 16.0,
+                      );
+                    }
+                    listBloc.getAllList(date);
+                  } catch (e) {
+                    CenterDialog.simpleCenterDialog(
+                      context,
+                      "Ошибка",
+                      "У вас есть активный заказ или проверьте подключение к интернету.",
                     );
                   }
-                  listBloc.getAllList(date);
-                } catch (e) {
-                  CenterDialog.simpleCenterDialog(
-                    context,
-                    "Ошибка",
-                    "У вас есть активный заказ или проверьте подключение к интернету.",
-                  );
                 }
               },
             ),

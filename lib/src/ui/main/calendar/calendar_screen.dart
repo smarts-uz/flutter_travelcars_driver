@@ -159,10 +159,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   if (snapshot.hasData) {
                     List<String> car = [];
                     List<String> carNumber = [];
+                    List<int> type = [];
 
                     CalendarListModel list = snapshot.data;
                     for (int i = 0; i < list.data.length; i++) {
                       bool k = false;
+                      bool t = false;
                       for (int j = 0; j < car.length; j++) {
                         if (car[j] == list.data[i].car &&
                             carNumber[j] == list.data[i].carNumber) {
@@ -170,6 +172,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         }
                       }
                       if (!k) {
+                        for (int j = 0; j < list.data.length; j++) {
+                          if (list.data[i].car == list.data[j].car &&
+                              list.data[i].carNumber ==
+                                  list.data[j].carNumber) {
+                            if (list.data[j].bookingId != 0 && !t) {
+                              type.add(1);
+                              t = true;
+                            }
+                          }
+                        }
+                        if (!t) {
+                          type.add(0);
+                        }
                         car.add(list.data[i].car);
                         carNumber.add(list.data[i].carNumber);
                       }
@@ -196,7 +211,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(21 * h),
-                            color: AppTheme.lightGray,
+                            color: type[index] == 1
+                                ? Colors.red
+                                : AppTheme.lightGray,
                           ),
                           child: Container(
                             padding: const EdgeInsets.all(16),
@@ -311,73 +328,83 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       ),
                                     ),
                                     CupertinoSwitch(
-                                      value: change,
-                                      activeColor: AppTheme.green,
-                                      trackColor: AppTheme.red,
-                                      onChanged: (on) async {
-                                        view1 = true;
-                                        setState(() {});
-                                        for (int i = 0;
-                                            i < list.data.length;
-                                            i++) {
-                                          if (car[index] == list.data[i].car &&
-                                              carNumber[index] ==
-                                                  list.data[i].carNumber &&
-                                              list.data[i].status ==
-                                                  (on ? 0 : 1)) {
-                                            try {
-                                              HttpResult response =
-                                                  await repository.changeStatus(
-                                                      list.data[i].id);
-                                              if (response.isSuccess) {
+                                        value:
+                                            type[index] == 1 ? false : change,
+                                        activeColor: AppTheme.green,
+                                        trackColor: type[index] == 1
+                                            ? AppTheme.gray
+                                            : AppTheme.red,
+                                        onChanged: (on) async {
+                                          if (type[index] != 1) {
+                                            view1 = true;
+                                            setState(() {});
+                                            for (int i = 0;
+                                                i < list.data.length;
+                                                i++) {
+                                              if (car[index] ==
+                                                      list.data[i].car &&
+                                                  carNumber[index] ==
+                                                      list.data[i].carNumber &&
+                                                  list.data[i].status ==
+                                                      (on ? 0 : 1)) {
                                                 try {
-                                                  StatusModel datam =
-                                                      statusModelFromJson(
-                                                    json.encode(
-                                                        response.result),
-                                                  );
-                                                  Fluttertoast.showToast(
-                                                    msg: datam.message,
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
-                                                    backgroundColor:
-                                                        AppTheme.blue,
-                                                    textColor: AppTheme.white,
-                                                    fontSize: 16.0,
-                                                  );
+                                                  HttpResult response =
+                                                      await repository
+                                                          .changeStatus(
+                                                              list.data[i].id);
+                                                  if (response.isSuccess) {
+                                                    try {
+                                                      StatusModel datam =
+                                                          statusModelFromJson(
+                                                        json.encode(
+                                                            response.result),
+                                                      );
+                                                      Fluttertoast.showToast(
+                                                        msg: datam.message,
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.BOTTOM,
+                                                        timeInSecForIosWeb: 1,
+                                                        backgroundColor:
+                                                            AppTheme.blue,
+                                                        textColor:
+                                                            AppTheme.white,
+                                                        fontSize: 16.0,
+                                                      );
+                                                    } catch (e) {
+                                                      Fluttertoast.showToast(
+                                                        msg:
+                                                            "Статус не изменился",
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.BOTTOM,
+                                                        timeInSecForIosWeb: 1,
+                                                        backgroundColor:
+                                                            AppTheme.blue,
+                                                        textColor:
+                                                            AppTheme.white,
+                                                        fontSize: 16.0,
+                                                      );
+                                                    }
+                                                  }
                                                 } catch (e) {
-                                                  Fluttertoast.showToast(
-                                                    msg: "Статус не изменился",
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
-                                                    backgroundColor:
-                                                        AppTheme.blue,
-                                                    textColor: AppTheme.white,
-                                                    fontSize: 16.0,
+                                                  CenterDialog
+                                                      .simpleCenterDialog(
+                                                    context,
+                                                    "Ошибка",
+                                                    "У вас есть активный заказ или проверьте подключение к интернету.",
                                                   );
+                                                  break;
                                                 }
                                               }
-                                            } catch (e) {
-                                              CenterDialog.simpleCenterDialog(
-                                                context,
-                                                "Ошибка",
-                                                "У вас есть активный заказ или проверьте подключение к интернету.",
-                                              );
-                                              break;
                                             }
+                                            listBloc.getAllList(_selectedDay);
+                                            view1 = false;
+                                            setState(() {});
                                           }
-                                        }
-                                        listBloc.getAllList(_selectedDay);
-                                        view1 = false;
-                                        setState(() {});
-                                      },
-                                    ),
+                                        }),
                                   ],
                                 ),
                                 !close[index]
@@ -403,6 +430,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                     setState(() {});
                                                   },
                                                   date: _selectedDay,
+                                                  type: type[index],
                                                 );
                                               } else {
                                                 return Container();
