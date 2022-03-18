@@ -60,3 +60,5 @@ class Datum {
         carNumber: json["car_number"] ?? "",
       );
 }
+
+

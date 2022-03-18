@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/list_model.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/calendar_list_model.dart';
+import 'package:flutter_travelcars_driver/src/model/calendar_view_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -149,15 +149,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         firstDay: DateTime(2021, 12, 12),
                         lastDay: DateTime(2099, 12, 21),
                         calendarStyle: CalendarStyle(
-                          cellMargin: EdgeInsets.all(4),
+                          cellMargin: const EdgeInsets.all(4),
                           todayDecoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            //borderRadius: BorderRadius.circular(4),
                             color: AppTheme.blue.withOpacity(0.4),
                           ),
-                          selectedDecoration: BoxDecoration(
+                          selectedDecoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            //borderRadius: BorderRadius.circular(4),
                             color: AppTheme.blue,
                           ),
                         ),
@@ -166,53 +164,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
               ),
-              StreamBuilder<CalendarListModel>(
+              StreamBuilder<List<CalendarViewModel>>(
                 stream: listBloc.listFeedBack,
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    List<String> car = [];
-                    List<String> carNumber = [];
-                    List<int> type = [];
+                    List<CalendarViewModel> list = snapshot.data;
 
-                    CalendarListModel list = snapshot.data;
-                    for (int i = 0; i < list.data.length; i++) {
-                      bool k = false;
-                      bool t = false;
-                      for (int j = 0; j < car.length; j++) {
-                        if (car[j] == list.data[i].car &&
-                            carNumber[j] == list.data[i].carNumber) {
-                          k = true;
-                        }
-                      }
-                      if (!k) {
-                        for (int j = 0; j < list.data.length; j++) {
-                          if (list.data[i].car == list.data[j].car &&
-                              list.data[i].carNumber ==
-                                  list.data[j].carNumber) {
-                            if (list.data[j].bookingId != 0 && !t) {
-                              type.add(1);
-                              t = true;
-                            }
-                          }
-                        }
-                        if (!t) {
-                          type.add(0);
-                        }
-                        car.add(list.data[i].car);
-                        carNumber.add(list.data[i].carNumber);
-                      }
-                    }
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: car.length,
+                      itemCount: list.length,
                       itemBuilder: (context, index) {
-                        change = true;
-                        for (int i = 0; i < list.data.length; i++) {
-                          if (car[index] == list.data[i].car &&
-                              carNumber[index] == list.data[i].carNumber) {
-                            if (list.data[i].status == 0) {
-                              change = false;
+                        change = false;
+                        for (int i = 0; i < list[index].data.length; i++) {
+                          if (list[index].car == list[index].data[i].car &&
+                              list[index].carNumber ==
+                                  list[index].data[i].carNumber) {
+                            if (list[index].data[i].status == 1) {
+                              change = true;
                             }
                           }
                         }
@@ -224,7 +193,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(21 * h),
-                            color: type[index] == 1
+                            color: list[index].bookingId == 1
                                 ? Colors.red
                                 : AppTheme.lightGray,
                           ),
@@ -244,7 +213,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        car[index],
+                                        list[index].car,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontFamily: AppTheme.fontFamily,
@@ -259,7 +228,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     ),
                                     getCarNumber(
                                       context,
-                                      Utils.getCarNumber(carNumber[index]),
+                                      Utils.getCarNumber(list[index].carNumber),
                                     ),
                                   ],
                                 ),
@@ -341,30 +310,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       ),
                                     ),
                                     CupertinoSwitch(
-                                        value:
-                                            type[index] == 1 ? false : change,
+                                        value: list[index].bookingId == 1
+                                            ? false
+                                            : change,
                                         activeColor: AppTheme.green,
-                                        trackColor: type[index] == 1
+                                        trackColor: list[index].bookingId == 1
                                             ? AppTheme.gray
                                             : AppTheme.red,
                                         onChanged: (on) async {
-                                          if (type[index] != 1) {
+                                          if (list[index].bookingId != 1) {
                                             view1 = true;
                                             setState(() {});
                                             for (int i = 0;
-                                                i < list.data.length;
+                                                i < list[index].data.length;
                                                 i++) {
-                                              if (car[index] ==
-                                                      list.data[i].car &&
-                                                  carNumber[index] ==
-                                                      list.data[i].carNumber &&
-                                                  list.data[i].status ==
-                                                      (on ? 0 : 1)) {
+                                              if (list[index].data[i].status ==
+                                                  (on ? 0 : 1)) {
                                                 try {
                                                   HttpResult response =
                                                       await repository
                                                           .changeStatus(
-                                                              list.data[i].id);
+                                                              list[index]
+                                                                  .data[i]
+                                                                  .id);
                                                   if (response.isSuccess) {
                                                     try {
                                                       StatusModel datam =
@@ -430,24 +398,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           child: ListView.builder(
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
-                                            itemCount: list.data.length,
+                                            itemCount: list[index].data.length,
                                             itemBuilder: (_, index1) {
-                                              if (car[index] ==
-                                                      list.data[index1].car &&
-                                                  carNumber[index] ==
-                                                      list.data[index1]
-                                                          .carNumber) {
-                                                return TaskWidget(
-                                                  data: list.data[index1],
-                                                  onChange: (onChange) {
-                                                    setState(() {});
-                                                  },
-                                                  date: _selectedDay,
-                                                  type: type[index],
-                                                );
-                                              } else {
-                                                return Container();
-                                              }
+                                              return TaskWidget(
+                                                data: list[index].data[index1],
+                                                onChange: (onChange) {
+                                                },
+                                                date: _selectedDay,
+                                                type: list[index].bookingId,
+                                              );
                                             },
                                           ),
                                         ),
