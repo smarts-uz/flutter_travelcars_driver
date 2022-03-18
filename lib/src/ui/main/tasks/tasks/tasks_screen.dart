@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/src/api/repository.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/history_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
 
 import '../../../../bloc/history_bloc.dart';
+import '../../../../model/api_model/http_result.dart';
 import '../../../../utils/utils.dart';
 import '../../../../widgets/service_widgets/service_shimmer.dart';
 
@@ -22,31 +27,46 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> {
   var scrollController = ScrollController();
+  Repository repository = Repository();
   int page = 1;
   int last = 1;
+  bool circle = false;
+  List<Datum> data = <Datum>[];
 
   @override
   void initState() {
-    historyBloc.getAllHistory(widget.type, page);
+    get(1);
     scrollController.addListener(pagination);
     super.initState();
   }
 
-  void pagination() {
+  get(int page) async {
+    try {
+      if (page == 1) {
+        circle = true;
+        setState(() {});
+      }
+      HttpResult response = await repository.getHistory(widget.type, page);
+      if (response.isSuccess) {
+        HistoryModel repos = historyModelFromJson(
+          json.encode(response.result),
+        );
+        last = repos.meta.lastPage;
+        for (int i = 0; i < repos.data.length; i++) {
+          data.add(repos.data[i]);
+        }
+        circle = false;
+      }
+    } catch (_) {}
+    setState(() {});
+  }
+
+  Future<void> pagination() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       if (last >= page + 1) {
         page += 1;
-        historyBloc.getAllHistory(widget.type, page);
-        setState(() {});
-      }
-    }
-    if (scrollController.position.pixels ==
-        scrollController.position.minScrollExtent) {
-      if (1 <= page - 1) {
-        page -= 1;
-        historyBloc.getAllHistory(widget.type, page);
-        setState(() {});
+        get(page);
       }
     }
   }
@@ -57,25 +77,24 @@ class _TasksScreenState extends State<TasksScreen> {
     double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
-      body: StreamBuilder(
-        stream: historyBloc.historyFeedback,
-        builder: (context, AsyncSnapshot<HistoryModel> snapshot) {
-          if (snapshot.hasData) {
-            HistoryModel data = snapshot.data!;
-            last = data.meta.lastPage;
-            return data.data.isNotEmpty
-                ? ListView.builder(
-                    itemCount: data.data.length,
-                    controller: scrollController,
-                    addAutomaticKeepAlives: false,
-                    itemBuilder: (_, index) {
-                      return GestureDetector(
+      body: circle
+          ? const TaskShimmer()
+          : ListView.builder(
+              itemCount: data.length,
+              controller: scrollController,
+              addAutomaticKeepAlives: false,
+              itemBuilder: (_, index) {
+                return data.isEmpty
+                    ? const Center(
+                        child: Text("Пустой"),
+                      )
+                    : GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => TaskViewScreen(
-                                data: data.data[index],
+                                data: data[index],
                               ),
                             ),
                           );
@@ -100,7 +119,7 @@ class _TasksScreenState extends State<TasksScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  data.data[index].id.toString(),
+                                  data[index].id.toString(),
                                   style: TextStyle(
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.bold,
@@ -122,10 +141,10 @@ class _TasksScreenState extends State<TasksScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: 170,
                                           child: Text(
-                                            data.data[index].car,
+                                            data[index].car,
                                             style: TextStyle(
                                               fontFamily: AppTheme.fontFamily,
                                               fontWeight: FontWeight.normal,
@@ -141,12 +160,12 @@ class _TasksScreenState extends State<TasksScreen> {
                                         getCarNumber(
                                           context,
                                           Utils.getCarNumber(
-                                              data.data[index].carNumber),
+                                              data[index].carNumber),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      "${data.data[index].cityFrom} - ${data.data[index].cityTo}",
+                                      "${data[index].cityFrom} - ${data[index].cityTo}",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
@@ -156,7 +175,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                       ),
                                     ),
                                     Text(
-                                      data.data[index].userName,
+                                      data[index].userName,
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
@@ -166,7 +185,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                       ),
                                     ),
                                     Text(
-                                      "Дата поездки: ${data.data[index].date}",
+                                      "Дата поездки: ${data[index].date}",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
@@ -182,16 +201,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                         ),
                       );
-                    },
-                  )
-                : const Center(
-                    child: Text("Пустой"),
-                  );
-          } else {
-            return const TaskShimmer();
-          }
-        },
-      ),
+              },
+            ),
     );
   }
 }
