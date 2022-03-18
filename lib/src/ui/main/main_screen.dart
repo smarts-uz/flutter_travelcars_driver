@@ -139,7 +139,7 @@ class _MainScreenState extends State<MainScreen>
           backgroundColor:
               (_bottomNavIndex == 4) ? AppTheme.white : AppTheme.green,
           child: Icon(
-            Icons.add_location_outlined,
+            Icons.location_on,
             color: (_bottomNavIndex == 4) ? AppTheme.blue : AppTheme.white,
           ),
           onPressed: () {
