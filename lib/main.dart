@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
 
+List<String> listMoney = [
+  "Нет",
+  "Наличными",
+  "Онлайн UzCard",
+  "Перечислением",
+  "Онлайн VISA",
+  "Онлайн MCard"
+];
+
 void main() {
   runApp(const MyApp());
 }

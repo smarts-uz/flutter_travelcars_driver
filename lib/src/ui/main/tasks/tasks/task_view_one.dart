@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/main.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import '../../../../model/api_model/data_model.dart';
 import '../../../../utils/utils.dart';
@@ -76,7 +77,17 @@ class _TaskViewOneScreenState extends State<TaskViewOneScreen> {
                   ),
                   getTextController(
                     context,
-                    widget.data.paid == "" ? "не оплачено" : widget.data.paid,
+                    widget.data.paid == ""
+                        ? listMoney[0]
+                        : widget.data.paid == "cash"
+                            ? listMoney[1]
+                            : widget.data.paid == "uzcard"
+                                ? listMoney[2]
+                                : widget.data.paid == "transfer"
+                                    ? listMoney[3]
+                                    : widget.data.paid == "visa"
+                                        ? listMoney[4]
+                                        : listMoney[5],
                     "Статус оплаты",
                   ),
                   getTextController(

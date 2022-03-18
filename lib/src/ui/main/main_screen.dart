@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen>
   ];
   final iconList = <IconData>[
     Icons.home_filled,
-    Icons.home_repair_service,
+    Icons.local_laundry_service_outlined,
     CupertinoIcons.calendar,
     Icons.person,
   ];

@@ -148,6 +148,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         onDaySelected: _onDaySelected,
                         firstDay: DateTime(2021, 12, 12),
                         lastDay: DateTime(2099, 12, 21),
+                        calendarStyle: CalendarStyle(
+                          cellMargin: EdgeInsets.all(4),
+                          todayDecoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            //borderRadius: BorderRadius.circular(4),
+                            color: AppTheme.blue.withOpacity(0.4),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            //borderRadius: BorderRadius.circular(4),
+                            color: AppTheme.blue,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -478,7 +491,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(
       () {
-        if (DateTime.now().day <= selectedDay.day) {
+        if ((DateTime.now().day <= selectedDay.day &&
+                DateTime.now().month == selectedDay.month) ||
+            DateTime.now().month < selectedDay.month) {
           listBloc.getAllList(selectedDay);
           _selectedDay = selectedDay;
         }
