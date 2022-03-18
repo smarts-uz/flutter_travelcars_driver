@@ -402,8 +402,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             itemBuilder: (_, index1) {
                                               return TaskWidget(
                                                 data: list[index].data[index1],
-                                                onChange: (onChange) {
-                                                },
+                                                onChange: (onChange) {},
                                                 date: _selectedDay,
                                                 type: list[index].bookingId,
                                               );
@@ -430,17 +429,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
           if (!view1)
             Container()
           else
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: AppTheme.black.withOpacity(0.3),
+            Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: AppTheme.black.withOpacity(0.5),
                 ),
-                child: const CircularProgressIndicator(
-                  color: AppTheme.green,
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.black.withOpacity(0.3),
+                    ),
+                    child: const CircularProgressIndicator(
+                      color: AppTheme.green,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
         ],
       ),
