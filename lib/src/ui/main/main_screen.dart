@@ -1,9 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_reveal_animation/circular_reveal_animation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/calendar/calendar_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/home/home_screen.dart';
@@ -36,11 +36,11 @@ class _MainScreenState extends State<MainScreen>
     "Профиль водителя",
     "ЗАЯВКИ",
   ];
-  final iconList = <IconData>[
-    Icons.home_filled,
-    Icons.local_laundry_service_outlined,
-    CupertinoIcons.calendar,
-    Icons.person,
+  final iconList = <String>[
+    "assets/icons/home.svg",
+    "assets/icons/info_svg.svg",
+    "assets/icons/calendar.svg",
+    "assets/icons/user.svg",
   ];
 
   @override
@@ -156,10 +156,13 @@ class _MainScreenState extends State<MainScreen>
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                iconList[index],
-                size: 24,
-                color: color,
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: SvgPicture.asset(
+                  iconList[index],
+                  color: color,
+                ),
               ),
             ],
           );

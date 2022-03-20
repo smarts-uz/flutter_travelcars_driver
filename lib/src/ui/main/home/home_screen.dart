@@ -269,8 +269,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
                                     itemCount: info.data.length,
                                     itemBuilder: (_, index) {
                                       return GestureDetector(
@@ -365,6 +363,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const DataShimmer();
               }
             },
+          ),
+          const SizedBox(
+            height: 30,
           ),
         ],
       ),

@@ -60,6 +60,7 @@ class ApiProver {
       );
     }
   }
+
   ///result
   static HttpResult _result(http.Response response) {
     // ignore: avoid_print
@@ -104,12 +105,12 @@ class ApiProver {
 
   ///login api
   Future<HttpResult> setLogin(String id, String password) async {
-    var data = {
-      "username": id,
-      "password": password,
-    };
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String fcmToken = prefs.getString("fcmToken") ?? "";
+    print(fcmToken);
+    var data = {};
     return await _postUrl(
-      baseUrl + "/login",
+      baseUrl + "/login?username=$id&password=$password&fcmToken=$fcmToken",
       data,
       false,
     );

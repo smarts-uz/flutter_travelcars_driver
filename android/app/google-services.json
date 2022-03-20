@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "932907709835",
+    "firebase_url": "https://travelcars-ba2cb.firebaseio.com",
+    "project_id": "travelcars-ba2cb",
+    "storage_bucket": "travelcars-ba2cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932907709835:android:ad43c415dc6869be",
+        "android_client_info": {
+          "package_name": "uz.qwerty.travelcarsdrivers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932907709835-kjl4icp0vlq9dk6p4era1tgjircndv5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.qwerty.travelcarsdrivers",
+            "certificate_hash": "6f5e9ea33131127de56bd28178fc005faabd8b22"
+          }
+        },
+        {
+          "client_id": "932907709835-enkomq6bvcs68fq00d69ff4ifn4p3p8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2xTO2Ktihv-YIfRwju-QqnUut5745quo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932907709835-enkomq6bvcs68fq00d69ff4ifn4p3p8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
