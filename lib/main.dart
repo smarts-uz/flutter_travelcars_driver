@@ -15,18 +15,13 @@ List<String> listMoney = [
 ];
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title/ description
-    importance: Importance.high,
-    playSound: true);
+    'Travel', 'uz.qwerty.travelcarsdrivers.util.service',
+    importance: Importance.high, playSound: true);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print(message.senderId);
-  print("=======================================");
-  print('A bg message just showed up :  ${message.messageId} +++++++++');
   await Firebase.initializeApp();
 }
 
