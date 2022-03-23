@@ -5,14 +5,19 @@ DataModel dataModelFromJson(String str) => DataModel.fromJson(json.decode(str));
 class DataModel {
   DataModel({
     required this.data,
+    required this.data1,
   });
 
   List<Datum> data;
+  List<Datum> data1;
 
   factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
         data: json["data"] == null
             ? List<Datum>.from({})
             : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data1: json["data1"] == null
+            ? List<Datum>.from({})
+            : List<Datum>.from(json["data1"].map((x) => Datum.fromJson(x))),
       );
 }
 

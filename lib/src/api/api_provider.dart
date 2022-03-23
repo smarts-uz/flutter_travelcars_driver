@@ -107,7 +107,6 @@ class ApiProver {
   Future<HttpResult> setLogin(String id, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String fcmToken = prefs.getString("fcmToken") ?? "";
-    print(fcmToken);
     var data = {};
     return await _postUrl(
       baseUrl + "/login?username=$id&password=$password&fcmToken=$fcmToken",
@@ -199,6 +198,17 @@ class ApiProver {
     token = prefs.getString("token") ?? "";
     return await _getResponse(
       baseUrl + "/routes/status/$id?api_token=$token",
+      true,
+    );
+  }
+
+  ///show tasks
+  Future<HttpResult> getShow(int id) async {
+    String token = "";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString("token") ?? "";
+    return await _getResponse(
+      baseUrl + "trips/show/467?api_token=$token",
       true,
     );
   }

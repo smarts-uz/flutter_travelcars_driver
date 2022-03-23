@@ -23,6 +23,8 @@ class Repository {
 
   Future<HttpResult> changeStatus(int id) => apiProvider.changeStatus(id);
 
+  Future<HttpResult> getShow(int id) => apiProvider.getShow(id);
+
   Future<HttpResult> setProfileEdit(
           String currentPassword, String newPass, String confirmNewPass) =>
       apiProvider.setEdit(currentPassword, newPass, confirmNewPass);
