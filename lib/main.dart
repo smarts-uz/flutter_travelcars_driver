@@ -70,20 +70,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    var initializationSettingsAndroid =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettingsIos = const IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIos);
-
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelected);
 
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
@@ -114,51 +100,23 @@ class _MyAppState extends State<MyApp> {
       (RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
-        showDialog(
-          context: context,
-          builder: (_) {
-            return AlertDialog(
-              title: Text(notification!.title!),
-              content: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text(message.data.toString())],
-                ),
-              ),
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OnlineTaskViewScreen(
+              id: 0,
+            ),
+          ),
         );
       },
     );
   }
 
   void onSelected(payload) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const OnlineTaskViewScreen(
-          id: 0,
-        ),
-      ),
-    );
+    print(payload);
+
   }
 
-  //
-  // void showNotification() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  //   flutterLocalNotificationsPlugin.show(
-  //       0,
-  //       "Testing $_counter",
-  //       "How you doin ?",
-  //       NotificationDetails(
-  //           android: AndroidNotificationDetails(channel.id, channel.name, channel.description,
-  //               importance: Importance.high,
-  //               color: Colors.blue,
-  //               playSound: true,
-  //               icon: '@mipmap/ic_launcher')));
-  // }
 
   @override
   Widget build(BuildContext context) {
