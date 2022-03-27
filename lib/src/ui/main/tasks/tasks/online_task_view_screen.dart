@@ -25,7 +25,7 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
 
   @override
   void initState() {
-    //onlineTaskBloc.getTask(widget.id);
+    onlineTaskBloc.getTask(widget.id);
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }

@@ -1,15 +1,19 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_reveal_animation/circular_reveal_animation.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_travelcars_driver/main.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/calendar/calendar_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/home/home_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/profile/profile_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/service/service_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/task_screen.dart';
+import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 
 class MainScreen extends StatefulWidget {
@@ -73,8 +77,75 @@ class _MainScreenState extends State<MainScreen>
       const Duration(seconds: 1),
       () => _animationController.forward(),
     );
+    requestIOS();
+    _messaging.getToken().then((value) {
+      String? token = value;
+      put(token ?? "");
+    });
+    var initializeSettingsAndroid =
+    const AndroidInitializationSettings("@mipmap/ic_launcher");
+    const IOSInitializationSettings initializeSettingsIOS =
+    IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+    );
+
+    final InitializationSettings initializationSettings =
+    InitializationSettings(
+        android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelected);
+    FirebaseMessaging.onMessage.listen(
+          (RemoteMessage message) {
+        showNotification(message);
+      },
+    );
+  }
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+
+
+  Future<dynamic> onSelected(payload) async {
+    print(payload);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OnlineTaskViewScreen(
+          id: payload,
+        ),
+      ),
+    );
   }
 
+  requestIOS() async {
+    NotificationSettings notificationSettings =
+    await _messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.authorized) {
+      print("User granted");
+    } else if (notificationSettings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print("User granted provisional");
+    } else {
+      print("User accepted");
+    }
+
+    await _messaging.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);

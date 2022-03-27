@@ -27,8 +27,9 @@ class HistoryBloc {
               data.data[i].date[9];
           String month = data.data[i].date[3] + data.data[i].date[4];
           String day = data.data[i].date[0] + data.data[i].date[1];
-          if (_now ==
-              DateTime(int.parse(year), int.parse(month), int.parse(day))) {
+          if (_now.year == int.parse(year) &&
+              _now.month == int.parse(month) &&
+              _now.day == int.parse(day)) {
             data.data1.add(data.data[i]);
           }
         }

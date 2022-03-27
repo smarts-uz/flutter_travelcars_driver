@@ -12,7 +12,7 @@ class OnlineTaskViewBloc {
 
   Stream<OnlineTaskModel> get oneTask => _taskFetch.stream;
 
-  getTask(int id) async {
+  getTask(String id) async {
     HttpResult response = await repository.getShow(id);
     if (response.isSuccess) {
       OnlineTaskModel data = onlineTaskModelModelFromJson(

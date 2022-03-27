@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          info.data.isEmpty
+                          info.data1.isEmpty
                               ? Center(
                                   child: Container(
                                     margin: EdgeInsets.only(left: 10 * h),
@@ -125,111 +125,92 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         },
                                         child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 16 * w),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 16 * w),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                margin: EdgeInsets.only(
+                                                    top: 16 * h),
+                                                padding: EdgeInsets.all(12 * h),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(21),
+                                                  color: AppTheme.white,
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      offset: Offset(0, 0),
+                                                      blurRadius: 10,
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 0.1),
+                                                    )
+                                                  ],
+                                                ),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                              .size
-                                                              .width,
-                                                      margin: EdgeInsets.only(
-                                                          top: 16 * h),
-                                                      padding: EdgeInsets.all(
-                                                          12 * h),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(21),
-                                                        color: AppTheme.white,
-                                                        boxShadow: const [
-                                                          BoxShadow(
-                                                            offset:
-                                                                Offset(0, 0),
-                                                            blurRadius: 10,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    0,
-                                                                    0,
-                                                                    0,
-                                                                    0.1),
-                                                          )
-                                                        ],
+                                                    Text(
+                                                      index.date,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            AppTheme.fontFamily,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize: 14 * h,
+                                                        color: AppTheme.gray,
                                                       ),
-                                                      child: Column(
-                                                        children: [
-                                                          Text(
-                                                            index.date,
-                                                            style: TextStyle(
-                                                              fontFamily: AppTheme
-                                                                  .fontFamily,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize: 14 * h,
-                                                              color:
-                                                                  AppTheme.gray,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 12 * h,
-                                                          ),
-                                                          Text(
-                                                            "${index.cityFrom} \n ${index.cityTo} ${index.reverse == 1 ? " \n ${index.cityFrom}" : "\n"}",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              fontFamily: AppTheme
-                                                                  .fontFamily,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize: 22 * h,
-                                                              color: AppTheme
-                                                                  .black,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 8,
-                                                          ),
-                                                          Text(
-                                                            "${index.car} \n ${Utils.getCarNumber(index.carNumber)}",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              fontFamily: AppTheme
-                                                                  .fontFamily,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize: 20 * h,
-                                                              height: 1.4 * h,
-                                                              letterSpacing:
-                                                                  0.4,
-                                                              color: AppTheme
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.6),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 12 * h,
+                                                    ),
+                                                    Text(
+                                                      "${index.cityFrom} \n ${index.cityTo} ${index.reverse == 1 ? " \n ${index.cityFrom}" : "\n"}",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            AppTheme.fontFamily,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize: 22 * h,
+                                                        color: AppTheme.black,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Text(
+                                                      "${index.car} \n ${Utils.getCarNumber(index.carNumber)}",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            AppTheme.fontFamily,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize: 20 * h,
+                                                        height: 1.4 * h,
+                                                        letterSpacing: 0.4,
+                                                        color: AppTheme.black
+                                                            .withOpacity(0.6),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                        ),
                                       );
                                     },
                                   ).toList()),
@@ -304,9 +285,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  OnlineTaskViewScreen(
-                                                id: info.data[index].id
-                                                    .toString(),
+                                                  TaskViewScreen(
+                                                data: info.data[index],
                                               ),
                                             ),
                                           );

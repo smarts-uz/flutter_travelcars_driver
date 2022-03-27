@@ -203,12 +203,12 @@ class ApiProver {
   }
 
   ///show tasks
-  Future<HttpResult> getShow(int id) async {
+  Future<HttpResult> getShow(String id) async {
     String token = "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString("token") ?? "";
     return await _getResponse(
-      baseUrl + "trips/show/467?api_token=$token",
+      baseUrl + "trips/show/$id?api_token=$token",
       true,
     );
   }

@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +26,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  return showNotification(message);
 }
 
 put(String token) async {
@@ -39,22 +39,49 @@ void main() async {
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.instance.getToken().then((value) {
-    String? token = value;
-    put(token ?? "");
-  });
+
+  runApp(const MyApp());
+}
+
+Future showNotification(RemoteMessage message) async {
+  const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'Travel',
+    'uz.qwerty.travelcarsdrivers.util.service',
+    importance: Importance.max,
+    playSound: true,
+  );
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-  runApp(const MyApp());
+  RemoteNotification? data = message.notification;
+
+  AndroidNotification? android = data!.android;
+  Map<String, dynamic> value = message.data;
+  String id = value["id"];
+  if (data != null) {
+    flutterLocalNotificationsPlugin.show(
+      0,
+      data.title,
+      "${message.data}",
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          icon: android!.smallIcon,
+          setAsGroupSummary: true,
+        ),
+        iOS: const IOSNotificationDetails(
+          presentAlert: true,
+          presentSound: true,
+        ),
+      ),
+      payload: id,
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -65,88 +92,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool check = true;
-
-  @override
-  void initState() {
-    super.initState();
-    var initializeSettingsAndroid =
-        const AndroidInitializationSettings("@mipmap/ic_launcher");
-    const IOSInitializationSettings initializeSettingsIOS =
-        IOSInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: true,
-    );
-
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
-
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelected);
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
-        RemoteNotification? notification = message.notification;
-        AndroidNotification? android = message.notification?.android;
-        String k =
-            "MSID:${message.senderId}\nData: ${message.data} \nBody: ${notification!.body}";
-        Map<String, dynamic> data = message.data;
-        String id = data["id"].toString();
-        if (android != null) {
-          flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            k,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ),
-            payload: id,
-          );
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => OnlineTaskViewScreen(
-          //       id: message.data["id"].toString(),
-          //     ),
-          //   ),
-          // );
-        }
-      },
-    );
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (RemoteMessage message) {
-        RemoteNotification? notification = message.notification;
-        AndroidNotification? android = message.notification?.android;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OnlineTaskViewScreen(
-              id: message.data["id"].toString(),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<dynamic> onSelected(payload) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OnlineTaskViewScreen(
-          id: payload,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
