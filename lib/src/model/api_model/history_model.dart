@@ -8,11 +8,13 @@ HistoryModel historyModelFromJson(String str) =>
 class HistoryModel {
   HistoryModel({
     required this.data,
+    required this.data1,
     required this.links,
     required this.meta,
   });
 
   List<Datum> data;
+  List<Datum> data1;
   Links links;
   Meta meta;
 
@@ -20,6 +22,7 @@ class HistoryModel {
         data: json["data"] == null
             ? List<Datum>.from(<Datum>[])
             : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data1: List<Datum>.from(<Datum>[]),
         links: json["links"] == null
             ? Links.fromJson({})
             : Links.fromJson(json["links"]),
@@ -28,7 +31,6 @@ class HistoryModel {
             : Meta.fromJson(json["meta"]),
       );
 }
-
 
 class Links {
   Links({

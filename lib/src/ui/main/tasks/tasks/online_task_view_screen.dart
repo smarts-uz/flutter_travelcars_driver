@@ -8,7 +8,7 @@ import 'package:flutter_travelcars_driver/src/widgets/home_widgets/data_shimmer.
 import '../../../../utils/utils.dart';
 
 class OnlineTaskViewScreen extends StatefulWidget {
-  final int id;
+  final String id;
 
   const OnlineTaskViewScreen({
     Key? key,
@@ -25,7 +25,7 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
 
   @override
   void initState() {
-    onlineTaskBloc.getTask(widget.id);
+    //onlineTaskBloc.getTask(widget.id);
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -112,7 +112,7 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.data.cityFrom,
+                          widget.id,
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.w600,

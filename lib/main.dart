@@ -70,13 +70,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    var initializeSettingsAndroid =
+        const AndroidInitializationSettings("@mipmap/ic_launcher");
+    const IOSInitializationSettings initializeSettingsIOS =
+        IOSInitializationSettings(
+      requestSoundPermission: true,
+      requestBadgePermission: true,
+      requestAlertPermission: true,
+    );
 
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelected);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
         String k =
             "MSID:${message.senderId}\nData: ${message.data} \nBody: ${notification!.body}";
+        Map<String, dynamic> data = message.data;
+        String id = data["id"].toString();
         if (android != null) {
           flutterLocalNotificationsPlugin.show(
             notification.hashCode,
@@ -91,11 +107,19 @@ class _MyAppState extends State<MyApp> {
                 icon: '@mipmap/ic_launcher',
               ),
             ),
+            payload: id,
           );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => OnlineTaskViewScreen(
+          //       id: message.data["id"].toString(),
+          //     ),
+          //   ),
+          // );
         }
       },
     );
-
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) {
         RemoteNotification? notification = message.notification;
@@ -103,8 +127,8 @@ class _MyAppState extends State<MyApp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const OnlineTaskViewScreen(
-              id: 0,
+            builder: (context) => OnlineTaskViewScreen(
+              id: message.data["id"].toString(),
             ),
           ),
         );
@@ -112,11 +136,16 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void onSelected(payload) {
-    print(payload);
-
+  Future<dynamic> onSelected(payload) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OnlineTaskViewScreen(
+          id: payload,
+        ),
+      ),
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
