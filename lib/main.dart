@@ -65,7 +65,7 @@ Future showNotification(RemoteMessage message) async {
     flutterLocalNotificationsPlugin.show(
       0,
       data.title,
-      "${message.data}",
+      data.body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           channel.id,
