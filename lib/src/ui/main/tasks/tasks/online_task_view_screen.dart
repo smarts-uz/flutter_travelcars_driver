@@ -112,7 +112,7 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.id,
+                          data.data.cityFrom,
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontWeight: FontWeight.w600,
