@@ -45,41 +45,6 @@ void main() async {
 
   runApp(const MyApp());
 }
-//
-// Future showNotification(RemoteMessage message) async {
-//   await flutterLocalNotificationsPlugin
-//       .resolvePlatformSpecificImplementation<
-//           AndroidFlutterLocalNotificationsPlugin>()
-//       ?.createNotificationChannel(channel);
-//
-//   RemoteNotification? data = message.notification;
-//
-//   AndroidNotification? android = data!.android;
-//   Map<String, dynamic> value = message.data;
-//   String id = value["id"];
-//   if (data != null) {
-//     flutterLocalNotificationsPlugin.show(
-//       0,
-//       data.title,
-//       data.body,
-//       NotificationDetails(
-//         android: AndroidNotificationDetails(
-//           channel.id,
-//           channel.name,
-//           channelDescription: channel.description,
-//           icon: android!.smallIcon,
-//           setAsGroupSummary: true,
-//         ),
-//         iOS: const IOSNotificationDetails(
-//           presentAlert: true,
-//           presentSound: true,
-//         ),
-//       ),
-//       payload: id,
-//     );
-//   }
-// }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 

@@ -108,8 +108,6 @@ class ApiProver {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String fcmToken = prefs.getString("fcmToken") ?? "";
     var data = {};
-    print(fcmToken);
-    print("qwertyasdfgfdsasdfdsasdsas====================");
     return await _postUrl(
       baseUrl + "/login?username=$id&password=$password&fcmToken=$fcmToken",
       data,

@@ -4,9 +4,7 @@ import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_travelcars_driver/main.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/calendar/calendar_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/home/home_screen.dart';
@@ -77,86 +75,26 @@ class _MainScreenState extends State<MainScreen>
       const Duration(seconds: 1),
       () => _animationController.forward(),
     );
-    // requestIOS();
 
-    // var initializeSettingsAndroid =
-    //     const AndroidInitializationSettings("@mipmap/ic_launcher");
-    // const IOSInitializationSettings initializeSettingsIOS =
-    //     IOSInitializationSettings(
-    //   requestSoundPermission: true,
-    //   requestBadgePermission: true,
-    //   requestAlertPermission: true,
-    // );
-    //
-    // final InitializationSettings initializationSettings =
-    //     InitializationSettings(
-    //         android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
-    //
-    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
-    //     onSelectNotification: onSelected);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
-        //showNotification(message);
       },
     );
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print(message.notification!.body != null);
-      if (message.notification!.body != null) {
-        print("OnClick Notification on 123421234321234321234323e3212321");
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OnlineTaskViewScreen(
-              id: message.data["id"],
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) async {
+        if (message.notification!.body != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OnlineTaskViewScreen(
+                id: message.data["id"],
+              ),
             ),
-          ),
-        );
-      }
-    });
+          );
+        }
+      },
+    );
   }
-
-
-  // Future<dynamic> onSelected(payload) async {
-  //   print(payload);
-  //   print("12321232123212342123212321232123212");
-  //   // Navigator.push(
-  //   //   context,
-  //   //   MaterialPageRoute(
-  //   //     builder: (context) => OnlineTaskViewScreen(
-  //   //       id: payload,
-  //   //     ),
-  //   //   ),
-  //   // );
-  // }
-
-  // requestIOS() async {
-  //   NotificationSettings notificationSettings =
-  //       await _messaging.requestPermission(
-  //     alert: true,
-  //     announcement: false,
-  //     badge: true,
-  //     carPlay: false,
-  //     criticalAlert: false,
-  //     provisional: false,
-  //     sound: true,
-  //   );
-  //
-  //   if (notificationSettings.authorizationStatus ==
-  //       AuthorizationStatus.authorized) {
-  //     print("User granted");
-  //   } else if (notificationSettings.authorizationStatus ==
-  //       AuthorizationStatus.provisional) {
-  //     print("User granted provisional");
-  //   } else {
-  //     print("User accepted");
-  //   }
-  //
-  //   await _messaging.setForegroundNotificationPresentationOptions(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
