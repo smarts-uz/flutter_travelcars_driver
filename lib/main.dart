@@ -26,7 +26,6 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  //return showNotification(message);
 }
 
 put(String token) async {
@@ -37,14 +36,17 @@ put(String token) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.instance.getToken().then((value) {
-    String? token = value;
-    put(token ?? "");
-  });
+  FirebaseMessaging.instance.getToken().then(
+    (value) {
+      String? token = value;
+      put(token ?? "");
+    },
+  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
