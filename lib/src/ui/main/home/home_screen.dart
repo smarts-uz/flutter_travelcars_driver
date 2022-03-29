@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       height: 12 * h,
                                                     ),
                                                     Text(
-                                                      "${index.cityFrom} \n ${index.cityTo} ${index.reverse == 1 ? " \n ${index.cityFrom}" : "\n"}",
+                                                      "${index.cityFrom} \n ${index.cityTo} - ${index.reverse == 1 ? "- \n ${index.cityFrom}" : "\n"}",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: getHomeTasks(
                                           context,
                                           info.data[index].date,
-                                          "${info.data[index].cityFrom} ${info.data[index].cityTo} ${info.data[index].reverse == 1 ? " \n ${info.data[index].cityFrom}" : ""}",
+                                          "${info.data[index].cityFrom}- ${info.data[index].cityTo} ${info.data[index].reverse == 1 ? "- \n ${info.data[index].cityFrom}" : ""}",
                                         ),
                                       );
                                     },

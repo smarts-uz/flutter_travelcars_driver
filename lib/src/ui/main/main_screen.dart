@@ -77,75 +77,87 @@ class _MainScreenState extends State<MainScreen>
       const Duration(seconds: 1),
       () => _animationController.forward(),
     );
-    requestIOS();
-    _messaging.getToken().then((value) {
-      String? token = value;
-      put(token ?? "");
-    });
-    var initializeSettingsAndroid =
-    const AndroidInitializationSettings("@mipmap/ic_launcher");
-    const IOSInitializationSettings initializeSettingsIOS =
-    IOSInitializationSettings(
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestAlertPermission: true,
-    );
+    // requestIOS();
 
-    final InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
-
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelected);
+    // var initializeSettingsAndroid =
+    //     const AndroidInitializationSettings("@mipmap/ic_launcher");
+    // const IOSInitializationSettings initializeSettingsIOS =
+    //     IOSInitializationSettings(
+    //   requestSoundPermission: true,
+    //   requestBadgePermission: true,
+    //   requestAlertPermission: true,
+    // );
+    //
+    // final InitializationSettings initializationSettings =
+    //     InitializationSettings(
+    //         android: initializeSettingsAndroid, iOS: initializeSettingsIOS);
+    //
+    // flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    //     onSelectNotification: onSelected);
     FirebaseMessaging.onMessage.listen(
-          (RemoteMessage message) {
-        showNotification(message);
+      (RemoteMessage message) {
+        //showNotification(message);
       },
     );
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print(message.notification!.body != null);
+      if (message.notification!.body != null) {
+        print("OnClick Notification on 123421234321234321234323e3212321");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OnlineTaskViewScreen(
+              id: message.data["id"],
+            ),
+          ),
+        );
+      }
+    });
   }
-  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
 
-  Future<dynamic> onSelected(payload) async {
-    print(payload);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => OnlineTaskViewScreen(
-          id: payload,
-        ),
-      ),
-    );
-  }
+  // Future<dynamic> onSelected(payload) async {
+  //   print(payload);
+  //   print("12321232123212342123212321232123212");
+  //   // Navigator.push(
+  //   //   context,
+  //   //   MaterialPageRoute(
+  //   //     builder: (context) => OnlineTaskViewScreen(
+  //   //       id: payload,
+  //   //     ),
+  //   //   ),
+  //   // );
+  // }
 
-  requestIOS() async {
-    NotificationSettings notificationSettings =
-    await _messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+  // requestIOS() async {
+  //   NotificationSettings notificationSettings =
+  //       await _messaging.requestPermission(
+  //     alert: true,
+  //     announcement: false,
+  //     badge: true,
+  //     carPlay: false,
+  //     criticalAlert: false,
+  //     provisional: false,
+  //     sound: true,
+  //   );
+  //
+  //   if (notificationSettings.authorizationStatus ==
+  //       AuthorizationStatus.authorized) {
+  //     print("User granted");
+  //   } else if (notificationSettings.authorizationStatus ==
+  //       AuthorizationStatus.provisional) {
+  //     print("User granted provisional");
+  //   } else {
+  //     print("User accepted");
+  //   }
+  //
+  //   await _messaging.setForegroundNotificationPresentationOptions(
+  //     alert: true,
+  //     badge: true,
+  //     sound: true,
+  //   );
+  // }
 
-    if (notificationSettings.authorizationStatus ==
-        AuthorizationStatus.authorized) {
-      print("User granted");
-    } else if (notificationSettings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      print("User granted provisional");
-    } else {
-      print("User accepted");
-    }
-
-    await _messaging.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-  }
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);

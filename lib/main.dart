@@ -26,7 +26,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  return showNotification(message);
+  //return showNotification(message);
 }
 
 put(String token) async {
@@ -37,52 +37,48 @@ put(String token) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  FirebaseMessaging.instance.getToken().then((value) {
+    String? token = value;
+    put(token ?? "");
+  });
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
-
-Future showNotification(RemoteMessage message) async {
-  const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'Travel',
-    'uz.qwerty.travelcarsdrivers.util.service',
-    importance: Importance.max,
-    playSound: true,
-  );
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  RemoteNotification? data = message.notification;
-
-  AndroidNotification? android = data!.android;
-  Map<String, dynamic> value = message.data;
-  String id = value["id"];
-  if (data != null) {
-    flutterLocalNotificationsPlugin.show(
-      0,
-      data.title,
-      data.body,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channelDescription: channel.description,
-          icon: android!.smallIcon,
-          setAsGroupSummary: true,
-        ),
-        iOS: const IOSNotificationDetails(
-          presentAlert: true,
-          presentSound: true,
-        ),
-      ),
-      payload: id,
-    );
-  }
-}
+//
+// Future showNotification(RemoteMessage message) async {
+//   await flutterLocalNotificationsPlugin
+//       .resolvePlatformSpecificImplementation<
+//           AndroidFlutterLocalNotificationsPlugin>()
+//       ?.createNotificationChannel(channel);
+//
+//   RemoteNotification? data = message.notification;
+//
+//   AndroidNotification? android = data!.android;
+//   Map<String, dynamic> value = message.data;
+//   String id = value["id"];
+//   if (data != null) {
+//     flutterLocalNotificationsPlugin.show(
+//       0,
+//       data.title,
+//       data.body,
+//       NotificationDetails(
+//         android: AndroidNotificationDetails(
+//           channel.id,
+//           channel.name,
+//           channelDescription: channel.description,
+//           icon: android!.smallIcon,
+//           setAsGroupSummary: true,
+//         ),
+//         iOS: const IOSNotificationDetails(
+//           presentAlert: true,
+//           presentSound: true,
+//         ),
+//       ),
+//       payload: id,
+//     );
+//   }
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

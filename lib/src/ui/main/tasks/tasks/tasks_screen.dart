@@ -165,7 +165,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                       ],
                                     ),
                                     Text(
-                                      "${data[index].cityFrom} - ${data[index].cityTo}",
+                                      "${data[index].cityFrom} - ${data[index].cityTo} ${data[index].reverse == 1 ? "- \n ${data[index].cityFrom}" : ""}",
                                       style: TextStyle(
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
