@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
@@ -16,36 +15,16 @@ List<String> listMoney = [
   "Онлайн MCard"
 ];
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-// const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//   'Travel',
-//   'uz.qwerty.travelcarsdrivers.util.service',
-//   importance: Importance.high,
-//   playSound: true,
-// );
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'Travel',
+  'uz.qwerty.travelcarsdrivers.util.service',
+  importance: Importance.high,
+  playSound: true,
+);
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-}
 
-AndroidNotificationChannel? channel;
-FlutterLocalNotificationsPlugin? flutterLocalNotifications;
-
-put(String token) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString("fcmToken", token);
-}
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen(
-    (RemoteMessage message) async {
-      if (kDebugMode) {
-        print("onMessage: $message");
-      }
-    },
-  );
   FirebaseMessaging.onMessageOpenedApp.listen(
     (RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
@@ -59,6 +38,34 @@ void main() async {
           ),
         ),
       );
+    },
+  );
+}
+//
+// AndroidNotificationChannel? channel;
+// FlutterLocalNotificationsPlugin? flutterLocalNotifications;
+
+put(String token) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("fcmToken", token);
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // await Firebase.initializeApp();
+  // FirebaseMessaging.instance.requestPermission(
+  //   alert: true,
+  //   sound: true,
+  //   badge: true,
+  // );
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.instance.getToken().then(
+    (value) {
+      String? token = value;
+      put(token ?? "");
+      print(value);
     },
   );
 

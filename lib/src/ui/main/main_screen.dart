@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen>
       () => _animationController.forward(),
     );
 
-    get();
+    //get();
   }
 
   get() async {
@@ -95,23 +95,38 @@ class _MainScreenState extends State<MainScreen>
     //   },
     // );
 
-    // FirebaseMessaging.onMessage.listen(
-    //   (RemoteMessage message) {},
-    // );
-    // FirebaseMessaging.onMessageOpenedApp.listen(
-    //   (RemoteMessage message) async {
-    //     if (message.notification!.body != null) {
-    //       await Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => OnlineTaskViewScreen(
-    //             id: message.data["id"],
-    //           ),
-    //         ),
-    //       );
-    //     }
-    //   },
-    // );
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {},
+    );
+
+    FirebaseMessaging.onBackgroundMessage(
+      (message) async {
+        if (message.notification!.body != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OnlineTaskViewScreen(
+                id: message.data["id"],
+              ),
+            ),
+          );
+        }
+      },
+    );
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (RemoteMessage message) async {
+        if (message.notification!.body != null) {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OnlineTaskViewScreen(
+                id: message.data["id"],
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override

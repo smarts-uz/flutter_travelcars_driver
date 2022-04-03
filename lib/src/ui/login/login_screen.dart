@@ -1,6 +1,4 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/main.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/home_bloc.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
@@ -22,6 +20,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   Repository repository = Repository();
   bool value = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,13 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         value = true;
                       });
-                      FirebaseMessaging.instance.getToken().then(
-                        (value) {
-                          String? token = value;
-                          put(token ?? "");
-                          print(value);
-                        },
-                      );
+
                       HttpResult k = await homeBloc.setLogin(
                         _loginController.text,
                         _passwordController.text,
