@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/ui/splash/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,18 +15,16 @@ List<String> listMoney = [
   "Онлайн MCard"
 ];
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'Travel',
-  'uz.qwerty.travelcarsdrivers.util.service',
-  importance: Importance.high,
-  playSound: true,
-);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+// const AndroidNotificationChannel channel = AndroidNotificationChannel(
+//   'Travel',
+//   'uz.qwerty.travelcarsdrivers.util.service',
+//   importance: Importance.high,
+//   playSound: true,
+// );
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
+  print("Background Messsage qwerewerewew90e90w9e0w9e0w9e0we9w0w0");
 }
 
 put(String token) async {
@@ -36,12 +35,6 @@ put(String token) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.instance.getToken().then(
-    (value) {
-      String? token = value;
-      put(token ?? "");
-    },
-  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
@@ -55,6 +48,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

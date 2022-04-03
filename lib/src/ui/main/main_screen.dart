@@ -76,14 +76,17 @@ class _MainScreenState extends State<MainScreen>
       () => _animationController.forward(),
     );
 
+    get();
+  }
+
+  get() async {
     FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
-      },
+      (RemoteMessage message) {},
     );
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) async {
         if (message.notification!.body != null) {
-          Navigator.push(
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => OnlineTaskViewScreen(
