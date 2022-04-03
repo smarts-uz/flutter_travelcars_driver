@@ -1,6 +1,7 @@
 class HttpResult {
   int statusCode;
   bool isSuccess;
+  // ignore: prefer_typing_uninitialized_variables
   var result;
 
   HttpResult({

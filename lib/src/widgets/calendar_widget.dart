@@ -8,10 +8,9 @@ import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/status_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
+import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/utils_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../utils/utils.dart';
 
 class TaskWidget extends StatelessWidget {
   final Datum data;

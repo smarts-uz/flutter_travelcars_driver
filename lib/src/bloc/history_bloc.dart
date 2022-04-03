@@ -35,7 +35,7 @@ class HistoryBloc {
         }
         _historyFetch.sink.add(data);
       }
-    } catch (e) {}
+    } catch (_) {}
   }
 }
 

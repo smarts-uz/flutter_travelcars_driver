@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travelcars_driver/main.dart';
+import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../theme/app_theme.dart';
 
 class DataShimmer extends StatelessWidget {
   const DataShimmer({Key? key}) : super(key: key);

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/task_view_one.dart';
-import '../../../../utils/utils.dart';
+import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 
 class TaskViewScreen extends StatefulWidget {
-  final  data;
+  final Datum data;
 
   const TaskViewScreen({
     Key? key,

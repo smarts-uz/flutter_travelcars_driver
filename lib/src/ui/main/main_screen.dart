@@ -80,23 +80,38 @@ class _MainScreenState extends State<MainScreen>
   }
 
   get() async {
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {},
-    );
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (RemoteMessage message) async {
-        if (message.notification!.body != null) {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OnlineTaskViewScreen(
-                id: message.data["id"],
-              ),
-            ),
-          );
-        }
-      },
-    );
+    // FirebaseMessaging.instance.getInitialMessage().then(
+    //   (RemoteMessage? message) {
+    //     if (message != null) {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => OnlineTaskViewScreen(
+    //             id: message.data["id"],
+    //           ),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
+
+    // FirebaseMessaging.onMessage.listen(
+    //   (RemoteMessage message) {},
+    // );
+    // FirebaseMessaging.onMessageOpenedApp.listen(
+    //   (RemoteMessage message) async {
+    //     if (message.notification!.body != null) {
+    //       await Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => OnlineTaskViewScreen(
+    //             id: message.data["id"],
+    //           ),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
   }
 
   @override

@@ -25,7 +25,6 @@ class Utils {
     String k = "";
     k = number[0] + number[1] + " ";
     try {
-      int j = int.parse(number[2]);
       k += number[2] +
           number[3] +
           number[4] +

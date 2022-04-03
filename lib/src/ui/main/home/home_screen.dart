@@ -1,15 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/bloc/history_bloc.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/data_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/history_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/task_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
-import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/data_shimmer.dart';
 import 'package:flutter_travelcars_driver/src/widgets/home_widgets/home_widget.dart';
-import '../../../bloc/data_bloc.dart';
 import '../../../bloc/task_bloc.dart';
 import '../tasks/tasks/task_view_screen.dart';
 
@@ -27,7 +24,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int size = 0;
-  final DateTime _now = DateTime.now();
 
   @override
   void initState() {
