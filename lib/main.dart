@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/tasks/tasks/online_task_view_screen.dart';
@@ -52,15 +53,23 @@ put(String token) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // await Firebase.initializeApp();
-  // FirebaseMessaging.instance.requestPermission(
-  //   alert: true,
-  //   sound: true,
-  //   badge: true,
-  // );
+  await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  if (!kIsWeb) {
+    AndroidNotificationChannel channel = const AndroidNotificationChannel(
+      'tutorialspoint_notification', // id
+      'Tutorialspoint Online', // title
+      importance: Importance.high,
+    );
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
   FirebaseMessaging.instance.getToken().then(
     (value) {
       String? token = value;

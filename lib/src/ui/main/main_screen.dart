@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen>
       () => _animationController.forward(),
     );
 
-    //get();
+    get();
   }
 
   get() async {
@@ -101,16 +101,14 @@ class _MainScreenState extends State<MainScreen>
 
     FirebaseMessaging.onBackgroundMessage(
       (message) async {
-        if (message.notification!.body != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OnlineTaskViewScreen(
-                id: message.data["id"],
-              ),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OnlineTaskViewScreen(
+              id: message.data["id"],
             ),
-          );
-        }
+          ),
+        );
       },
     );
     FirebaseMessaging.onMessageOpenedApp.listen(
