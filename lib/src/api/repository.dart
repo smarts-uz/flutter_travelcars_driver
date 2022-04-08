@@ -31,4 +31,6 @@ class Repository {
 
   Future<HttpResult> getCalendarList(DateTime date) =>
       apiProvider.getListCalendar(date);
+
+  Future<HttpResult> logout() => apiProvider.logout();
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/service_widgets/service_shimmer.dart';
@@ -309,15 +311,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: getButtonProfile(
               context,
               "Выйти",
-              (on) async {
-                SharedPreferences pref = await SharedPreferences.getInstance();
-                pref.setString("token", "");
-                pref.setString("pin", "");
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
+              (on) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CupertinoAlertDialog(
+                      title: const Text("Сообщение"),
+                      content: const Text("Нажмите Да, чтобы выйти."),
+                      actions: [
+                        GestureDetector(
+                          onTap: () async {
+                            HttpResult response = await repository.logout();
+                            if (response.isSuccess) {
+                              SharedPreferences pref =
+                                  await SharedPreferences.getInstance();
+                              pref.setString("token", "");
+                              pref.setString("pin", "");
+                              Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            } else {
+                              Fluttertoast.showToast(
+                                msg: response.result.toString(),
+                              );
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Container(
+                            height: 36,
+                            color: Colors.transparent,
+                            child: const Center(
+                              child: Text(
+                                "Да",
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  color: AppTheme.blue,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 36,
+                            color: Colors.transparent,
+                            child: const Center(
+                              child: Text(
+                                "Нет",
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  color: AppTheme.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 );
               },
             ),

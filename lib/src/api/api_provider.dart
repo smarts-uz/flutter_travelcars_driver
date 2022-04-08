@@ -213,4 +213,11 @@ class ApiProver {
       true,
     );
   }
+
+  Future<HttpResult> logout() async {
+    return _getResponse(
+      baseUrl + "/logout",
+      true,
+    );
+  }
 }
