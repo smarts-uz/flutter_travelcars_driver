@@ -335,14 +335,14 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Прогноз погоды",
                             style: TextStyle(
                               fontFamily: AppTheme.fontFamily,
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.normal,
-                              fontSize: 18,
-                              height: 1.38,
+                              fontSize: 18 * h,
+                              height: 1.38 * h,
                               letterSpacing: 0.3,
                               color: AppTheme.black,
                             ),
@@ -426,7 +426,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 14 * h,
+                                    fontSize: 12 * h,
                                     height: 1.5 * h,
                                     letterSpacing: 0.3,
                                     color: AppTheme.black,
@@ -441,7 +441,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 14 * h,
+                                    fontSize: 12 * h,
                                     height: 1.5 * h,
                                     letterSpacing: 0.3,
                                     color: AppTheme.black,
