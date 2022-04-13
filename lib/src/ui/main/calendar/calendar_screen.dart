@@ -169,7 +169,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     List<CalendarViewModel> list = snapshot.data;
-
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -193,9 +192,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(21 * h),
-                            color: list[index].bookingId == 1
-                                ? Colors.red
-                                : AppTheme.lightGray,
+                            color: AppTheme.lightGray,
                           ),
                           child: Container(
                             padding: const EdgeInsets.all(16),
@@ -246,16 +243,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         duration:
                                             const Duration(milliseconds: 500),
                                         curve: Curves.ease,
-                                        padding: const EdgeInsets.all(4),
+                                        padding: const EdgeInsets.all(2),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(4),
-                                          color: close[index]
-                                              ? AppTheme.white
-                                              : AppTheme.green,
+                                          color: list[index].bookingId == 1
+                                              ? Colors.red
+                                              : close[index]
+                                                  ? AppTheme.white
+                                                  : AppTheme.green,
                                           border: Border.all(
                                             width: 1,
-                                            color: AppTheme.green,
+                                            color: list[index].bookingId == 1
+                                                ? Colors.red
+                                                : AppTheme.green,
                                           ),
                                         ),
                                         child: Center(
@@ -268,7 +269,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                       AppTheme.fontFamily,
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.normal,
-                                                  fontSize: 12 * h,
+                                                  fontSize: 10 * h,
                                                   height: 14 / 12 * h,
                                                   letterSpacing: 0.2,
                                                   color: close[index]
@@ -303,19 +304,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         fontFamily: AppTheme.fontFamily,
                                         fontWeight: FontWeight.normal,
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 12 * h,
+                                        fontSize: 11 * h,
                                         height: 14 / 12 * h,
                                         letterSpacing: 0.2,
                                         color: AppTheme.gray,
                                       ),
                                     ),
-                                    CupertinoSwitch(
+                                    Transform.scale(
+                                      scale: 0.7,
+                                      child: CupertinoSwitch(
                                         value: list[index].bookingId == 1
                                             ? false
                                             : change,
                                         activeColor: AppTheme.green,
                                         trackColor: list[index].bookingId == 1
-                                            ? AppTheme.gray
+                                            ? Colors.red
                                             : AppTheme.red,
                                         onChanged: (on) async {
                                           if (list[index].bookingId != 1) {
@@ -385,7 +388,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             view1 = false;
                                             setState(() {});
                                           }
-                                        }),
+                                        },
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 !close[index]
