@@ -131,7 +131,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   height: 83,
                                   width: 1,
                                   margin:
-                                      EdgeInsets.symmetric(horizontal: 16 * w),
+                                      EdgeInsets.symmetric(horizontal: 12 * w),
                                   color:
                                       const Color.fromRGBO(235, 235, 235, 0.42),
                                 ),
@@ -147,14 +147,11 @@ class _TasksScreenState extends State<TasksScreen> {
                                             style: TextStyle(
                                               fontFamily: AppTheme.fontFamily,
                                               fontWeight: FontWeight.normal,
-                                              fontSize: 14 * h,
+                                              fontSize: 12 * h,
                                               height: 1.4,
                                               color: AppTheme.gray,
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 6 * w,
                                         ),
                                         getCarNumber(
                                           context,
@@ -163,24 +160,30 @@ class _TasksScreenState extends State<TasksScreen> {
                                         ),
                                       ],
                                     ),
-                                    Text(
-                                      "${data[index].cityFrom} - ${data[index].cityTo} ${data[index].reverse == 1 ? "- \n ${data[index].cityFrom}" : ""}",
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14 * h,
-                                        height: 1.5,
-                                        color: AppTheme.black,
+                                    Container(
+                                      width: 220 * h,
+                                      child: Text(
+                                        "${data[index].cityFrom} - ${data[index].cityTo} ${data[index].reverse == 1 ? "- \n ${data[index].cityFrom}" : ""}",
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontFamily,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14 * h,
+                                          height: 1.5,
+                                          color: AppTheme.black,
+                                        ),
                                       ),
                                     ),
-                                    Text(
-                                      data[index].userName,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14 * h,
-                                        height: 1.5,
-                                        color: AppTheme.black,
+                                    Container(
+                                      width: 220 * h,
+                                      child: Text(
+                                        data[index].userName,
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontFamily,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14 * h,
+                                          height: 1.5,
+                                          color: AppTheme.black,
+                                        ),
                                       ),
                                     ),
                                     Text(

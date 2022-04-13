@@ -151,7 +151,7 @@ Widget getCarNumber(BuildContext context, String number) {
           fontFamily: AppTheme.fontFamily,
           fontWeight: FontWeight.normal,
           fontStyle: FontStyle.normal,
-          fontSize: 12 * h,
+          fontSize: 10 * h,
           height: 14 / 12 * h,
           letterSpacing: 0.2,
           color: AppTheme.white,
