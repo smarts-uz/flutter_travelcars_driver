@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 
 class Utils {
   static double height(BuildContext context) {
-    return (MediaQuery.of(context).size.height / 926);
+    return (MediaQuery.of(context).size.height / 812);
   }
 
   static double width(BuildContext context) {
-    return (MediaQuery.of(context).size.width / 428);
+    return (MediaQuery.of(context).size.width / 375);
   }
 
   static String getDateHours(DateTime date) {

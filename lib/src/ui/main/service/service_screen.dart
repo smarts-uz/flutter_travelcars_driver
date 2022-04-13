@@ -71,7 +71,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 16 * h,
+                            height: 8 * h,
                           ),
                           for (int i = 0; i < 3; i++)
                             for (int j = 0; j < data.length; j++)
@@ -173,8 +173,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                                 fontStyle:
                                                                     FontStyle
                                                                         .normal,
-                                                                fontSize:
-                                                                    16 * h,
+                                                                fontSize: 14,
                                                                 height: 1.5 * h,
                                                                 letterSpacing:
                                                                     0.3,
@@ -194,7 +193,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                                     FontStyle
                                                                         .normal,
                                                                 fontSize:
-                                                                    16 * h,
+                                                                    14 * h,
                                                                 height: 1.5 * h,
                                                                 letterSpacing:
                                                                     0.3,
@@ -250,7 +249,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 4 * h,
+                                            height: 0 * h,
                                           ),
                                           Row(
                                             children: [
@@ -263,9 +262,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                     fontWeight:
                                                         FontWeight.normal,
                                                     fontStyle: FontStyle.normal,
-                                                    fontSize: 12 * h,
+                                                    fontSize: 10 * h,
                                                     height: 15 / 12 * h,
-                                                    letterSpacing: 0.3,
+                                                    //letterSpacing: 0.3,
                                                     color: AppTheme.black,
                                                   ),
                                                 ),
@@ -277,22 +276,22 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                                       AppTheme.fontFamily,
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.normal,
-                                                  fontSize: 12 * h,
+                                                  fontSize: 10 * h,
                                                   height: 15 / 12 * h,
-                                                  letterSpacing: 0.3,
+                                                  //letterSpacing: 0.3,
                                                   color: AppTheme.black,
                                                 ),
                                               ),
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 6 * h,
+                                            height: 2 * h,
                                           ),
                                           i != 2
                                               ? const MySeparator()
                                               : Container(),
                                           SizedBox(
-                                            height: 6 * h,
+                                            height: 2 * h,
                                           ),
                                         ],
                                       ),
@@ -336,14 +335,14 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Прогноз погоды",
                             style: TextStyle(
                               fontFamily: AppTheme.fontFamily,
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.normal,
-                              fontSize: 18 * h,
-                              height: 1.38 * h,
+                              fontSize: 18,
+                              height: 1.38,
                               letterSpacing: 0.3,
                               color: AppTheme.black,
                             ),

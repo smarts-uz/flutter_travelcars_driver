@@ -101,6 +101,7 @@ Widget getTextEditController(
     ),
   );
 }
+
 Widget getTextPin(
   BuildContext context,
   TextEditingController controller,
@@ -132,7 +133,7 @@ Widget getTextPin(
       child: TextFormField(
         controller: controller,
         inputFormatters: [
-          LengthLimitingTextInputFormatter(4),// for mobile
+          LengthLimitingTextInputFormatter(4), // for mobile
         ],
         keyboardType: TextInputType.number,
         style: TextStyle(
@@ -152,7 +153,7 @@ Widget getTextPin(
             fontStyle: FontStyle.normal,
             fontSize: 16 * h,
             height: 1.4 * h,
-            color: const Color.fromRGBO(54, 69, 90, 0.2),
+            color: AppTheme.hint,
           ),
         ),
       ),
@@ -164,7 +165,7 @@ Widget getButtonProfile(
     BuildContext context, String text, Function(int id) onChange) {
   double h = Utils.height(context);
   return GestureDetector(
-    onTap: (){
+    onTap: () {
       onChange(0);
     },
     child: Container(

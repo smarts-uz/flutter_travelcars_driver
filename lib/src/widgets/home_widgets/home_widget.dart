@@ -29,7 +29,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 18 * h,
+            fontSize: 16 * h,
             height: 1.4 * h,
             letterSpacing: 0.4,
             color: AppTheme.gray,
@@ -37,6 +37,12 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
         ),
         SizedBox(
           height: 4 * h,
+        ),
+        Container(
+          height: 1,
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(horizontal: 15 * w),
+          color: AppTheme.greyE8,
         ),
         Text(
           title,
@@ -49,7 +55,7 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
             fontSize: 18 * h,
             height: 1.38 * h,
             letterSpacing: 0.2,
-            color: AppTheme.lightBlack,
+            color: AppTheme.black36,
           ),
         ),
       ],

@@ -42,9 +42,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     },
   );
 }
-//
-// AndroidNotificationChannel? channel;
-// FlutterLocalNotificationsPlugin? flutterLocalNotifications;
 
 put(String token) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();

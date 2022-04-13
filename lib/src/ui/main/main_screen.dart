@@ -153,12 +153,13 @@ class _MainScreenState extends State<MainScreen>
             ),
             child: Center(
               child: Text(
-                text[_bottomNavIndex],
+                text[_bottomNavIndex].toUpperCase(),
                 style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 22 * h,
-                    height: 26 / 22 * h,
-                    color: AppTheme.white),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 22 * h,
+                  height: 27 / 22 * h,
+                  color: AppTheme.white,
+                ),
               ),
             ),
           ),
