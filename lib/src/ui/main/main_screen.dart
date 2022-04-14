@@ -155,9 +155,10 @@ class _MainScreenState extends State<MainScreen>
               child: Text(
                 text[_bottomNavIndex].toUpperCase(),
                 style: TextStyle(
+                  fontFamily: AppTheme.fontFamily,
                   fontWeight: FontWeight.normal,
-                  fontSize: 22 * h,
-                  height: 27 / 22 * h,
+                  fontSize: 18 * h,
+                  height: 22 / 18 * h,
                   color: AppTheme.white,
                 ),
               ),

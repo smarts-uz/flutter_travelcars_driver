@@ -95,39 +95,42 @@ class TaskWidget extends StatelessWidget {
                 color: AppTheme.gray,
               ),
             ),
-            CupertinoSwitch(
-              value: type == 1 ? false : data.status == 1,
-              activeColor: AppTheme.green,
-              trackColor: type == 1 ? AppTheme.gray : AppTheme.red,
-              onChanged: (on) async {
-                if (type != 1) {
-                  try {
-                    HttpResult response =
-                        await repository.changeStatus(data.id);
-                    if (response.isSuccess) {
-                      StatusModel datam = statusModelFromJson(
-                        json.encode(response.result),
-                      );
-                      Fluttertoast.showToast(
-                        msg: datam.message,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: AppTheme.blue,
-                        textColor: AppTheme.white,
-                        fontSize: 16.0,
+            Transform.scale(
+              scale: 0.7,
+              child: CupertinoSwitch(
+                value: type == 1 ? false : data.status == 1,
+                activeColor: AppTheme.green,
+                trackColor: type == 1 ? AppTheme.gray : AppTheme.red,
+                onChanged: (on) async {
+                  if (type != 1) {
+                    try {
+                      HttpResult response =
+                          await repository.changeStatus(data.id);
+                      if (response.isSuccess) {
+                        StatusModel datam = statusModelFromJson(
+                          json.encode(response.result),
+                        );
+                        Fluttertoast.showToast(
+                          msg: datam.message,
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: AppTheme.blue,
+                          textColor: AppTheme.white,
+                          fontSize: 16.0,
+                        );
+                      }
+                      listBloc.getAllList(date);
+                    } catch (e) {
+                      CenterDialog.simpleCenterDialog(
+                        context,
+                        "Ошибка",
+                        "У вас есть активный заказ или проверьте подключение к интернету.",
                       );
                     }
-                    listBloc.getAllList(date);
-                  } catch (e) {
-                    CenterDialog.simpleCenterDialog(
-                      context,
-                      "Ошибка",
-                      "У вас есть активный заказ или проверьте подключение к интернету.",
-                    );
                   }
-                }
-              },
+                },
+              ),
             ),
           ],
         )
