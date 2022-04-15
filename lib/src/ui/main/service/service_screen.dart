@@ -27,8 +27,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double h = Utils.height(context);
-    double w = Utils.width(context);
+    // double h = Utils.height(context);
+    // double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       body: Column(

@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double h = Utils.height(context);
-    double w = Utils.width(context);
+    // double h = Utils.height(context);
+    // double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       body: ListView(
@@ -49,9 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(
-                          top: 20 * h, left: 10 * w, right: 10 * w),
-                      padding: EdgeInsets.all(12 * h),
+                      margin:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(21),
                         color: AppTheme.white,
@@ -66,20 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: info.data1.isEmpty
                           ? Center(
                               child: Container(
-                                margin: EdgeInsets.only(left: 10 * h),
+                                margin: const EdgeInsets.only(left: 10),
                                 child: RichText(
-                                  text: TextSpan(
+                                  text: const TextSpan(
                                     text: "",
                                     style: TextStyle(
                                       fontFamily: AppTheme.fontFamily,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 16 * h,
-                                      height: 1.4 * h,
+                                      fontSize: 16,
+                                      height: 1.4,
                                       letterSpacing: 0.4,
                                       color: AppTheme.black,
                                     ),
-                                    children: const <TextSpan>[
+                                    children: <TextSpan>[
                                       TextSpan(
                                         text: "Пустой",
                                       ),
@@ -126,42 +126,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                             );
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 10 * w),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 10),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   index.date,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontFamily:
                                                         AppTheme.fontFamily,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle: FontStyle.normal,
-                                                    fontSize: 18 * h,
+                                                    fontSize: 18,
                                                     height: 1.38,
                                                     color: AppTheme.gray,
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  height: 12 * h,
+                                                const SizedBox(
+                                                  height: 12,
                                                 ),
                                                 Text(
                                                   "${index.cityFrom} -\n ${index.cityTo} ${index.reverse == 1 ? "- \n ${index.cityFrom}" : ""}",
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontFamily:
                                                         AppTheme.fontFamily,
                                                     fontWeight: FontWeight.w700,
                                                     fontStyle: FontStyle.normal,
-                                                    fontSize: 20 * h,
+                                                    fontSize: 20,
                                                     height: 1.38,
                                                     color: AppTheme.black36,
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  height: 13 * h,
+                                                const SizedBox(
+                                                  height: 13,
                                                 ),
                                                 Container(
                                                   padding: const EdgeInsets
@@ -179,15 +179,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   child: Text(
                                                     "${index.car}  ${Utils.getCarNumber(index.carNumber)}",
                                                     textAlign: TextAlign.center,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontFamily:
                                                           AppTheme.fontFamily,
                                                       fontWeight:
                                                           FontWeight.w400,
                                                       fontStyle:
                                                           FontStyle.normal,
-                                                      fontSize: 14 * h,
-                                                      height: 1.38 * h,
+                                                      fontSize: 14,
+                                                      height: 1.38,
                                                       letterSpacing: 0.4,
                                                       color: AppTheme.black36,
                                                     ),
@@ -207,8 +207,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         duration:
                                             const Duration(milliseconds: 250),
                                         curve: Curves.bounceInOut,
-                                        height: size == i ? 12 * h : 8 * h,
-                                        width: size == i ? 12 * w : 8 * w,
+                                        height: size == i ? 12 : 8,
+                                        width: size == i ? 12 : 8,
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: 2),
                                         decoration: BoxDecoration(
@@ -222,17 +222,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                     ),
-                    SizedBox(
-                      height: 18 * h,
+                    const SizedBox(
+                      height: 18,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: 20 * w, vertical: 20 * h),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 12 * w, vertical: 10 * h),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(21 * h),
+                        borderRadius: BorderRadius.circular(21),
                         color: AppTheme.lightGray,
                       ),
                       child: info.data.isEmpty
@@ -242,23 +242,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Активные заявки",
                                   style: TextStyle(
                                     fontFamily: AppTheme.fontFamily,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 18 * h,
-                                    height: 1.4 * h,
+                                    fontSize: 18,
+                                    height: 1.4,
                                     letterSpacing: 0.2,
                                     color: AppTheme.black,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10 * h,
+                                const SizedBox(
+                                  height: 10,
                                 ),
                                 Container(
-                                  height: 180 * h,
+                                  height: 180,
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                   child: ListView.builder(
@@ -297,8 +297,8 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-          SizedBox(
-            height: 20 * h,
+          const SizedBox(
+            height: 20,
           ),
           StreamBuilder(
             stream: taskBloc.taskFeedback,
@@ -308,30 +308,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   margin:
-                      EdgeInsets.symmetric(horizontal: 20 * w, vertical: 0 * h),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10 * w, vertical: 6 * h),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21 * h),
+                    borderRadius: BorderRadius.circular(21),
                     color: AppTheme.lightGray,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Основные разделы",
                         style: TextStyle(
                           fontFamily: AppTheme.fontFamily,
                           fontWeight: FontWeight.w600,
                           fontStyle: FontStyle.normal,
-                          fontSize: 20 * h,
-                          height: 1.4 * h,
+                          fontSize: 20,
+                          height: 1.4,
                           letterSpacing: 0.4,
                           color: AppTheme.black,
                         ),
                       ),
-                      SizedBox(
-                        height: 16 * h,
+                      const SizedBox(
+                        height: 16,
                       ),
                       getContainer(
                         context,

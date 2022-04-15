@@ -29,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // double h = Utils.height(context);
-    // double w = Utils.width(context);
+    double h = Utils.height(context);
+    double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
@@ -43,12 +43,12 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         children: [
           Container(
-            height: 60 * h,
+            height: 60,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12 * h),
-                bottomRight: Radius.circular(12 * h),
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
               ),
               color: AppTheme.blue,
             ),
