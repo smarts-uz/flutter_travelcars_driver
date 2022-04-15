@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // double h = Utils.height(context);
+    double h = Utils.height(context);
     // double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
@@ -48,9 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Column(
                   children: [
                     Container(
+                      height: info.data1.isEmpty ? 70 * h : 260,
                       width: MediaQuery.of(context).size.width,
                       margin:
-                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                          const EdgeInsets.only(top: 20, left: 20, right: 20),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(21),
@@ -90,6 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           : Column(
                               children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
                                 CarouselSlider(
                                     options: CarouselOptions(
                                       //height: 265.0 * h,
@@ -227,6 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
+                      height: 300,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       padding: const EdgeInsets.symmetric(
@@ -257,10 +262,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                  height: 180,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
+                                Expanded(
+                                  // height: 180,
+                                  // padding:
+                                  //     const EdgeInsets.symmetric(vertical: 24),
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -281,7 +286,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: getHomeTasks(
                                           context,
                                           info.data[index].date,
-                                          "${info.data[index].cityFrom}- ${info.data[index].cityTo} ${info.data[index].reverse == 1 ? "- \n ${info.data[index].cityFrom}" : ""}",
+                                          "${info.data[index].cityFrom}- \n${info.data[index].cityTo} "
+                                          "${info.data[index].reverse == 1 ? "- \n ${info.data[index].cityFrom}" : "\n ajsdjn"}",
                                         ),
                                       );
                                     },

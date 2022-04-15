@@ -4,12 +4,12 @@ import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import '../../utils/utils.dart';
 
 Widget getHomeTasks(BuildContext context, String date, String title) {
-  double h = Utils.height(context);
-  double w = Utils.width(context);
+  // double h = Utils.height(context);
+  // double w = Utils.width(context);
   return Container(
-    width: 200 * w,
-    padding: EdgeInsets.symmetric(horizontal: 2 * w, vertical: 10 * h),
-    margin: EdgeInsets.symmetric(horizontal: 12 * w),
+    width: 200,
+    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 10),
+    margin: const EdgeInsets.symmetric(horizontal: 12),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(21),
       color: AppTheme.white,
@@ -25,35 +25,35 @@ Widget getHomeTasks(BuildContext context, String date, String title) {
       children: [
         Text(
           date,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 16 * h,
-            height: 1.4 * h,
+            fontSize: 16,
+            height: 1.4,
             letterSpacing: 0.4,
             color: AppTheme.gray,
           ),
         ),
-        SizedBox(
-          height: 4 * h,
+        const SizedBox(
+          height: 4,
         ),
         Container(
           height: 1,
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.symmetric(horizontal: 15 * w),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           color: AppTheme.greyE8,
         ),
         Text(
           title,
           textAlign: TextAlign.center,
           overflow: TextOverflow.clip,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 18 * h,
-            height: 1.38 * h,
+            fontSize: 18,
+            height: 1.38,
             letterSpacing: 0.2,
             color: AppTheme.black36,
           ),

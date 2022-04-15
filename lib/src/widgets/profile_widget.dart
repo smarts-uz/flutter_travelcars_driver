@@ -77,24 +77,24 @@ Widget getTextEditController(
     child: Center(
       child: TextFormField(
         controller: controller,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: AppTheme.fontFamily,
           fontWeight: FontWeight.normal,
           fontStyle: FontStyle.normal,
-          fontSize: 16 * h,
-          height: 1.2 * h,
+          fontSize: 16,
+          height: 1.2,
           color: AppTheme.black,
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hint,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontFamily: AppTheme.fontFamily,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal,
-            fontSize: 16 * h,
-            height: 1.4 * h,
-            color: const Color.fromRGBO(54, 69, 90, 0.2),
+            fontSize: 16,
+            height: 1.4,
+            color: Color.fromRGBO(54, 69, 90, 0.2),
           ),
         ),
       ),

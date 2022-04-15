@@ -185,7 +185,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           }
                         }
                         return Container(
-                          height: close[index] ? 500 * h : 150 * h,
+                          height: close[index] ? 500 * h : 160 * h,
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(
                               horizontal: 8 * w, vertical: 16 * h),

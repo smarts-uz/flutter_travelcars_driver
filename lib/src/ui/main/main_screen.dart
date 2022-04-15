@@ -130,6 +130,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
+    double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
@@ -211,8 +212,8 @@ class _MainScreenState extends State<MainScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 24,
-                width: 24,
+                height: 24 * h,
+                width: 24 * w,
                 child: SvgPicture.asset(
                   iconList[index],
                   color: color,
@@ -223,14 +224,15 @@ class _MainScreenState extends State<MainScreen>
         },
         backgroundColor: AppTheme.white,
         elevation: 10,
+        height: 50 * h,
         activeIndex: _bottomNavIndex,
         splashColor: AppTheme.blue,
         notchAndCornersAnimation: animation,
         splashSpeedInMilliseconds: 300,
         notchSmoothness: NotchSmoothness.defaultEdge,
         gapLocation: GapLocation.center,
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
+        leftCornerRadius: 32 * h,
+        rightCornerRadius: 32 * h,
         onTap: (index) {
           bottomTapped(index);
         },
@@ -244,85 +246,6 @@ class _MainScreenState extends State<MainScreen>
 
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {});
-  }
-}
-
-class NavigationScreen extends StatefulWidget {
-  final IconData iconData;
-
-  const NavigationScreen({
-    Key? key,
-    required this.iconData,
-  }) : super(key: key);
-
-  @override
-  _NavigationScreenState createState() => _NavigationScreenState();
-}
-
-class _NavigationScreenState extends State<NavigationScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> animation;
-
-  @override
-  void didUpdateWidget(NavigationScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.iconData != widget.iconData) {
-      _startAnimation();
-    }
-  }
-
-  @override
-  void initState() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-    animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
-    _controller.forward();
-    super.initState();
-  }
-
-  _startAnimation() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-    animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: Colors.white,
-      child: Center(
-        child: CircularRevealAnimation(
-          animation: animation,
-          centerOffset: const Offset(80, 80),
-          maxRadius: MediaQuery.of(context).size.longestSide * 1.1,
-          child: Icon(
-            widget.iconData,
-            color: Colors.transparent,
-            size: 160,
-          ),
-        ),
-      ),
-    );
   }
 }
 
