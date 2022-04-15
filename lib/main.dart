@@ -29,7 +29,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   FirebaseMessaging.onMessageOpenedApp.listen(
     (RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
-
       int _yourId = int.tryParse(message.data["id"]) ?? 0;
       Navigator.push(
         navigatorKey.currentState!.context,

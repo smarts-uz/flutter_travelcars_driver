@@ -80,21 +80,6 @@ class _MainScreenState extends State<MainScreen>
   }
 
   get() async {
-    // FirebaseMessaging.instance.getInitialMessage().then(
-    //   (RemoteMessage? message) {
-    //     if (message != null) {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => OnlineTaskViewScreen(
-    //             id: message.data["id"],
-    //           ),
-    //         ),
-    //       );
-    //     }
-    //   },
-    // );
-
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {},
     );
