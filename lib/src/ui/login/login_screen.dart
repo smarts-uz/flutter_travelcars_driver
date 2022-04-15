@@ -29,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double h = Utils.height(context);
-    double w = Utils.width(context);
+    // double h = Utils.height(context);
+    // double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Логин",
+                    "Логи",
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
