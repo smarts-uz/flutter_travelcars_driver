@@ -47,8 +47,8 @@ android {
         applicationId "uz.qwerty.travelcarsdrivers"
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 1
+        versionName '1.0.0'
     }
 
     buildTypes {
