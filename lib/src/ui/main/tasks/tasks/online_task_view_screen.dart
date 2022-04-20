@@ -31,6 +31,12 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    onlineTaskBloc.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);
