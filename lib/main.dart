@@ -18,7 +18,7 @@ List<String> listMoney = [
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'Travel',
-  'uz.qwerty.travelcarsdrivers.util.service',
+  'uz.smart.travelcarsdrivers.util.service',
   importance: Importance.high,
   playSound: true,
 );
@@ -28,7 +28,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   FirebaseMessaging.onMessageOpenedApp.listen(
     (RemoteMessage message) async {
-      print("onMessageOpenedApp: $message");
+      if (kDebugMode) {
+        print("onMessageOpenedApp: $message");
+      }
       int _yourId = int.tryParse(message.data["id"]) ?? 0;
       Navigator.push(
         navigatorKey.currentState!.context,
@@ -52,25 +54,13 @@ void main() async {
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  if (!kIsWeb) {
-    AndroidNotificationChannel channel = const AndroidNotificationChannel(
-      'tutorialspoint_notification', // id
-      'Tutorialspoint Online', // title
-      importance: Importance.high,
-    );
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-  }
   FirebaseMessaging.instance.getToken().then(
     (value) {
       String? token = value;
       put(token ?? "");
-      print(value);
+      if (kDebugMode) {
+        print(value);
+      }
     },
   );
 
