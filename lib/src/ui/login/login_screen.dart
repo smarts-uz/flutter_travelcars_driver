@@ -7,7 +7,6 @@ import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
 import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';
 import 'package:flutter_travelcars_driver/src/widgets/profile_widget.dart';
-import '../../utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

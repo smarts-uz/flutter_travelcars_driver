@@ -11,7 +11,7 @@ class ServiceShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);
-    return Container(
+    return SizedBox(
       height: 400,
       child: Shimmer.fromColors(
         baseColor: AppTheme.shimmerBase,

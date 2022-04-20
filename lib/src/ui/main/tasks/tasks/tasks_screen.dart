@@ -160,7 +160,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                         ),
                                       ],
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 220 * h,
                                       child: Text(
                                         "${data[index].cityFrom} - ${data[index].cityTo} ${data[index].reverse == 1 ? "- \n ${data[index].cityFrom}" : ""}",
@@ -173,7 +173,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                         ),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 220 * h,
                                       child: Text(
                                         data[index].userName,

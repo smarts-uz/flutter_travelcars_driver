@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
 import 'package:flutter_travelcars_driver/src/bloc/data_bloc.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
-import 'package:flutter_travelcars_driver/src/model/api_model/profile_edit_model.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/profile_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/center_dialog/center_dialog.dart';

@@ -12,6 +12,7 @@ import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/utils_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+// ignore: must_be_immutable
 class TaskWidget extends StatelessWidget {
   final Datum data;
   final Function(bool check) onChange;

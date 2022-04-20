@@ -33,7 +33,6 @@ class Utils {
           number[6] +
           number[7];
     } catch (e) {
-      print(e);
       k += number[2] +
           " " +
           number[3] +
