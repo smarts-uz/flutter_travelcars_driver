@@ -23,8 +23,10 @@ class TaskBloc {
       }
     } catch (_) {}
   }
+
   dispose() {
     _tasksFetch.close();
   }
 }
+
 final taskBloc = TaskBloc();

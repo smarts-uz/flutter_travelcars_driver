@@ -30,11 +30,6 @@ class _OnlineTaskViewScreenState extends State<OnlineTaskViewScreen>
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    onlineTaskBloc.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

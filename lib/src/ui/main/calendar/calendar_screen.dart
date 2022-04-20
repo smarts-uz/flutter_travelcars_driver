@@ -45,12 +45,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    listBloc.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);

@@ -46,6 +46,7 @@ class _TasksScreenState extends State<TasksScreen> {
         setState(() {});
       }
       HttpResult response = await repository.getHistory(widget.type, page);
+
       if (response.isSuccess) {
         HistoryModel repos = historyModelFromJson(
           json.encode(response.result),
@@ -55,6 +56,7 @@ class _TasksScreenState extends State<TasksScreen> {
           data.add(repos.data[i]);
         }
         circle = false;
+        setState(() {});
       }
     } catch (_) {}
   }

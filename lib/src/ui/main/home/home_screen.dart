@@ -32,13 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    historyBloc.dispose();
-    taskBloc.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);

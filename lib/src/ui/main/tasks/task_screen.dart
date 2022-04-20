@@ -25,17 +25,7 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _tabController!.index = widget.index;
-    historyBloc.getAllHistory(
-      typeData[_tabController!.index],
-      1,
-    );
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    historyBloc.dispose();
   }
 
   @override
