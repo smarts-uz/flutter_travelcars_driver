@@ -33,6 +33,12 @@ class _TaskScreenState extends State<TaskScreen> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    historyBloc.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);

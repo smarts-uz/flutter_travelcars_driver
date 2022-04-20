@@ -17,7 +17,7 @@ class DataBloc {
   Stream<ProfileModel> get profileFeedback => _profileFetch.stream;
 
   getAllData() async {
-    //try {
+    try {
       HttpResult response = await repository.getData();
       DataModel data = dataModelFromJson(
         json.encode(response.result),
@@ -46,9 +46,7 @@ class DataBloc {
         data1: data2,
       );
       _dataFetch.sink.add(data3);
-    // } catch (e) {
-    //   print(e);
-    // }
+    } catch (_) {}
   }
 
   getProfileData() async {
@@ -59,6 +57,11 @@ class DataBloc {
       );
       _profileFetch.sink.add(data);
     } catch (_) {}
+  }
+
+  dispose() {
+    _profileFetch.close();
+    _dataFetch.close();
   }
 }
 

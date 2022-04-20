@@ -57,7 +57,6 @@ class _TasksScreenState extends State<TasksScreen> {
         circle = false;
       }
     } catch (_) {}
-    setState(() {});
   }
 
   Future<void> pagination() async {
@@ -156,7 +155,8 @@ class _TasksScreenState extends State<TasksScreen> {
                                         getCarNumber(
                                           context,
                                           Utils.getCarNumber(
-                                              data[index].carNumber),
+                                            data[index].carNumber,
+                                          ),
                                         ),
                                       ],
                                     ),

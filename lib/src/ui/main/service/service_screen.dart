@@ -25,6 +25,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
   }
 
   @override
+  void dispose() {
+    courseBloc.dispose();
+    weatherBloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);

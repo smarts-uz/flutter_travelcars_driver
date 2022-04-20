@@ -38,6 +38,9 @@ class HomeBloc {
       );
     }
   }
+  dispose(){
+    _homeFetch.close();
+  }
 }
 
 final homeBloc = HomeBloc();

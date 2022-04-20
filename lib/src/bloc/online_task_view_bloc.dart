@@ -23,5 +23,10 @@ class OnlineTaskViewBloc {
       _taskFetch.sink.add(data);
     }
   }
+
+  dispose() {
+    _taskFetch.close();
+  }
 }
+
 final onlineTaskBloc = OnlineTaskViewBloc();

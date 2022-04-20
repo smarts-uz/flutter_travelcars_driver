@@ -37,6 +37,10 @@ class HistoryBloc {
       }
     } catch (_) {}
   }
+
+  dispose() {
+    _historyFetch.close();
+  }
 }
 
 final historyBloc = HistoryBloc();

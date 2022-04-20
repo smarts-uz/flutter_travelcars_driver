@@ -7,6 +7,7 @@ import 'package:flutter_travelcars_driver/src/bloc/list_bloc.dart';
 import 'package:flutter_travelcars_driver/src/model/calendar_view_model.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/widgets/calendar_widget.dart';
+import 'package:flutter_travelcars_driver/src/widgets/item_calendar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
@@ -54,115 +55,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ListView(
             shrinkWrap: true,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    EdgeInsets.symmetric(horizontal: 8 * w, vertical: 16 * h),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8 * w, vertical: 8 * h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21 * h),
-                  color: AppTheme.lightGray,
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16 * w, vertical: 32 * h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21),
-                    color: AppTheme.white,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            width: 12 * h,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              _selectedDay = DateTime.now().isBefore(DateTime(
-                                      _selectedDay.year,
-                                      _selectedDay.month - 1,
-                                      _selectedDay.day))
-                                  ? DateTime(_selectedDay.year,
-                                      _selectedDay.month - 1, _selectedDay.day)
-                                  : DateTime.now();
-                              setState(() {});
-                            },
-                            child: SizedBox(
-                              height: 24 * h,
-                              width: 24 * w,
-                              child: const Icon(
-                                Icons.navigate_before,
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Text(
-                            "${getMonth(_selectedDay.month)} ${_selectedDay.year} г.",
-                            style: TextStyle(
-                              fontFamily: AppTheme.fontFamily,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 18 * h,
-                              height: 21 / 18 * h,
-                              letterSpacing: 0.4,
-                              color: AppTheme.black,
-                            ),
-                          ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              _selectedDay = _selectedDay.add(
-                                const Duration(days: 30),
-                              );
-                              setState(() {});
-                            },
-                            child: SizedBox(
-                              height: 24 * h,
-                              width: 24 * w,
-                              child: const Icon(
-                                Icons.navigate_next,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8 * h,
-                      ),
-                      TableCalendar(
-                        daysOfWeekVisible: false,
-                        headerVisible: false,
-                        rowHeight: 32,
-                        onPageChanged: (day) {
-                          _selectedDay = DateTime.now().isBefore(day)
-                              ? day
-                              : DateTime.now();
-                          setState(() {});
-                        },
-                        selectedDayPredicate: (day) =>
-                            isSameDay(_selectedDay, day),
-                        focusedDay: _selectedDay,
-                        onDaySelected: _onDaySelected,
-                        firstDay: DateTime(2021, 12, 12),
-                        lastDay: DateTime(2099, 12, 21),
-                        calendarStyle: CalendarStyle(
-                          cellMargin: const EdgeInsets.all(4),
-                          todayDecoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppTheme.blue.withOpacity(0.4),
-                          ),
-                          selectedDecoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppTheme.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              ItemCalendar(
+                h: h,
+                w: w,
+                selectedDay: _selectedDay,
+                onSelectedDay: (date1, date2) {
+                  _onDaySelected(date1, date2);
+                },
+                change: (change) {
+                  setState(() {
+                    _selectedDay = change;
+                  });
+                },
               ),
               StreamBuilder<List<CalendarViewModel>>(
                 stream: listBloc.listFeedBack,
@@ -338,23 +242,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                                   .id);
                                                   if (response.isSuccess) {
                                                     try {
+                                                      // ignore: unused_local_variable
                                                       StatusModel datam =
                                                           statusModelFromJson(
                                                         json.encode(
                                                             response.result),
-                                                      );
-                                                      Fluttertoast.showToast(
-                                                        msg: datam.message,
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity:
-                                                            ToastGravity.BOTTOM,
-                                                        timeInSecForIosWeb: 1,
-                                                        backgroundColor:
-                                                            AppTheme.blue,
-                                                        textColor:
-                                                            AppTheme.white,
-                                                        fontSize: 16.0,
                                                       );
                                                     } catch (e) {
                                                       Fluttertoast.showToast(
@@ -384,6 +276,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 }
                                               }
                                             }
+                                            Fluttertoast.showToast(
+                                              msg: "Статус изменился",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: AppTheme.blue,
+                                              textColor: AppTheme.white,
+                                              fontSize: 16.0,
+                                            );
                                             listBloc.getAllList(_selectedDay);
                                             view1 = false;
                                             setState(() {});

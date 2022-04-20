@@ -24,5 +24,10 @@ class WeatherBloc {
       }
     } catch (_) {}
   }
+
+  dispose() {
+    _weatherFetch.close();
+  }
 }
+
 final weatherBloc = WeatherBloc();

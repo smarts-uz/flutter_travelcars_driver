@@ -23,5 +23,10 @@ class CourseBloc {
       }
     } catch (_) {}
   }
+
+  dispose() {
+    _courseFetch.close();
+  }
 }
+
 final courseBloc = CourseBloc();
