@@ -77,7 +77,6 @@ class WeatherWidget extends StatelessWidget {
                 color: AppTheme.blue,
               ),
             ),
-
             SizedBox(
               height: 10 * h,
             ),
@@ -157,7 +156,13 @@ class WeatherWidget extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(
+              height: 6 * h,
+            ),
             const MySeparator(),
+            SizedBox(
+              height: 6 * h,
+            ),
             Row(
               children: [
                 Expanded(

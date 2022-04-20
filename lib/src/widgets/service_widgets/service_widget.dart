@@ -3,8 +3,13 @@ import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 
 import '../../theme/app_theme.dart';
 
-Widget getWeather(BuildContext context, String img, String title, String body,
-    MainAxisAlignment axis) {
+Widget getWeather(
+  BuildContext context,
+  String img,
+  String title,
+  String body,
+  MainAxisAlignment axis,
+) {
   double h = Utils.height(context);
   double w = Utils.width(context);
   return Row(
