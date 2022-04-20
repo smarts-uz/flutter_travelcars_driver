@@ -1,4 +1,4 @@
-package com.smart.flutter_travelcars_driver
+package uz.smart.travelcarsdrivers
 
 import io.flutter.embedding.android.FlutterActivity
 
