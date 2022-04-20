@@ -11,22 +11,25 @@ class ServiceShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = Utils.height(context);
     double w = Utils.width(context);
-    return Shimmer.fromColors(
-      baseColor: AppTheme.shimmerBase,
-      highlightColor: AppTheme.shimmerHighlight,
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              margin:
-                  EdgeInsets.symmetric(horizontal: 16 * w, vertical: 16 * h),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(21 * h),
-                color: AppTheme.white,
+    return Container(
+      height: 400,
+      child: Shimmer.fromColors(
+        baseColor: AppTheme.shimmerBase,
+        highlightColor: AppTheme.shimmerHighlight,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                margin:
+                    EdgeInsets.symmetric(horizontal: 16 * w, vertical: 16 * h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21 * h),
+                  color: AppTheme.white,
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
