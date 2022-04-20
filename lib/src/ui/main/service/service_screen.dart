@@ -6,11 +6,8 @@ import 'package:flutter_travelcars_driver/src/model/api_model/weather_model.dart
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/utils/utils.dart';
 import 'package:flutter_travelcars_driver/src/widgets/course_widget.dart';
-import 'package:flutter_travelcars_driver/src/widgets/service_widgets/service_widget.dart';
+import 'package:flutter_travelcars_driver/src/widgets/service_widgets/service_shimmer.dart';
 import 'package:flutter_travelcars_driver/src/widgets/weather_widget.dart';
-
-import '../../../widgets/service_widgets/service_shimmer.dart';
-import '../../../widgets/utils_widgets.dart';
 
 class ServiceScreen extends StatefulWidget {
   const ServiceScreen({Key? key}) : super(key: key);
@@ -35,40 +32,35 @@ class _ServiceScreenState extends State<ServiceScreen> {
       backgroundColor: AppTheme.bgColor,
       body: ListView(
         children: [
-          Container(
-            color: Colors.transparent,
-            child: StreamBuilder(
-              stream: courseBloc.courseFeedback,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  List<CourseModel> data = snapshot.data!;
-                  return CourseWidget(
-                    h: h,
-                    w: w,
-                    data: data,
-                  );
-                } else {
-                  return const ServiceShimmer();
-                }
-              },
-            ),
+          StreamBuilder(
+            stream: courseBloc.courseFeedback,
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                List<CourseModel> data = snapshot.data!;
+                return CourseWidget(
+                  h: h,
+                  w: w,
+                  data: data,
+                );
+              } else {
+                return const ServiceShimmer();
+              }
+            },
           ),
-          Container(
-            child: StreamBuilder(
-              stream: weatherBloc.weatherFeedBack,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  WeatherModel info = snapshot.data!;
-                  return WeatherWidget(
-                    h: h,
-                    w: w,
-                    info: info,
-                  );
-                } else {
-                  return const ServiceShimmer();
-                }
-              },
-            ),
+          StreamBuilder(
+            stream: weatherBloc.weatherFeedBack,
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                WeatherModel info = snapshot.data!;
+                return WeatherWidget(
+                  h: h,
+                  w: w,
+                  info: info,
+                );
+              } else {
+                return const ServiceShimmer();
+              }
+            },
           ),
         ],
       ),
