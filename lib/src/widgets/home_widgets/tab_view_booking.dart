@@ -190,7 +190,7 @@ class TabViewBooking extends StatelessWidget {
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 300,
+          //height: 300,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
@@ -219,10 +219,8 @@ class TabViewBooking extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Expanded(
-                      // height: 180,
-                      // padding:
-                      //     const EdgeInsets.symmetric(vertical: 24),
+                    Container(
+                      height: 150 * h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -243,7 +241,7 @@ class TabViewBooking extends StatelessWidget {
                               context,
                               info.data[index].date,
                               "${info.data[index].cityFrom}- \n${info.data[index].cityTo} "
-                              "${info.data[index].reverse == 1 ? "- \n ${info.data[index].cityFrom}" : "\n ajsdjn"}",
+                              "${info.data[index].reverse == 1 ? "- \n ${info.data[index].cityFrom}" : ""}",
                             ),
                           );
                         },
