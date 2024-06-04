@@ -14,7 +14,7 @@ List<String> listMoney = [
   "Перечислением",
   "Онлайн VISA",
   "Онлайн MCard"
-]; 
+];
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'Travel',
