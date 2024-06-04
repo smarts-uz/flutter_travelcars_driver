@@ -1,4 +1,4 @@
-class ListModel {
+ class ListModel {
   String car;
   int type;
 
