@@ -36,8 +36,6 @@ dependencies:
   table_calendar: ^3.0.4
   cupertino_icons: ^1.0.2
   rxdart: ^0.27.3
-  http: ^0.13.4
-  shared_preferences: ^2.0.13
   shimmer: ^2.0.0
   flutter_svg: ^0.22.0
   fluttertoast: ^8.0.9
@@ -46,6 +44,10 @@ dependencies:
   firebase_messaging: ^11.2.11
   flutter_local_notifications: ^9.4.0
   json_annotation: ^4.8.1
+  shared_preferences: ^2.2.3
+  http: ^1.2.1
+  flutter_secure_storage: ^8.1.0
+
 
 
 dev_dependencies:

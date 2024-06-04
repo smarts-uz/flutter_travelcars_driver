@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travelcars_driver/src/api/repository.dart';
-import 'package:flutter_travelcars_driver/src/bloc/home_bloc.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/http_result.dart';
 import 'package:flutter_travelcars_driver/src/theme/app_theme.dart';
 import 'package:flutter_travelcars_driver/src/ui/main/main_screen.dart';
@@ -28,8 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //double h = Utils.height(context);
-    // double w = Utils.width(context);
     return Scaffold(
       backgroundColor: AppTheme.bgColor,
       appBar: PreferredSize(
@@ -68,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     top: 50,
                   ),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(21),
                     color: AppTheme.lightGray,
@@ -110,27 +107,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () async {
+                            if (_loginController.text.isEmpty || _passwordController.text.isEmpty) {
+                              CenterDialog.simpleCenterDialog(
+                                context,
+                                "Ошибка",
+                                "Логин и пароль не могут быть пустыми!",
+                              );
+                              return;
+                            }
+
                             setState(() {
                               value = true;
                             });
 
-                            HttpResult k = await homeBloc.setLogin(
+                            HttpResult result = await repository.setLogin(
                               _loginController.text,
                               _passwordController.text,
                             );
-                            value = false;
-                            setState(() {});
-                            if (k.statusCode == -1) {
+
+                            setState(() {
+                              value = false;
+                            });
+
+                            if (result.statusCode == -1) {
                               CenterDialog.simpleCenterDialog(
                                 context,
                                 "Ошибка",
                                 "Проверьте подключение к Интернету!",
                               );
-                            } else if (k.statusCode == 0) {
+                            } else if (!result.isSuccess) {
                               CenterDialog.simpleCenterDialog(
                                 context,
                                 "Ошибка",
-                                "${k.result}",
+                                result.result.toString(),
                               );
                             } else {
                               Navigator.pushReplacement(
@@ -150,21 +159,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: !value
                                 ? Center(
-                                    child: Text(
-                                      "Вход".toUpperCase(),
-                                      style: const TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16,
-                                        height: 24 / 16,
-                                        color: AppTheme.white,
-                                      ),
-                                    ),
-                                  )
+                              child: Text(
+                                "Вход".toUpperCase(),
+                                style: const TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 16,
+                                  height: 24 / 16,
+                                  color: AppTheme.white,
+                                ),
+                              ),
+                            )
                                 : const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
                         ),
                       ],

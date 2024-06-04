@@ -423,7 +423,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   void _addNumber(int a) {
     setState(
-      () {
+          () {
         if (one > 10) {
           one = a;
         } else if (two > 10) {
