@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 class CourseBloc {
   Repository repository = Repository();
 
-  final _courseFetch = PublishSubject<List<CourseModel>>();
+final _courseFetch = BehaviorSubject<List<CourseModel>>();
 
   Stream<List<CourseModel>> get courseFeedback => _courseFetch.stream;
 

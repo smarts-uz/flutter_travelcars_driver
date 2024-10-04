@@ -8,11 +8,11 @@ import 'package:rxdart/rxdart.dart';
 
 class DataBloc {
   Repository repository = Repository();
-  final _dataFetch = PublishSubject<DataModel>();
+  final _dataFetch = BehaviorSubject<DataModel>();
 
   Stream<DataModel> get dataFeedback => _dataFetch.stream;
 
-  final _profileFetch = PublishSubject<ProfileModel>();
+  final _profileFetch = BehaviorSubject<ProfileModel>();
 
   Stream<ProfileModel> get profileFeedback => _profileFetch.stream;
 

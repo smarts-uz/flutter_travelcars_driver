@@ -8,8 +8,8 @@ import '../model/api_model/weather_model.dart';
 
 class WeatherBloc {
   Repository repository = Repository();
-
-  final _weatherFetch = PublishSubject<WeatherModel>();
+  
+  final _weatherFetch = BehaviorSubject<WeatherModel>();
 
   Stream<WeatherModel> get weatherFeedBack => _weatherFetch.stream;
 

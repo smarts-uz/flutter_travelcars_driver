@@ -3,6 +3,7 @@
     package="uz.smart.travelcarsdrivers">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="TravelCars Drivers">

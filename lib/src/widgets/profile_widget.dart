@@ -184,7 +184,7 @@ Widget getButtonProfile(
             fontStyle: FontStyle.normal,
             fontSize: 16 * h,
             height: 24 / 16 * h,
-            color: AppTheme.white,
+            color: AppTheme.bgColor,
           ),
         ),
       ),

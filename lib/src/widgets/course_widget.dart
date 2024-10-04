@@ -17,6 +17,9 @@ class CourseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("date nbu course $data");
+    print("h nbu course $h");
+    print("w nbu course $w");
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 8 * w, vertical: 16 * h),
@@ -52,9 +55,11 @@ class CourseWidget extends StatelessWidget {
             ),
             for (int i = 0; i < 3; i++)
               for (int j = 0; j < data.length; j++)
-                (data[j].code == "USD" && i == 0 ||
+                        (
+                        data[j].code == "USD" && i == 0 ||
                         data[j].code == "EUR" && i == 1 ||
-                        data[j].code == "RUB" && i == 2)
+                        data[j].code == "RUB" && i == 2
+                        )
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +146,9 @@ class CourseWidget extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                
                               ),
+                              
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.end,

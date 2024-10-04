@@ -1,4 +1,5 @@
- import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter_travelcars_driver/src/bloc/course_bloc.dart';
 import 'package:flutter_travelcars_driver/src/bloc/weather_bloc.dart';
 import 'package:flutter_travelcars_driver/src/model/api_model/course_model.dart';
@@ -17,15 +18,25 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
+  late Timer _timer;
+
   @override
   void initState() {
+    super.initState();
+    _fetchData(); // Первый запрос данных при запуске
+    _timer = Timer.periodic(const Duration(minutes: 1), (Timer t) {
+      _fetchData(); // Запрос каждые 60 секунд
+    });
+  }
+
+  void _fetchData() {
     courseBloc.getAllCourse();
     weatherBloc.getWeather();
-    super.initState();
   }
 
   @override
   void dispose() {
+    _timer.cancel(); // Останавливаем таймер, когда виджет удаляется
     courseBloc.dispose();
     weatherBloc.dispose();
     super.dispose();
@@ -44,6 +55,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 List<CourseModel> data = snapshot.data!;
+              
                 return CourseWidget(
                   h: h,
                   w: w,

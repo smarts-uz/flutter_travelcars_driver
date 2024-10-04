@@ -76,10 +76,10 @@ class ApiProvider {
           .get(
         Uri.parse(url),
         headers: header,
-      )
-          .timeout(duration);
+      ).timeout(Duration(seconds: 30));
       return _result(response);
     } on TimeoutException catch (_) {
+      print("$_result(info nbu)");
       return HttpResult(
         isSuccess: false,
         statusCode: -1,
@@ -87,6 +87,8 @@ class ApiProvider {
       );
     }
   }
+  
+
 
   ///result
   static HttpResult _result(http.Response response) {
@@ -106,7 +108,9 @@ class ApiProvider {
         statusCode: response.statusCode,
         isSuccess: false,
         result: "Server error",
+    
       );
+    
     } else {
       return HttpResult(
         statusCode: response.statusCode,
@@ -116,8 +120,11 @@ class ApiProvider {
             response.bodyBytes,
           ),
         ),
+        
       );
+      
     }
+    
   }
 
   ///login api
